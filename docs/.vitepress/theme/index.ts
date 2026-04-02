@@ -7,6 +7,11 @@ export default {
 	extends: DefaultTheme,
 	Layout,
 	enhanceApp({ app }) {
-		// Components will be registered here in later tasks
+		// vue-axe: dev-only a11y overlay
+		if (import.meta.env.DEV) {
+			import('vue-axe').then((VueAxe) => {
+				app.use(VueAxe.default);
+			});
+		}
 	},
 } satisfies Theme;
