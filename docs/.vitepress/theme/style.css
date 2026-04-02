@@ -212,6 +212,51 @@ body {
 	background: var(--btn-secondary-border);
 }
 
+/* ===== HERO VIGNETTE ===== */
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(11, 17, 32, 0.7) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] .hero-vignette {
+  background: radial-gradient(ellipse at center, rgba(248, 250, 252, 0.75) 0%, transparent 70%);
+}
+
+/* ===== STAGGERED FADE-IN ANIMATIONS ===== */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeSlideUp 0.8s ease-out forwards;
+}
+
+.animate-delay-1 { animation-delay: 0.15s; }
+.animate-delay-2 { animation-delay: 0.4s; }
+.animate-delay-3 { animation-delay: 0.7s; }
+.animate-delay-4 { animation-delay: 1.0s; }
+.animate-delay-5 { animation-delay: 1.4s; }
+.animate-delay-6 { animation-delay: 1.8s; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* ===== WCAG AA contrast fixes for code blocks in dark mode ===== */
 [data-theme="dark"] .vp-code span {
 	--shiki-dark: initial;

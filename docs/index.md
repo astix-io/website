@@ -12,6 +12,7 @@ import HeroShader from './.vitepress/theme/components/HeroShader.vue'
 import TerminalDemo from './.vitepress/theme/components/TerminalDemo.vue'
 import SocialProof from './.vitepress/theme/components/SocialProof.vue'
 import NumbersBar from './.vitepress/theme/components/NumbersBar.vue'
+import TypewriterQuote from './.vitepress/theme/components/TypewriterQuote.vue'
 const { frontmatter } = useData()
 </script>
 
@@ -22,30 +23,47 @@ const { frontmatter } = useData()
   Open Source &nbsp;·&nbsp; Apache 2.0 &nbsp;·&nbsp; Free forever
 </div>
 
-<!-- Hero — Problem-first -->
-<section class="relative flex min-h-screen flex-col items-center justify-center px-6 py-32" style="position: relative; z-index: 1; background: var(--bg-deep);">
+<!-- Hero — transparent, shader visible behind -->
+<section class="relative flex flex-col items-center justify-center px-6" style="min-height: 100vh; padding-top: 160px; padding-bottom: 120px; position: relative; z-index: 1;">
+  <!-- Vignette for text readability -->
+  <div class="hero-vignette" />
+
   <div class="relative z-10 mx-auto max-w-2xl text-center">
-    <span class="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
+    <!-- Label -->
+    <span class="animate-fade-up animate-delay-1 mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
       Code Intelligence for AI Agents
     </span>
-    <h1 class="mb-6 font-sans text-5xl font-bold leading-tight tracking-tight md:text-6xl" style="color: var(--text-primary)">
-      Your AI agent doesn't understand your codebase.
+
+    <!-- H1 — bigger -->
+    <h1 class="animate-fade-up animate-delay-2 mb-10 font-sans text-5xl font-bold leading-tight tracking-tight md:text-7xl" style="color: var(--text-primary)">
+      Your AI agent doesn't understand <span class="gradient-text">your codebase</span>
     </h1>
-    <blockquote class="mx-auto mb-6 max-w-xl rounded-xl px-6 py-4 text-left text-sm leading-relaxed" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-secondary)">
-      <p class="mb-2 italic">"It doesn't understand your code's structure at all. It uses text-based grep by default — returning the wrong file because it matched a comment instead of the actual definition."</p>
-      <footer class="text-xs" style="color: var(--text-muted)">
-        — r/ClaudeCode &nbsp;·&nbsp; 66 upvotes &nbsp;·&nbsp;
-        <a href="https://www.reddit.com/r/ClaudeCode/comments/1rh5pcm/" target="_blank" rel="noopener" style="color: var(--accent-blue)">Feb 2026</a>
-      </footer>
-    </blockquote>
-    <p class="mx-auto mb-8 max-w-lg text-lg leading-relaxed" style="color: var(--text-secondary)">
+
+    <!-- Typewriter citation -->
+    <div class="animate-fade-up animate-delay-3 mb-10">
+      <ClientOnly>
+        <TypewriterQuote
+          quote="It doesn't understand your code's structure at all. It uses text-based grep by default — returning the wrong file because it matched a comment instead of the actual definition."
+          source="r/ClaudeCode · 66 upvotes · Feb 2026"
+          source-url="https://www.reddit.com/r/ClaudeCode/comments/1rh5pcm/"
+          :delay="1200"
+        />
+      </ClientOnly>
+    </div>
+
+    <!-- Solution pitch -->
+    <p class="animate-fade-up animate-delay-4 mx-auto mb-10 max-w-lg text-lg leading-relaxed" style="color: var(--text-secondary)">
       astix gives your agent an AST-level understanding of your entire codebase. Self-hosted. 36 languages. 30+ MCP tools.
     </p>
-    <div class="mb-10 flex flex-wrap items-center justify-center gap-4">
+
+    <!-- CTAs -->
+    <div class="animate-fade-up animate-delay-5 mb-12 flex flex-wrap items-center justify-center gap-4">
       <a href="/getting-started" class="btn-primary">Get Started</a>
       <a href="https://github.com/astix-io/astix" class="btn-secondary">View on GitHub</a>
     </div>
-    <div class="inline-flex cursor-pointer items-center gap-3 rounded-xl px-6 py-3.5 font-mono text-sm transition-colors" style="background: var(--cmd-bg); border: 1px solid var(--cmd-border); color: var(--text-secondary)" onclick="navigator.clipboard.writeText('npx @astix/mcp-server init')">
+
+    <!-- Install command -->
+    <div class="animate-fade-up animate-delay-6 inline-flex cursor-pointer items-center gap-3 rounded-xl px-6 py-3.5 font-mono text-sm transition-colors" style="background: var(--cmd-bg); border: 1px solid var(--cmd-border); color: var(--text-secondary)" onclick="navigator.clipboard.writeText('npx @astix/mcp-server init')">
       <span style="color: var(--accent-blue)">$</span>
       <span style="color: var(--text-primary)">npx @astix/mcp-server init</span>
       <span style="color: var(--text-muted)" class="text-xs">click to copy</span>
