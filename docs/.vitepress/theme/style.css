@@ -20,127 +20,193 @@
 
 /* ===== DESIGN TOKENS ===== */
 :root {
-  --transition: 0.35s ease;
+	--transition: 0.35s ease;
 }
 
 [data-theme="dark"],
 :root {
-  --bg-deep: #0b1120;
-  --bg-surface: rgba(11, 17, 32, 0.7);
-  --bg-card: #1b2336;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-muted: rgba(255, 255, 255, 0.1);
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent-blue: #3b82f6;
-  --accent-purple: #8b5cf6;
-  --accent-green: #22c55e;
-  --badge-bg: rgba(59, 130, 246, 0.1);
-  --badge-border: rgba(59, 130, 246, 0.2);
-  --cmd-bg: rgba(255, 255, 255, 0.04);
-  --cmd-border: rgba(255, 255, 255, 0.08);
-  --btn-secondary-bg: rgba(255, 255, 255, 0.06);
-  --btn-secondary-border: rgba(255, 255, 255, 0.1);
+	--bg-deep: #0b1120;
+	--bg-surface: rgba(11, 17, 32, 0.7);
+	--bg-card: #1b2336;
+	--border-subtle: rgba(255, 255, 255, 0.06);
+	--border-muted: rgba(255, 255, 255, 0.1);
+	--text-primary: #f8fafc;
+	--text-secondary: #94a3b8;
+	--text-muted: #64748b;
+	--accent-blue: #3b82f6;
+	--accent-purple: #8b5cf6;
+	--accent-green: #22c55e;
+	--badge-bg: rgba(59, 130, 246, 0.1);
+	--badge-border: rgba(59, 130, 246, 0.2);
+	--cmd-bg: rgba(255, 255, 255, 0.04);
+	--cmd-border: rgba(255, 255, 255, 0.08);
+	--btn-secondary-bg: rgba(255, 255, 255, 0.06);
+	--btn-secondary-border: rgba(255, 255, 255, 0.1);
 }
 
 [data-theme="light"] {
-  --bg-deep: #f8fafc;
-  --bg-surface: rgba(255, 255, 255, 0.8);
-  --bg-card: #ffffff;
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-muted: rgba(0, 0, 0, 0.1);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #94a3b8;
-  --accent-blue: #2563eb;
-  --accent-purple: #7c3aed;
-  --accent-green: #16a34a;
-  --badge-bg: rgba(37, 99, 235, 0.08);
-  --badge-border: rgba(37, 99, 235, 0.2);
-  --cmd-bg: rgba(0, 0, 0, 0.03);
-  --cmd-border: rgba(0, 0, 0, 0.08);
-  --btn-secondary-bg: rgba(0, 0, 0, 0.04);
-  --btn-secondary-border: rgba(0, 0, 0, 0.12);
+	--bg-deep: #f8fafc;
+	--bg-surface: rgba(255, 255, 255, 0.8);
+	--bg-card: #ffffff;
+	--border-subtle: rgba(0, 0, 0, 0.06);
+	--border-muted: rgba(0, 0, 0, 0.1);
+	--text-primary: #0f172a;
+	--text-secondary: #475569;
+	--text-muted: #94a3b8;
+	--accent-blue: #2563eb;
+	--accent-purple: #7c3aed;
+	--accent-green: #16a34a;
+	--badge-bg: rgba(37, 99, 235, 0.08);
+	--badge-border: rgba(37, 99, 235, 0.2);
+	--cmd-bg: rgba(0, 0, 0, 0.03);
+	--cmd-border: rgba(0, 0, 0, 0.08);
+	--btn-secondary-bg: rgba(0, 0, 0, 0.04);
+	--btn-secondary-border: rgba(0, 0, 0, 0.12);
 }
 
 /* ===== OVERRIDE VITEPRESS DEFAULTS ===== */
 :root {
-  --vp-c-brand-1: var(--accent-blue);
-  --vp-c-brand-2: var(--accent-purple);
-  --vp-font-family-base: "IBM Plex Sans Variable", system-ui, sans-serif;
-  --vp-font-family-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+	--vp-c-brand-1: var(--accent-blue);
+	--vp-c-brand-2: var(--accent-purple);
+	--vp-font-family-base: "IBM Plex Sans Variable", system-ui, sans-serif;
+	--vp-font-family-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+	/* Override VitePress navbar to respect dark theme */
+	--vp-nav-bg-color: var(--bg-surface);
+	--vp-c-bg: var(--bg-deep);
+	--vp-c-bg-soft: var(--bg-card);
+	--vp-c-bg-alt: var(--bg-card);
+	--vp-c-text-1: var(--text-primary);
+	--vp-c-text-2: var(--text-secondary);
+	--vp-c-text-3: var(--text-muted);
+	--vp-c-border: var(--border-subtle);
+	--vp-c-divider: var(--border-subtle);
+	--vp-sidebar-bg-color: var(--bg-deep);
+}
+
+/* Navbar glass effect */
+.VPNav {
+	background: var(--bg-surface) !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+/* Theme toggle — plain icon, no border/background, matches social link style */
+.theme-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+	color: var(--text-secondary);
+	transition: color 0.2s;
+	border-radius: 6px;
+}
+
+.theme-toggle:hover {
+	color: var(--text-primary);
+}
+
+/* Ensure all content sections are above the fixed shader background */
+.vp-doc,
+[class*="VPNav"],
+.VPNav,
+section,
+footer {
+	position: relative;
+	z-index: 1;
+}
+
+/* ===== HERO SHADER — fixed full-viewport background ===== */
+.hero-shader-canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	pointer-events: none;
 }
 
 /* ===== GLOBAL ===== */
 body {
-  background: var(--bg-deep);
-  color: var(--text-primary);
-  transition: background var(--transition), color var(--transition);
+	background: var(--bg-deep);
+	color: var(--text-primary);
+	transition:
+		background var(--transition),
+		color var(--transition);
 }
 
 /* ===== TOP STRIPE ===== */
 .top-stripe {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  z-index: 200;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #8b5cf6, #3b82f6);
-  background-size: 200% 100%;
-  animation: stripe 4s linear infinite;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	z-index: 200;
+	background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #8b5cf6, #3b82f6);
+	background-size: 200% 100%;
+	animation: stripe 4s linear infinite;
 }
 
 @keyframes stripe {
-  to {
-    background-position: -200% 0;
-  }
+	to {
+		background-position: -200% 0;
+	}
 }
 
 /* ===== GRADIENT TEXT ===== */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
 }
 
 /* ===== BUTTONS ===== */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-  color: #fff;
-  padding: 12px 28px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
+	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+	color: #fff;
+	padding: 12px 28px;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
+	transition: opacity 0.15s;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+	opacity: 0.9;
 }
 
 .btn-secondary {
-  background: var(--btn-secondary-bg);
-  border: 1px solid var(--btn-secondary-border);
-  color: var(--text-primary);
-  padding: 12px 28px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
+	background: var(--btn-secondary-bg);
+	border: 1px solid var(--btn-secondary-border);
+	color: var(--text-primary);
+	padding: 12px 28px;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background var(--transition),
+		border-color var(--transition),
+		color var(--transition);
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
 }
 
 .btn-secondary:hover {
-  background: var(--btn-secondary-border);
+	background: var(--btn-secondary-border);
 }

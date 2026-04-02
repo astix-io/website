@@ -1,7 +1,7 @@
 <template>
   <canvas
     ref="canvas"
-    class="absolute inset-0 h-full w-full"
+    class="hero-shader-canvas"
     aria-hidden="true"
   />
 </template>
@@ -14,8 +14,13 @@ const canvas = ref<HTMLCanvasElement | null>(null);
 // ---- Cleanup handles ----
 let rafId = 0;
 let resizeObserver: ResizeObserver | null = null;
-let intersectionObserver: IntersectionObserver | null = null;
-let paused = false;
+
+// ---- Scroll parallax ----
+let scrollY = 0;
+
+function onScroll() {
+	scrollY = window.scrollY;
+}
 
 // ---- Color cache (avoid per-frame string allocation) ----
 const CC: Record<string, string> = {};
@@ -171,9 +176,8 @@ function resize() {
 	const el = canvas.value;
 	if (!el || !ctx) return;
 	const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-	const rect = el.parentElement!.getBoundingClientRect();
-	w = rect.width;
-	h = rect.height;
+	w = window.innerWidth;
+	h = window.innerHeight;
 	el.width = w * dpr;
 	el.height = h * dpr;
 	el.style.width = w + 'px';
@@ -183,7 +187,7 @@ function resize() {
 }
 
 function animate() {
-	if (!ctx || paused) return;
+	if (!ctx) return;
 
 	// Theme change detection (watches data-theme attribute on <html>)
 	const currentTheme = document.documentElement.getAttribute('data-theme') ?? 'dark';
@@ -207,6 +211,10 @@ function animate() {
 	const mCanvasX = mouse.x * w;
 	const mCanvasY = mouse.y * h;
 
+	// Scroll parallax: shift the entire scene vertically based on scroll position
+	// Hubs shift more (depth effect), leaves shift less
+	const scrollParallax = scrollY * 0.08;
+
 	// Update positions with proximity-based acceleration
 	for (const n of nodes) {
 		const dmx = n.x - mCanvasX;
@@ -222,8 +230,10 @@ function animate() {
 		const spd = n.speed * n.reactMult;
 		// Parallax: hubs react more to mouse than leaves
 		const p = n.type === 'hub' ? 0.55 : 0.25;
+		// Scroll parallax: hubs shift more (further depth), leaves less
+		const sp = n.type === 'hub' ? 0.14 : n.type === 'mid' ? 0.09 : 0.05;
 		n.x = n.baseX + Math.sin(t * spd + n.phase) * n.driftX * n.reactMult + mx * p;
-		n.y = n.baseY + Math.cos(t * spd * 0.7 + n.phase) * n.driftY * n.reactMult + my * p;
+		n.y = n.baseY + Math.cos(t * spd * 0.7 + n.phase) * n.driftY * n.reactMult + my * p - scrollParallax * sp;
 	}
 
 	const alphaMult = theme.connAlphaMult;
@@ -375,28 +385,14 @@ onMounted(() => {
 
 	if (reducedMotion) {
 		animate();
-		paused = true;
 		return;
 	}
 
-	// ResizeObserver: responsive resize
+	// ResizeObserver: responsive resize on window
 	resizeObserver = new ResizeObserver(() => resize());
-	resizeObserver.observe(el.parentElement!);
+	resizeObserver.observe(document.documentElement);
 
-	// IntersectionObserver: pause animation when canvas scrolls out of view
-	intersectionObserver = new IntersectionObserver(
-		(entries) => {
-			for (const entry of entries) {
-				paused = !entry.isIntersecting;
-				if (!paused && rafId === 0) {
-					rafId = requestAnimationFrame(animate);
-				}
-			}
-		},
-		{ threshold: 0 },
-	);
-	intersectionObserver.observe(el);
-
+	window.addEventListener('scroll', onScroll, { passive: true });
 	document.addEventListener('mousemove', onMouseMove);
 
 	rafId = requestAnimationFrame(animate);
@@ -406,7 +402,7 @@ onUnmounted(() => {
 	cancelAnimationFrame(rafId);
 	rafId = 0;
 	resizeObserver?.disconnect();
-	intersectionObserver?.disconnect();
+	window.removeEventListener('scroll', onScroll);
 	document.removeEventListener('mousemove', onMouseMove);
 });
 </script>

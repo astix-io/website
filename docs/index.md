@@ -15,9 +15,10 @@ import NumbersBar from './.vitepress/theme/components/NumbersBar.vue'
 const { frontmatter } = useData()
 </script>
 
+<ClientOnly><HeroShader /></ClientOnly>
+
 <!-- Hero -->
-<section class="relative flex min-h-screen flex-col items-center justify-center px-6 py-32">
-  <ClientOnly><HeroShader /></ClientOnly>
+<section class="relative flex min-h-screen flex-col items-center justify-center px-6 py-32" style="position: relative; z-index: 1;">
   <div class="relative z-10 mx-auto max-w-2xl text-center">
     <span class="mb-6 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
       Open Source · Apache 2.0
@@ -41,7 +42,7 @@ const { frontmatter } = useData()
 </section>
 
 <!-- Jobs-to-be-done -->
-<section class="mx-auto grid max-w-5xl gap-6 px-6 py-20 md:grid-cols-3">
+<section class="mx-auto grid max-w-5xl gap-6 px-6 py-20 md:grid-cols-3" style="position: relative; z-index: 1;">
   <div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
     <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -81,7 +82,7 @@ const { frontmatter } = useData()
 </section>
 
 <!-- Features -->
-<section class="mx-auto max-w-5xl px-6 py-20">
+<section class="mx-auto max-w-5xl px-6 py-20" style="position: relative; z-index: 1;">
   <div class="text-center mb-16">
     <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">Built for AI-assisted development</h2>
     <p style="color: var(--text-secondary)">Every tool your agent needs, none of the guesswork.</p>
@@ -120,7 +121,7 @@ const { frontmatter } = useData()
 </section>
 
 <!-- Code Demo -->
-<section class="px-6 py-20">
+<section class="px-6 py-20" style="position: relative; z-index: 1;">
   <div class="mx-auto max-w-2xl text-center mb-12">
     <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">See it in action</h2>
     <p style="color: var(--text-secondary)">From search to impact analysis in seconds.</p>
@@ -135,7 +136,7 @@ const { frontmatter } = useData()
 <NumbersBar />
 
 <!-- Final CTA -->
-<section class="px-6 py-24 text-center">
+<section class="px-6 py-24 text-center" style="position: relative; z-index: 1;">
   <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">
     Ready to understand your codebase?
   </h2>
