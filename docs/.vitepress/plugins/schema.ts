@@ -6,7 +6,7 @@ function jsonLd(schema: Record<string, unknown>): HeadConfig {
 }
 
 export function generateSchemaHead({ pageData, title, description }: TransformContext): HeadConfig[] {
-	const slug = pageData.relativePath.replace(/\.md$/, '').replace(/\/index$/, '');
+	const slug = pageData.relativePath.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
 	const url = slug ? `https://astix.io/${slug}` : 'https://astix.io';
 
 	const heads: HeadConfig[] = [
