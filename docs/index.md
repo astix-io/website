@@ -18,20 +18,21 @@ const { frontmatter } = useData()
 
 <ClientOnly><HeroShader /></ClientOnly>
 
-<div class="flex items-center justify-center gap-2 py-2 text-xs font-medium" style="background: var(--badge-bg); border-bottom: 1px solid var(--badge-border); color: var(--accent-blue); position: relative; z-index: 1;">
+<div class="scroll-snap-container">
+
+<section class="snap-section relative px-6" style="position: relative; z-index: 1;">
+<div class="flex items-center justify-center gap-2 py-2 text-xs font-medium" style="background: var(--badge-bg); border-bottom: 1px solid var(--badge-border); color: var(--accent-blue); position: relative; z-index: 1; position: absolute; top: 0; left: 0; right: 0;">
 Open Source &nbsp;·&nbsp; Apache 2.0 &nbsp;·&nbsp; Free forever
 </div>
-
-<section class="relative flex flex-col items-center justify-center px-6" style="min-height: 100vh; padding-top: 160px; padding-bottom: 120px; position: relative; z-index: 1;">
 <div class="hero-vignette" />
 <div class="relative z-10 mx-auto max-w-2xl text-center">
-<span class="animate-fade-up animate-delay-1 mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
+<span class="animate-fade-up animate-delay-1 mb-10 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
 Code Intelligence for AI Agents
 </span>
-<h1 class="animate-fade-up animate-delay-2 mb-10 font-sans text-5xl font-bold leading-tight tracking-tight md:text-7xl" style="color: var(--text-primary)">
+<h1 class="animate-fade-up animate-delay-2 mb-14 font-sans text-5xl font-bold leading-tight tracking-tight md:text-7xl" style="color: var(--text-primary)">
 Your AI agent doesn't understand <span class="gradient-text">your codebase</span>
 </h1>
-<div class="animate-fade-up animate-delay-3 mb-10">
+<div class="animate-fade-up animate-delay-3 mb-14">
 <ClientOnly>
 <TypewriterQuote
 quote="It doesn't understand your code's structure at all. It uses text-based grep by default — returning the wrong file because it matched a comment instead of the actual definition."
@@ -41,10 +42,10 @@ source-url="https://www.reddit.com/r/ClaudeCode/comments/1rh5pcm/"
 />
 </ClientOnly>
 </div>
-<p class="animate-fade-up animate-delay-4 mx-auto mb-10 max-w-lg text-lg leading-relaxed" style="color: var(--text-secondary)">
+<p class="animate-fade-up animate-delay-4 mx-auto mb-12 max-w-lg text-lg leading-relaxed" style="color: var(--text-secondary)">
 astix gives your agent an AST-level understanding of your entire codebase. Self-hosted. 36 languages. 30+ MCP tools.
 </p>
-<div class="animate-fade-up animate-delay-5 mb-12 flex flex-wrap items-center justify-center gap-4">
+<div class="animate-fade-up animate-delay-5 mb-16 flex flex-wrap items-center justify-center gap-4">
 <a href="/getting-started" class="btn-primary">Get Started</a>
 <a href="https://github.com/astix-io/astix" class="btn-secondary">View on GitHub</a>
 </div>
@@ -56,8 +57,8 @@ astix gives your agent an AST-level understanding of your entire codebase. Self-
 </div>
 </section>
 
-<section class="px-6 py-24" style="position: relative; z-index: 1; background: var(--bg-deep);">
-<div class="mx-auto max-w-5xl">
+<section class="snap-section px-6" style="position: relative; z-index: 1; background: var(--bg-deep);">
+<div class="mx-auto max-w-5xl w-full">
 <div class="mb-12 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">You're not alone.</h2>
 <p style="color: var(--text-secondary)">Developers everywhere are hitting the same wall.</p>
@@ -91,19 +92,26 @@ Stack Overflow Blog &nbsp;·&nbsp;
 <a href="https://stackoverflow.blog/2026/01/28/are-bugs-and-incidents-inevitable-with-ai-coding-agents/" target="_blank" rel="noopener" style="color: var(--accent-blue)">Link</a>
 </footer>
 </div>
-<div class="rounded-xl p-6 md:col-span-2 lg:col-span-1" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
+<div class="rounded-xl p-6" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
 <p class="mb-4 text-sm italic leading-relaxed" style="color: var(--text-secondary)">"No structure, no consistency, and good luck figuring out what that one function was even doing."</p>
 <footer class="text-xs" style="color: var(--text-muted)">
 r/cursor &nbsp;·&nbsp; 227 upvotes &nbsp;·&nbsp;
 <a href="https://www.reddit.com/r/cursor/comments/1ktxqa0/" target="_blank" rel="noopener" style="color: var(--accent-blue)">Link</a>
 </footer>
 </div>
+<div class="rounded-xl p-6" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
+<p class="mb-4 text-sm italic leading-relaxed" style="color: var(--text-secondary)">"If only there was some sort of regular language that prescribed exactly how to describe logic in a way a computer would always interpret correctly, some sort of…language…for programming."</p>
+<footer class="text-xs" style="color: var(--text-muted)">
+r/ExperiencedDevs &nbsp;·&nbsp; 674 upvotes &nbsp;·&nbsp;
+<a href="https://www.reddit.com/r/ExperiencedDevs/comments/1lz4dmj/" target="_blank" rel="noopener" style="color: var(--accent-blue)">Link</a>
+</footer>
+</div>
 </div>
 </div>
 </section>
 
-<section class="px-6 py-24" style="position: relative; z-index: 1; background: var(--bg-deep);">
-<div class="mx-auto max-w-5xl">
+<section class="snap-section px-6" style="position: relative; z-index: 1; background: var(--bg-deep);">
+<div class="mx-auto max-w-5xl w-full">
 <div class="mb-14 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">How astix works</h2>
 <p style="color: var(--text-secondary)">Five stages. One coherent pipeline.</p>
@@ -164,8 +172,8 @@ r/cursor &nbsp;·&nbsp; 227 upvotes &nbsp;·&nbsp;
 </div>
 </section>
 
-<section class="px-6 py-24" style="position: relative; z-index: 1; background: var(--bg-deep);">
-<div class="mx-auto max-w-5xl">
+<section class="snap-section px-6" style="position: relative; z-index: 1; background: var(--bg-deep);">
+<div class="mx-auto max-w-5xl w-full">
 <div class="mb-14 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">The difference</h2>
 <p style="color: var(--text-secondary)">Same AI agent. Completely different outcomes.</p>
@@ -235,7 +243,8 @@ Import graph updated, conflict detection built-in
 </div>
 </section>
 
-<section class="mx-auto grid max-w-5xl gap-6 px-6 py-20 md:grid-cols-3" style="position: relative; z-index: 1;">
+<section class="snap-section px-6" style="position: relative; z-index: 1;">
+<div class="mx-auto grid max-w-5xl gap-6 w-full md:grid-cols-3">
 <div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
 <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -272,9 +281,11 @@ Import graph updated, conflict detection built-in
 <li>Air-gap ready (Enterprise)</li>
 </ul>
 </div>
+</div>
 </section>
 
-<section class="mx-auto max-w-5xl px-6 py-20" style="position: relative; z-index: 1;">
+<section class="snap-section px-6" style="position: relative; z-index: 1;">
+<div class="mx-auto max-w-5xl w-full">
 <div class="text-center mb-16">
 <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">Built for AI-assisted development</h2>
 <p style="color: var(--text-secondary)">Every tool your agent needs, none of the guesswork.</p>
@@ -310,16 +321,24 @@ Import graph updated, conflict detection built-in
 <span class="rounded-md px-3 py-1 text-xs" style="color: var(--text-muted)">+26 more</span>
 </div>
 </div>
+</div>
 </section>
 
-<section class="px-6 py-20" style="position: relative; z-index: 1;">
+<section class="snap-section px-6" style="position: relative; z-index: 1;">
+<div class="mx-auto max-w-5xl w-full">
 <div class="mx-auto max-w-2xl text-center mb-12">
 <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">See it in action</h2>
 <p style="color: var(--text-secondary)">From search to impact analysis in seconds.</p>
 </div>
 <TerminalDemo />
+</div>
 </section>
 
+<section class="snap-section px-6" style="position: relative; z-index: 1;">
+<div class="mx-auto max-w-5xl w-full">
 <SocialProof :enabled="frontmatter.socialProof?.enabled ?? false" />
-
 <NumbersBar />
+</div>
+</section>
+
+</div>
