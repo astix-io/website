@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress';
+import { generateSchemaHead } from './plugins/schema';
 
 export default defineConfig({
 	title: 'astix',
@@ -54,5 +55,9 @@ export default defineConfig({
 
 	sitemap: {
 		hostname: 'https://astix.io',
+	},
+
+	async transformHead(context) {
+		return generateSchemaHead(context);
 	},
 });
