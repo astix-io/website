@@ -295,9 +295,17 @@ body {
 
 /* ===== FULL-PAGE SCROLL SNAPPING ===== */
 .scroll-snap-container {
-	scroll-snap-type: y mandatory;
+	scroll-snap-type: y proximity;
 	overflow-y: scroll;
+	overscroll-behavior: auto;
+	-webkit-overflow-scrolling: touch;
 	height: 100vh;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE/Edge */
+}
+
+.scroll-snap-container::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
 }
 
 .scroll-snap-container > .snap-section {
@@ -306,13 +314,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-/* On mobile, disable mandatory snap (too aggressive) — use proximity */
-@media (max-width: 768px) {
-	.scroll-snap-container {
-		scroll-snap-type: y proximity;
-	}
 }
 
 /* Smooth scroll behavior */
