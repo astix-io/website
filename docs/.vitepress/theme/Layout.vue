@@ -43,7 +43,8 @@ onMounted(() => {
     </template>
     <template #nav-bar-content-after>
       <button
-        class="theme-toggle"
+        class="flex h-9 w-9 items-center justify-center"
+        style="margin-left: 12px;"
         :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
         @click="toggleTheme"
       >
@@ -63,6 +64,19 @@ onMounted(() => {
     </template>
     <template #doc-before>
       <div id="main-content" />
+    </template>
+    <template #layout-bottom>
+      <footer class="border-t px-6 py-12 text-center" style="border-color: var(--border-subtle); background: var(--bg-deep);">
+        <nav class="mb-4 flex flex-wrap items-center justify-center gap-6 text-sm">
+          <a href="/getting-started" style="color: var(--text-secondary)" class="hover:underline">Docs</a>
+          <a href="/pricing" style="color: var(--text-secondary)" class="hover:underline">Pricing</a>
+          <a href="/blog/" style="color: var(--text-secondary)" class="hover:underline">Blog</a>
+          <a href="https://github.com/astix-io/astix" style="color: var(--text-secondary)" class="hover:underline">GitHub</a>
+          <a href="https://astix.io/slack" style="color: var(--text-secondary)" class="hover:underline">Slack</a>
+        </nav>
+        <p class="mb-2 text-xs" style="color: var(--text-muted)">Released under the Apache 2.0 License.</p>
+        <p class="text-xs" style="color: var(--text-muted)">© 2026 astix</p>
+      </footer>
     </template>
   </Layout>
 </template>

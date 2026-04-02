@@ -81,6 +81,7 @@
 	--vp-c-text-3: var(--text-muted);
 	--vp-c-border: var(--border-subtle);
 	--vp-c-divider: var(--border-subtle);
+	--vp-c-gutter: var(--border-subtle);
 	--vp-sidebar-bg-color: var(--bg-deep);
 }
 
@@ -105,7 +106,7 @@
 	cursor: pointer;
 	color: var(--text-secondary);
 	transition: color 0.2s;
-	border-radius: 6px;
+	margin-left: 12px;
 }
 
 .theme-toggle:hover {
@@ -209,4 +210,28 @@ body {
 
 .btn-secondary:hover {
 	background: var(--btn-secondary-border);
+}
+
+/* ===== WCAG AA contrast fixes for code blocks in dark mode ===== */
+[data-theme="dark"] .vp-code span {
+	--shiki-dark: initial;
+}
+
+[data-theme="dark"] .vp-code {
+	--vp-code-block-bg: var(--bg-card);
+}
+
+/* Ensure code block tab labels are readable */
+.vp-code-group .tabs label {
+	color: var(--text-secondary) !important;
+}
+
+/* Code group tabs dark mode */
+[data-theme="dark"] .vp-code-group .tabs {
+	background: var(--bg-card);
+	border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .vp-code-group .tabs label.active {
+	color: var(--text-primary) !important;
 }
