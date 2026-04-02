@@ -110,69 +110,43 @@ r/ExperiencedDevs &nbsp;·&nbsp; 674 upvotes &nbsp;·&nbsp;
 </div>
 </section>
 
-<section class="snap-section px-6" style="position: relative; z-index: 1; background: var(--bg-deep);">
-<div class="mx-auto max-w-5xl w-full">
+<section class="snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
+<div class="mx-auto max-w-4xl">
 <div class="mb-14 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">How astix works</h2>
 <p style="color: var(--text-secondary)">Five stages. One coherent pipeline.</p>
 </div>
-<div class="flex flex-col items-stretch gap-0 md:flex-row md:items-start">
-<div class="flex flex-1 flex-col items-center text-center p-6 rounded-xl" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+<div class="pipeline">
+<div class="pipeline-step">
+<div class="pipeline-dot">1</div>
+<div class="pipeline-label">Index</div>
+<div class="pipeline-desc">Tree-sitter parses your code into an AST. Symbols, calls, imports stored in PostgreSQL.</div>
 </div>
-<h3 class="mb-2 font-sans text-sm font-semibold" style="color: var(--text-primary)">Index</h3>
-<p class="text-xs leading-relaxed" style="color: var(--text-secondary)">Tree-sitter parses your code into an AST. Symbols, calls, imports stored in PostgreSQL.</p>
+<div class="pipeline-step">
+<div class="pipeline-dot">2</div>
+<div class="pipeline-label">Search</div>
+<div class="pipeline-desc">Structural search by name, semantic search by intent. Results in milliseconds.</div>
 </div>
-<div class="flex items-center justify-center py-3 px-2 md:py-0 md:self-center" style="color: var(--text-muted)">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden md:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:hidden"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
+<div class="pipeline-step">
+<div class="pipeline-dot">3</div>
+<div class="pipeline-label">Analyze</div>
+<div class="pipeline-desc">Impact analysis, data lineage, execution paths. Know the blast radius first.</div>
 </div>
-<div class="flex flex-1 flex-col items-center text-center p-6 rounded-xl" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<div class="pipeline-step">
+<div class="pipeline-dot">4</div>
+<div class="pipeline-label">Change</div>
+<div class="pipeline-desc">Rename across the call graph, patch with conflict detection, rollback safety.</div>
 </div>
-<h3 class="mb-2 font-sans text-sm font-semibold" style="color: var(--text-primary)">Search</h3>
-<p class="text-xs leading-relaxed" style="color: var(--text-secondary)">Structural search by name, semantic search by intent. Results in milliseconds.</p>
-</div>
-<div class="flex items-center justify-center py-3 px-2 md:py-0 md:self-center" style="color: var(--text-muted)">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden md:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:hidden"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
-</div>
-<div class="flex flex-1 flex-col items-center text-center p-6 rounded-xl" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01"/><path d="M7 20v-4"/><path d="M12 20v-8"/><path d="M17 20V8"/><path d="M22 4v16"/></svg>
-</div>
-<h3 class="mb-2 font-sans text-sm font-semibold" style="color: var(--text-primary)">Analyze</h3>
-<p class="text-xs leading-relaxed" style="color: var(--text-secondary)">Impact analysis, data lineage, execution paths. Know the blast radius before changing anything.</p>
-</div>
-<div class="flex items-center justify-center py-3 px-2 md:py-0 md:self-center" style="color: var(--text-muted)">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden md:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:hidden"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
-</div>
-<div class="flex flex-1 flex-col items-center text-center p-6 rounded-xl" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-</div>
-<h3 class="mb-2 font-sans text-sm font-semibold" style="color: var(--text-primary)">Change</h3>
-<p class="text-xs leading-relaxed" style="color: var(--text-secondary)">Rename across the call graph, patch with conflict detection, rollback safety.</p>
-</div>
-<div class="flex items-center justify-center py-3 px-2 md:py-0 md:self-center" style="color: var(--text-muted)">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden md:block"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="md:hidden"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></svg>
-</div>
-<div class="flex flex-1 flex-col items-center text-center p-6 rounded-xl" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
-</div>
-<h3 class="mb-2 font-sans text-sm font-semibold" style="color: var(--text-primary)">Verify</h3>
-<p class="text-xs leading-relaxed" style="color: var(--text-secondary)">Code health checks, dead code detection, coverage gap analysis.</p>
+<div class="pipeline-step">
+<div class="pipeline-dot">5</div>
+<div class="pipeline-label">Verify</div>
+<div class="pipeline-desc">Code health checks, dead code detection, coverage gap analysis.</div>
 </div>
 </div>
 </div>
 </section>
 
-<section class="snap-section px-6" style="position: relative; z-index: 1; background: var(--bg-deep);">
+<section class="snap-section px-6" style="position: relative; z-index: 1;">
 <div class="mx-auto max-w-5xl w-full">
 <div class="mb-14 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">The difference</h2>
@@ -243,44 +217,65 @@ Import graph updated, conflict detection built-in
 </div>
 </section>
 
-<section class="snap-section px-6" style="position: relative; z-index: 1;">
-<div class="mx-auto grid max-w-5xl gap-6 w-full md:grid-cols-3">
-<div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<section class="snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
+<div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+
+<div class="rounded-xl overflow-hidden" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
+<div class="p-6 pb-4">
+<div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg" style="background: var(--badge-bg)">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
 </div>
-<h3 class="mb-3 font-sans text-xl font-semibold" style="color: var(--text-primary)">Understand</h3>
-<ul class="space-y-2 text-sm leading-relaxed" style="color: var(--text-secondary)">
-<li>Call graphs &amp; cross-file references</li>
-<li>Data lineage across functions</li>
-<li>Execution paths &amp; coverage gaps</li>
-<li>Impact analysis before any change</li>
-</ul>
+<h3 class="mb-1 font-sans text-lg font-semibold" style="color: var(--text-primary)">Understand</h3>
+<p class="text-xs" style="color: var(--text-secondary)">Call graphs, data lineage, execution paths, impact analysis</p>
 </div>
-<div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: rgba(139,92,246,0.1)">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+<div class="px-4 pb-4">
+<div class="rounded-lg p-3 font-mono text-xs leading-relaxed" style="background: var(--bg-deep); border: 1px solid var(--border-subtle);">
+<div><span style="color: var(--accent-green)">$</span> <span style="color: var(--text-primary)">search_structural</span> <span style="color: var(--accent-blue)">"handlePayment"</span></div>
+<div style="color: var(--text-muted)">→ 3 results in 12ms</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;src/payments/handler.ts:42</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;src/checkout/service.ts:18</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;src/api/routes.ts:95</div>
 </div>
-<h3 class="mb-3 font-sans text-xl font-semibold" style="color: var(--text-primary)">Change safely</h3>
-<ul class="space-y-2 text-sm leading-relaxed" style="color: var(--text-secondary)">
-<li>Rename across the entire call graph</li>
-<li>Patch with conflict detection</li>
-<li>Refactor with rollback safety</li>
-<li>Write tests from coverage gaps</li>
-</ul>
 </div>
-<div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
-<div class="mb-4 flex h-12 w-12 items-center justify-center rounded-lg" style="background: rgba(34,197,94,0.1)">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
 </div>
-<h3 class="mb-3 font-sans text-xl font-semibold" style="color: var(--text-primary)">Stay private</h3>
-<ul class="space-y-2 text-sm leading-relaxed" style="color: var(--text-secondary)">
-<li>100% self-hosted, your infrastructure</li>
-<li>BYOK embeddings &amp; LLM</li>
-<li>Zero code egress — ever</li>
-<li>Air-gap ready (Enterprise)</li>
-</ul>
+
+<div class="rounded-xl overflow-hidden" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
+<div class="p-6 pb-4">
+<div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg" style="background: rgba(139,92,246,0.1)">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
 </div>
+<h3 class="mb-1 font-sans text-lg font-semibold" style="color: var(--text-primary)">Change safely</h3>
+<p class="text-xs" style="color: var(--text-secondary)">Rename, refactor, patch with rollback and conflict detection</p>
+</div>
+<div class="px-4 pb-4">
+<div class="rounded-lg p-3 font-mono text-xs leading-relaxed" style="background: var(--bg-deep); border: 1px solid var(--border-subtle);">
+<div><span style="color: var(--accent-green)">$</span> <span style="color: var(--text-primary)">rename_symbol</span> <span style="color: var(--accent-blue)">"handlePayment"</span> → <span style="color: var(--accent-green)">"processPayment"</span></div>
+<div style="color: var(--accent-green)">✓ 14 callers updated across 6 files</div>
+<div style="color: var(--accent-green)">✓ 3 import statements rewritten</div>
+<div style="color: var(--accent-green)">✓ 0 conflicts detected</div>
+</div>
+</div>
+</div>
+
+<div class="rounded-xl overflow-hidden" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
+<div class="p-6 pb-4">
+<div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg" style="background: rgba(34,197,94,0.1)">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+</div>
+<h3 class="mb-1 font-sans text-lg font-semibold" style="color: var(--text-primary)">Stay private</h3>
+<p class="text-xs" style="color: var(--text-secondary)">Self-hosted, BYOK embeddings/LLM, zero code egress</p>
+</div>
+<div class="px-4 pb-4">
+<div class="rounded-lg p-3 font-mono text-xs leading-relaxed" style="background: var(--bg-deep); border: 1px solid var(--border-subtle);">
+<div><span style="color: var(--accent-green)">$</span> <span style="color: var(--text-primary)">astix serve</span></div>
+<div style="color: var(--accent-green)">✓ MCP server listening on localhost:3001</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;PostgreSQL: localhost:5432 (local)</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;Embeddings: ollama/nomic (local)</div>
+<div style="color: var(--accent-green)">✓ 0 bytes sent externally</div>
+</div>
+</div>
+</div>
+
 </div>
 </section>
 
