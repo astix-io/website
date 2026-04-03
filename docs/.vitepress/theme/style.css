@@ -473,35 +473,49 @@ body {
 	}
 }
 
-/* ===== FIX VITEPRESS CSS RESETS ===== */
-/* VitePress sets svg { display: block } which breaks inline SVG icons */
-.pricing-table svg,
-.vp-doc svg.inline-block {
-  display: inline-block !important;
-}
-
-/* VitePress sets ol, ul { margin: 0 } which breaks Tailwind margin classes */
-.pricing-card ul {
-  margin-bottom: 32px !important;
-}
-
-/* VitePress sets h1-h6 { margin: 0 } which breaks Tailwind margin classes on headings in custom pages */
+/* ===== NEUTRALIZE VITEPRESS RESETS ON CUSTOM PAGES ===== */
+/* VitePress injects element-level resets (svg{display:block}, h1-h6{margin:0}, ul{margin:0})
+   that override Tailwind utility classes. We neutralize them on .VPPage (layout:page)
+   so our design system works without !important hacks. */
+.VPPage h1,
 .VPPage h2,
-.VPPage h1 {
-  margin-bottom: 32px !important;
+.VPPage h3,
+.VPPage h4,
+.VPPage h5,
+.VPPage h6 {
+	margin: unset;
+	font-size: unset;
+	font-weight: unset;
+	line-height: unset;
 }
 
-/* Ensure section headings keep their intended spacing */
-.pricing-section h2,
-.faq-section h2 {
-  margin-bottom: 40px !important;
+.VPPage p {
+	margin: unset;
 }
 
-/* All h2/h3 inside custom page layouts need margin restoration */
-[class*="VPPage"] h2 {
-  margin-bottom: 32px !important;
+.VPPage ul,
+.VPPage ol {
+	margin: unset;
+	padding: unset;
+	list-style: none;
 }
 
-[class*="VPPage"] h3 {
-  margin-bottom: 16px !important;
+.VPPage img,
+.VPPage svg {
+	display: unset;
+}
+
+.VPPage a {
+	color: unset;
+	text-decoration: unset;
+}
+
+.VPPage table {
+	display: table;
+}
+
+.VPPage table th,
+.VPPage table td {
+	border: unset;
+	padding: unset;
 }
