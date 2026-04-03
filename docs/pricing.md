@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Pricing — astix
-description: Free community edition with full intelligence. Team and Enterprise tiers for collaboration and governance.
+description: Free read-only intelligence. Solo €9/mo for write operations. Team €29/user/mo for collaboration. Enterprise €49/user/mo for governance.
 ---
 
 <script setup>
@@ -11,7 +11,7 @@ import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
 
 <section class="mx-auto max-w-5xl px-6 py-20 text-center">
 <h1 class="mb-4 font-sans text-4xl font-bold" style="color: var(--text-primary)">Choose your plan</h1>
-<p class="mb-12" style="color: var(--text-secondary)">Full intelligence on every tier. Pay only for collaboration features.</p>
+<p class="mb-12" style="color: var(--text-secondary)">From free read-only intelligence to full enterprise governance.</p>
 <PricingMatrix />
 </section>
 

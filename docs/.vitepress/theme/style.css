@@ -449,9 +449,9 @@ body {
 	border-bottom: 2px solid var(--border-muted);
 }
 
-/* Team column highlight */
-.pricing-table td:nth-child(3),
-.pricing-table th:nth-child(3) {
+/* Team column highlight (4th column = Team in 4-tier model: label + Community + Solo + Team) */
+.pricing-table td:nth-child(4),
+.pricing-table th:nth-child(4) {
 	background: rgba(59, 130, 246, 0.06);
 }
 
@@ -501,6 +501,31 @@ body {
 .feature-tooltip:hover::after {
 	opacity: 1;
 	visibility: visible;
+}
+
+/* ===== PRICING MATRIX — 4-column grid ===== */
+.pricing-matrix {
+	display: grid;
+	grid-template-columns: minmax(160px, 0.8fr) repeat(4, 1fr);
+	min-width: 800px;
+}
+
+.pm-readonly-badge {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: var(--text-muted);
+	text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+	.pricing-matrix {
+		grid-template-columns: minmax(120px, 1fr) repeat(4, minmax(120px, 1fr));
+	}
 }
 
 /* Pipeline timeline */

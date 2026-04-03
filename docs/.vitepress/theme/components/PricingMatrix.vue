@@ -10,6 +10,14 @@ const tiers = [
 		billing: 'Forever. No credit card required.',
 		cta: { text: 'Get Started', href: '/getting-started', style: 'ghost' },
 		popular: false,
+		badge: 'READ-ONLY',
+	},
+	{
+		name: 'Solo',
+		price: { monthly: 9, annual: 7 },
+		billing: 'per month',
+		cta: { text: 'Start Writing', href: '#', style: 'ghost' },
+		popular: false,
 	},
 	{
 		name: 'Team',
@@ -31,7 +39,7 @@ interface Feature {
 	name: string;
 	tooltip: string;
 	category?: string;
-	values: [boolean | string, boolean | string, boolean | string];
+	values: [boolean | string, boolean | string, boolean | string, boolean | string];
 }
 
 const features: Feature[] = [
@@ -40,65 +48,81 @@ const features: Feature[] = [
 		name: 'Search (structural + semantic)',
 		tooltip: 'Find symbols by name pattern or by natural language description.',
 		category: 'INTELLIGENCE',
-		values: [true, true, true],
+		values: [true, true, true, true],
 	},
 	{
 		name: 'Call graphs',
 		tooltip: 'Trace which functions call which, across files and modules.',
-		values: [true, true, true],
+		values: [true, true, true, true],
 	},
-	{ name: 'Impact analysis', tooltip: 'Know the blast radius before changing anything.', values: [true, true, true] },
-	{ name: 'Data lineage', tooltip: 'Trace how variables flow across functions.', values: [true, true, true] },
-	{ name: 'Execution paths', tooltip: 'Map all possible paths through a function.', values: [true, true, true] },
-	{ name: 'Code health', tooltip: 'Detect dead code, unused exports, duplicated logic.', values: [true, true, true] },
+	{
+		name: 'Impact analysis',
+		tooltip: 'Know the blast radius before changing anything.',
+		values: [true, true, true, true],
+	},
+	{ name: 'Data lineage', tooltip: 'Trace how variables flow across functions.', values: [true, true, true, true] },
+	{ name: 'Execution paths', tooltip: 'Map all possible paths through a function.', values: [true, true, true, true] },
+	{
+		name: 'Code health',
+		tooltip: 'Detect dead code, unused exports, duplicated logic.',
+		values: [true, true, true, true],
+	},
 	// WRITE SAFETY
 	{
 		name: 'Rename',
 		tooltip: 'Rename across the entire call graph + imports.',
 		category: 'WRITE SAFETY',
-		values: [true, true, true],
+		values: [false, true, true, true],
 	},
 	{
 		name: 'Patch / Write',
 		tooltip: 'Edit code within functions using regex or literal patterns.',
-		values: [true, true, true],
+		values: [false, true, true, true],
 	},
-	{ name: 'Rollback', tooltip: 'Undo any write operation.', values: [true, true, true] },
+	{ name: 'Rollback', tooltip: 'Undo any write operation.', values: [false, true, true, true] },
 	{
 		name: 'Approval workflows',
 		tooltip: 'Require human approval before write operations.',
-		values: [false, false, true],
+		values: [false, false, false, true],
 	},
 	// DEPLOYMENT
 	{
 		name: 'stdio (local)',
 		tooltip: 'Run astix as a local process via stdin/stdout.',
 		category: 'DEPLOYMENT',
-		values: [true, true, true],
+		values: [true, true, true, true],
 	},
-	{ name: 'HTTP daemon', tooltip: 'Shared server for multiple developers.', values: [false, true, true] },
-	{ name: 'Air-gap', tooltip: 'Fully isolated environments, all dependencies bundled.', values: [false, false, true] },
+	{ name: 'HTTP daemon', tooltip: 'Shared server for multiple developers.', values: [false, false, true, true] },
+	{
+		name: 'Air-gap',
+		tooltip: 'Fully isolated environments, all dependencies bundled.',
+		values: [false, false, false, true],
+	},
 	// GOVERNANCE
 	{
 		name: 'OAuth 2.1',
 		tooltip: 'Industry-standard authentication.',
 		category: 'GOVERNANCE',
-		values: [false, true, true],
+		values: [false, false, true, true],
 	},
-	{ name: 'SSO / SAML', tooltip: 'Single sign-on with your identity provider.', values: [false, false, true] },
-	{ name: 'SCIM', tooltip: 'Automated user provisioning.', values: [false, false, true] },
-	{ name: 'RBAC', tooltip: 'Role-based access control per project.', values: [false, true, true] },
-	{ name: 'Audit logs', tooltip: 'Complete action audit trail.', values: [false, true, true] },
-	{ name: 'Policy engine', tooltip: 'Custom rules for blocking risky operations.', values: [false, false, true] },
+	{ name: 'SSO / SAML', tooltip: 'Single sign-on with your identity provider.', values: [false, false, false, true] },
+	{ name: 'SCIM', tooltip: 'Automated user provisioning.', values: [false, false, false, true] },
+	{ name: 'RBAC', tooltip: 'Role-based access control per project.', values: [false, false, true, true] },
+	{ name: 'Audit logs', tooltip: 'Complete action audit trail.', values: [false, false, true, true] },
+	{
+		name: 'Policy engine',
+		tooltip: 'Custom rules for blocking risky operations.',
+		values: [false, false, false, true],
+	},
 	// SUPPORT
 	{
 		name: 'Community',
 		tooltip: 'Slack community, GitHub issues, docs.',
 		category: 'SUPPORT',
-		values: [true, true, true],
+		values: [true, true, true, true],
 	},
-	{ name: 'Standard', tooltip: 'Email support, 48h response time.', values: [false, true, true] },
-	{ name: 'Premium + SLA', tooltip: 'Dedicated engineer, 4h response SLA.', values: [false, false, true] },
+	{ name: 'Standard', tooltip: 'Email support, 48h response time.', values: [false, false, true, true] },
+	{ name: 'Premium + SLA', tooltip: 'Dedicated engineer, 4h response SLA.', values: [false, false, false, true] },
 ];
 </script>
 
@@ -137,6 +161,7 @@ const features: Feature[] = [
             :class="{ 'pm-popular': tier.popular }"
           >
             <div v-if="tier.popular" class="pm-popular-badge">POPULAR</div>
+            <div v-if="tier.badge" class="pm-readonly-badge">{{ tier.badge }}</div>
             <div class="pm-tier-name">{{ tier.name }}</div>
             <div class="pm-price">
               <template v-if="tier.price.monthly === 0">
@@ -163,7 +188,7 @@ const features: Feature[] = [
           <!-- Category header -->
           <div v-if="feat.category" class="pm-row pm-category">
             <div class="pm-label">{{ feat.category }}</div>
-            <div class="pm-cell" v-for="n in 3" :key="n"></div>
+            <div class="pm-cell" v-for="n in 4" :key="n"></div>
           </div>
           <!-- Feature row -->
           <div class="pm-row">
@@ -265,8 +290,8 @@ const features: Feature[] = [
 
 .pricing-matrix {
   display: grid;
-  grid-template-columns: minmax(160px, 0.8fr) repeat(3, 1fr);
-  min-width: 700px;
+  grid-template-columns: minmax(160px, 0.8fr) repeat(4, 1fr);
+  min-width: 800px;
 }
 
 .pm-row {
@@ -355,6 +380,19 @@ const features: Feature[] = [
   white-space: nowrap;
 }
 
+.pm-readonly-badge {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .pm-tier-name {
   font-size: 14px;
   font-weight: 600;
@@ -429,7 +467,7 @@ const features: Feature[] = [
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .pricing-matrix {
-    grid-template-columns: minmax(140px, 1fr) repeat(3, minmax(140px, 1fr));
+    grid-template-columns: minmax(120px, 1fr) repeat(4, minmax(120px, 1fr));
   }
 
   .pm-tier {

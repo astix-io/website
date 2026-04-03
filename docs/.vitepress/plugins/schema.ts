@@ -39,7 +39,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 		);
 	}
 
-	// Pricing — FAQPage
+	// Pricing — FAQPage + Product with offers
 	if (pageData.relativePath === 'pricing.md') {
 		heads.push(
 			jsonLd({
@@ -50,6 +50,45 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 					name: item.question,
 					acceptedAnswer: { '@type': 'Answer', text: item.answer },
 				})),
+			}),
+		);
+		heads.push(
+			jsonLd({
+				'@context': 'https://schema.org',
+				'@type': 'Product',
+				name: 'astix',
+				description: 'Self-hosted code intelligence for AI coding agents. 36 languages, 30+ MCP tools.',
+				url: 'https://astix.io',
+				offers: [
+					{
+						'@type': 'Offer',
+						name: 'Community',
+						price: '0',
+						priceCurrency: 'EUR',
+						description: 'Read-only intelligence. Free forever.',
+					},
+					{
+						'@type': 'Offer',
+						name: 'Solo',
+						price: '9',
+						priceCurrency: 'EUR',
+						description: 'Full write operations (rename, patch, refactor). stdio transport.',
+					},
+					{
+						'@type': 'Offer',
+						name: 'Team',
+						price: '29',
+						priceCurrency: 'EUR',
+						description: 'HTTP daemon, shared indexes, OAuth 2.1, RBAC, audit logs.',
+					},
+					{
+						'@type': 'Offer',
+						name: 'Enterprise',
+						price: '49',
+						priceCurrency: 'EUR',
+						description: 'SSO/SAML/SCIM, approval workflows, policy engine.',
+					},
+				],
 			}),
 		);
 	}
