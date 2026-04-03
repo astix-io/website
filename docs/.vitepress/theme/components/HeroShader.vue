@@ -365,8 +365,12 @@ function animate() {
 	ctx.stroke();
 	ctx.restore();
 
-	rafId = requestAnimationFrame(animate);
+	if (!stopped) {
+		rafId = requestAnimationFrame(animate);
+	}
 }
+
+let stopped = false;
 
 onMounted(() => {
 	const el = canvas.value;
@@ -384,6 +388,7 @@ onMounted(() => {
 	lastTheme = document.documentElement.getAttribute('data-theme') ?? 'dark';
 
 	if (reducedMotion) {
+		stopped = true;
 		animate();
 		return;
 	}
