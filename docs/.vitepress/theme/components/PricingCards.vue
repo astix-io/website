@@ -67,7 +67,7 @@
 
       <!-- Team (highlighted with gradient border) -->
       <div
-        class="pricing-card relative flex flex-col rounded-2xl"
+        class="pricing-card pricing-card-popular relative flex flex-col rounded-2xl"
         style="padding: 2px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));"
       >
         <div class="relative flex flex-col h-full rounded-2xl p-8" style="background: var(--bg-card);">

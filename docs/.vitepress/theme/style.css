@@ -327,6 +327,92 @@ body {
 	transition: opacity 0.3s ease;
 }
 
+/* ===== PRICING CARD HOVER ===== */
+.pricing-card {
+	transition:
+		transform 0.25s ease,
+		box-shadow 0.25s ease,
+		border-color 0.25s ease;
+}
+
+.pricing-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+	border-color: var(--border-muted);
+}
+
+/* Team card (popular) — already elevated, hover goes further */
+.pricing-card-popular:hover {
+	box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+}
+
+/* ===== FAQ ACCORDION ===== */
+.faq-item {
+	border-radius: 12px;
+	margin-bottom: 8px;
+	background: transparent;
+	transition: background 0.2s ease;
+}
+
+.faq-item:hover {
+	background: var(--bg-card);
+}
+
+.faq-item-open {
+	background: var(--bg-card);
+}
+
+.faq-button {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 20px 24px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.faq-question {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--text-primary);
+}
+
+.faq-chevron {
+	flex-shrink: 0;
+	color: var(--text-secondary);
+	transition: transform 0.3s ease;
+}
+
+.faq-chevron-open {
+	transform: rotate(180deg);
+}
+
+.faq-answer {
+	max-height: 0;
+	overflow: hidden;
+	transition:
+		max-height 0.3s ease,
+		opacity 0.3s ease;
+	opacity: 0;
+}
+
+.faq-answer-open {
+	max-height: 400px;
+	opacity: 1;
+}
+
+.faq-answer p {
+	padding: 0 24px 20px;
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--text-secondary);
+}
+
 /* Pricing comparison table */
 .pricing-table {
 	table-layout: fixed;
@@ -404,7 +490,9 @@ body {
 	width: 280px;
 	opacity: 0;
 	visibility: hidden;
-	transition: opacity 0.2s, visibility 0.2s;
+	transition:
+		opacity 0.2s,
+		visibility 0.2s;
 	pointer-events: none;
 	z-index: 20;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
