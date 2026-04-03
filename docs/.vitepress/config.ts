@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress';
+import { RssPlugin } from 'vitepress-plugin-rss';
 import { generateSchemaHead } from './plugins/schema';
 
 export default defineConfig({
@@ -11,7 +12,14 @@ export default defineConfig({
 	srcExclude: ['superpowers/**'],
 
 	vite: {
-		plugins: [tailwindcss()],
+		plugins: [
+			tailwindcss(),
+			RssPlugin({
+				title: 'astix Blog',
+				baseUrl: 'https://astix.io',
+				copyright: '© astix',
+			}),
+		],
 	},
 
 	head: [

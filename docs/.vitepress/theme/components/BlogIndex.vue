@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { Post } from '../../plugins/blog.data';
+import { formatDate } from '../utils';
 
 const props = defineProps<{ posts: Post[] }>();
 
@@ -36,14 +37,6 @@ const featuredPost = computed(() => props.posts.find((p) => p.featured) ?? null)
 const gridPosts = computed(() =>
 	filteredPosts.value.filter((p) => !(activeCategory.value === 'All' && p.featured && p === featuredPost.value)),
 );
-
-function formatDate(dateStr: string): string {
-	return new Date(dateStr).toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	});
-}
 </script>
 
 <template>

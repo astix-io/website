@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps<{ enabled: boolean }>();
 
@@ -84,9 +84,14 @@ function goTo(idx: number) {
 	current.value = idx;
 }
 
-const interval = setInterval(() => {
-	current.value = (current.value + 1) % TESTIMONIALS.length;
-}, 5000);
+let interval: ReturnType<typeof setInterval> | undefined;
+
+onMounted(() => {
+	if (!props.enabled) return;
+	interval = window.setInterval(() => {
+		current.value = (current.value + 1) % TESTIMONIALS.length;
+	}, 5000);
+});
 
 onUnmounted(() => {
 	clearInterval(interval);

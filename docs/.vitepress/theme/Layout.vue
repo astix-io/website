@@ -71,8 +71,8 @@ onMounted(() => {
           <a href="/getting-started" style="color: var(--text-secondary)" class="hover:underline">Docs</a>
           <a href="/pricing" style="color: var(--text-secondary)" class="hover:underline">Pricing</a>
           <a href="/blog/" style="color: var(--text-secondary)" class="hover:underline">Blog</a>
-          <a href="https://github.com/astix-io/astix" style="color: var(--text-secondary)" class="hover:underline">GitHub</a>
-          <a href="https://astix.io/slack" style="color: var(--text-secondary)" class="hover:underline">Slack</a>
+          <a href="https://github.com/astix-io/astix" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">GitHub</a>
+          <a href="https://astix.io/slack" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">Slack</a>
         </nav>
         <p class="mb-2 text-xs" style="color: var(--text-muted)">Released under the Apache 2.0 License.</p>
         <p class="text-xs" style="color: var(--text-muted)">© 2026 astix</p>

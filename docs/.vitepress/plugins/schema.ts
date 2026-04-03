@@ -72,7 +72,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 						name: 'Solo',
 						price: '12',
 						priceCurrency: 'EUR',
-						description: 'Full write operations (rename, patch, refactor). stdio transport.',
+						description: 'Write-enabled intelligence for individual developers. €12/month.',
 					},
 					{
 						'@type': 'Offer',

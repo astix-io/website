@@ -3,11 +3,37 @@ title: MCP Tools Reference
 description: Complete reference for astix MCP tools — search, analysis, write, and code health.
 ---
 
+<script setup>
+import ToolSearch from '../.vitepress/theme/components/ToolSearch.vue'
+import { ref, onMounted } from 'vue'
+
+const filterQuery = ref('')
+
+function handleFilter(q) {
+  filterQuery.value = q.toLowerCase()
+  if (typeof document === 'undefined') return
+  const headings = document.querySelectorAll('.vp-doc h3[id]')
+  headings.forEach(h3 => {
+    const block = [h3]
+    let sibling = h3.nextElementSibling
+    while (sibling && sibling.tagName !== 'H3' && sibling.tagName !== 'H2') {
+      block.push(sibling)
+      sibling = sibling.nextElementSibling
+    }
+    const text = block.map(el => el.textContent || '').join(' ').toLowerCase()
+    const match = !filterQuery.value || text.includes(filterQuery.value)
+    block.forEach(el => el.style.display = match ? '' : 'none')
+  })
+}
+</script>
+
 # MCP Tools Reference
 
 astix exposes 30+ tools over the Model Context Protocol. This page documents the most commonly used tools, grouped by category.
 
 All tools accept an optional `project` parameter to target a specific registered project. If omitted, the active project is used.
+
+<ToolSearch @filter="handleFilter" />
 
 ---
 

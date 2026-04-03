@@ -369,4 +369,16 @@ Taint tracking: source→sink vulnerability detection, zero rules to write
 </div>
 </section>
 
+<section class="snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
+<div class="mx-auto max-w-2xl text-center">
+<h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">Ready to understand your codebase?</h2>
+<p class="mb-8" style="color: var(--text-secondary)">Get started in under 10 minutes. Free forever.</p>
+<div class="flex flex-wrap items-center justify-center gap-4 mb-6">
+<a href="/getting-started" class="btn-primary">Get Started</a>
+<a href="/pricing" class="btn-secondary">View Pricing</a>
+</div>
+<p class="text-xs" style="color: var(--text-muted)">Self-hosted · Zero code egress · BYOK · Apache 2.0</p>
+</div>
+</section>
+
 </div>

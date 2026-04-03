@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
 import { computed } from 'vue';
+import { formatDate } from '../utils';
 
 const { frontmatter, page } = useData();
 
 const formattedDate = computed(() => {
 	if (!frontmatter.value.date) return '';
-	return new Date(frontmatter.value.date).toLocaleDateString('en-US', {
-		year: 'numeric',
-		month: 'long',
-		day: 'numeric',
-	});
+	return formatDate(frontmatter.value.date);
 });
 
 const lastUpdated = computed(() => {
