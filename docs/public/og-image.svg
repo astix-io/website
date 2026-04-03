@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B1120"/>
+      <stop offset="100%" stop-color="#0F1729"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="diamond" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Large ghost diamond (decorative) -->
+  <polygon points="600,80 900,315 600,550 300,315" fill="none" stroke="url(#diamond)" stroke-width="1.5" opacity="0.3"/>
+  <polygon points="600,140 830,315 600,490 370,315" fill="url(#diamond)" opacity="0.15"/>
+
+  <!-- Top gradient stripe -->
+  <rect x="0" y="0" width="1200" height="3" fill="url(#accent)"/>
+
+  <!-- AST Diamond Logo -->
+  <g transform="translate(540, 160)">
+    <polygon points="60,4 112,56 60,108 8,56" stroke="url(#accent)" stroke-width="3" fill="none"/>
+    <circle cx="60" cy="24" r="5" fill="#3B82F6"/>
+    <circle cx="40" cy="50" r="4" fill="#6366F1"/>
+    <circle cx="80" cy="50" r="4" fill="#6366F1"/>
+    <circle cx="28" cy="72" r="3" fill="#8B5CF6"/>
+    <circle cx="48" cy="72" r="3" fill="#8B5CF6"/>
+    <circle cx="72" cy="72" r="3" fill="#8B5CF6"/>
+    <circle cx="92" cy="72" r="3" fill="#8B5CF6"/>
+    <line x1="60" y1="29" x2="40" y2="46" stroke="#4F46E5" stroke-width="1.5" opacity="0.7"/>
+    <line x1="60" y1="29" x2="80" y2="46" stroke="#4F46E5" stroke-width="1.5" opacity="0.7"/>
+    <line x1="40" y1="54" x2="28" y2="69" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+    <line x1="40" y1="54" x2="48" y2="69" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+    <line x1="80" y1="54" x2="72" y2="69" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+    <line x1="80" y1="54" x2="92" y2="69" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <!-- Product name -->
+  <text x="600" y="320" text-anchor="middle" font-family="monospace" font-size="64" font-weight="700" fill="#F8FAFC">astix</text>
+
+  <!-- Tagline -->
+  <text x="600" y="380" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#94A3B8">Trustworthy code intelligence</text>
+  <text x="600" y="420" text-anchor="middle" font-family="sans-serif" font-size="28" fill="url(#accent)">for AI agents</text>
+
+  <!-- Bottom stats bar -->
+  <text x="600" y="520" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#64748B">Self-hosted  ·  36 languages  ·  30+ MCP tools  ·  Apache 2.0</text>
+
+  <!-- Bottom gradient line -->
+  <rect x="350" y="560" width="500" height="2" rx="1" fill="url(#accent)" opacity="0.4"/>
+</svg>
