@@ -1,12 +1,12 @@
 <template>
   <div class="overflow-x-auto rounded-2xl border" style="border-color: var(--border-muted);">
     <table class="pricing-table w-full text-sm border-collapse">
-      <thead class="pricing-thead">
+      <thead>
         <tr style="background: var(--bg-card);">
           <th class="text-left py-4 px-6 font-semibold" style="color: var(--text-secondary); width: 40%;">Feature</th>
           <th class="text-center py-4 px-4 font-semibold" style="color: var(--text-primary);">Community</th>
           <th
-            class="text-center py-4 px-4 font-semibold team-col"
+            class="text-center py-4 px-4 font-semibold"
             style="color: var(--accent-blue);"
           >Team</th>
           <th class="text-center py-4 px-4 font-semibold" style="color: var(--text-primary);">Enterprise</th>
@@ -26,14 +26,14 @@
           <tr
             v-for="row in group.rows"
             :key="row.feature"
-            class="border-t"
-            style="border-color: var(--border-subtle);"
           >
-            <td class="py-3 px-6" style="color: var(--text-secondary); background: var(--bg-card);">{{ row.feature }}</td>
+            <td class="py-3 px-6" style="color: var(--text-secondary); background: var(--bg-card);">
+              <span class="feature-tooltip" :data-tooltip="row.tooltip">{{ row.feature }}</span>
+            </td>
             <td class="py-3 px-4 text-center" style="background: var(--bg-card);">
               <span v-html="renderCell(row.community)" />
             </td>
-            <td class="py-3 px-4 text-center team-col">
+            <td class="py-3 px-4 text-center">
               <span v-html="renderCell(row.team)" />
             </td>
             <td class="py-3 px-4 text-center" style="background: var(--bg-card);">
@@ -49,6 +49,7 @@
 <script setup lang="ts">
 interface TableRow {
 	feature: string;
+	tooltip: string;
 	community: boolean | string;
 	team: boolean | string;
 	enterprise: boolean | string;
@@ -63,48 +64,183 @@ const tableGroups: TableGroup[] = [
 	{
 		category: 'Intelligence',
 		rows: [
-			{ feature: 'Search (structural + semantic)', community: true, team: true, enterprise: true },
-			{ feature: 'Call graphs', community: true, team: true, enterprise: true },
-			{ feature: 'Impact analysis', community: true, team: true, enterprise: true },
-			{ feature: 'Data lineage', community: true, team: true, enterprise: true },
-			{ feature: 'Execution paths', community: true, team: true, enterprise: true },
-			{ feature: 'Code health', community: true, team: true, enterprise: true },
+			{
+				feature: 'Search (structural + semantic)',
+				tooltip: 'Find symbols by name pattern or by natural language description. Results in milliseconds.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Call graphs',
+				tooltip:
+					'Trace which functions call which, across files and modules. See direct and transitive callers/callees.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Impact analysis',
+				tooltip:
+					'Know the blast radius before changing anything. Shows all affected symbols with risk level assessment.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Data lineage',
+				tooltip:
+					'Trace how variables flow across functions. Follow data from input to database, across module boundaries.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Execution paths',
+				tooltip: 'Map all possible paths through a function. Identify untested branches and edge cases.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Code health',
+				tooltip: 'Detect dead code, unused exports, duplicated logic. Keep your codebase clean automatically.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
 		],
 	},
 	{
 		category: 'Write Safety',
 		rows: [
-			{ feature: 'Rename', community: true, team: true, enterprise: true },
-			{ feature: 'Patch / Write', community: true, team: true, enterprise: true },
-			{ feature: 'Rollback', community: true, team: true, enterprise: true },
-			{ feature: 'Approval workflows', community: false, team: false, enterprise: true },
+			{
+				feature: 'Rename',
+				tooltip: 'Rename a symbol across the entire call graph + import statements. Atomic, conflict-free.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Patch / Write',
+				tooltip: 'Edit code within functions using regex or literal patterns. Scoped to symbol boundaries for safety.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Rollback',
+				tooltip: 'Undo any write operation. Every change is tracked with before/after state.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Approval workflows',
+				tooltip: 'Require human approval before write operations are applied. Configurable per team and risk level.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
 		],
 	},
 	{
 		category: 'Deployment',
 		rows: [
-			{ feature: 'stdio (local)', community: true, team: true, enterprise: true },
-			{ feature: 'HTTP daemon', community: false, team: true, enterprise: true },
-			{ feature: 'Air-gap / on-prem', community: false, team: false, enterprise: true },
+			{
+				feature: 'stdio (local)',
+				tooltip: 'Run astix as a local process. Your MCP client connects directly via stdin/stdout.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'HTTP daemon',
+				tooltip: 'Run astix as a shared server. Multiple developers connect to the same indexed codebase.',
+				community: false,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Air-gap / on-prem',
+				tooltip: 'Deploy in fully isolated environments with no internet access. All dependencies bundled.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
 		],
 	},
 	{
 		category: 'Governance',
 		rows: [
-			{ feature: 'OAuth 2.1', community: false, team: true, enterprise: true },
-			{ feature: 'SSO / SAML', community: false, team: false, enterprise: true },
-			{ feature: 'SCIM', community: false, team: false, enterprise: true },
-			{ feature: 'RBAC', community: false, team: true, enterprise: true },
-			{ feature: 'Audit logs', community: false, team: true, enterprise: true },
-			{ feature: 'Policy engine', community: false, team: false, enterprise: true },
+			{
+				feature: 'OAuth 2.1',
+				tooltip: 'Authenticate users with industry-standard OAuth 2.1 protocol.',
+				community: false,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'SSO / SAML',
+				tooltip: 'Single sign-on with your identity provider. SAML 2.0 support for enterprise IdPs.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
+			{
+				feature: 'SCIM',
+				tooltip: 'Automated user provisioning and deprovisioning from your identity provider.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
+			{
+				feature: 'RBAC',
+				tooltip: 'Role-based access control. Define who can read, write, or admin each project.',
+				community: false,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Audit logs',
+				tooltip: 'Complete audit trail of every action: who did what, when, on which symbols.',
+				community: false,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Policy engine',
+				tooltip: 'Define custom policies for code changes. Block risky operations based on configurable rules.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
 		],
 	},
 	{
 		category: 'Support',
 		rows: [
-			{ feature: 'Community', community: true, team: true, enterprise: true },
-			{ feature: 'Standard', community: false, team: true, enterprise: true },
-			{ feature: 'Premium + SLA', community: false, team: false, enterprise: true },
+			{
+				feature: 'Community',
+				tooltip: 'Slack community, GitHub issues, documentation.',
+				community: true,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Standard',
+				tooltip: 'Email support with 48h response time. Priority issue routing.',
+				community: false,
+				team: true,
+				enterprise: true,
+			},
+			{
+				feature: 'Premium + SLA',
+				tooltip: 'Dedicated support engineer, 4h response SLA, custom onboarding.',
+				community: false,
+				team: false,
+				enterprise: true,
+			},
 		],
 	},
 ];

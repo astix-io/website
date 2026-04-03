@@ -53,7 +53,7 @@
           <p class="text-sm" style="color: var(--text-secondary);">Forever. No credit card required.</p>
         </div>
 
-        <ul class="flex-1 space-y-3 mb-8 list-none p-0">
+        <ul class="flex-1 space-y-3 mb-8 list-none p-0" style="text-align: left;">
           <li v-for="f in communityFeatures" :key="f" class="flex items-start gap-2 text-sm" style="color: var(--text-secondary);">
             <svg class="mt-0.5 shrink-0 w-4 h-4" style="color: var(--accent-green);" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -89,7 +89,7 @@
             <p v-else class="text-sm" style="color: var(--text-secondary);">billed monthly</p>
           </div>
 
-          <ul class="flex-1 space-y-3 mb-8 list-none p-0">
+          <ul class="flex-1 space-y-3 mb-8 list-none p-0" style="text-align: left;">
             <li v-for="f in teamFeatures" :key="f" class="flex items-start gap-2 text-sm" style="color: var(--text-secondary);">
               <svg class="mt-0.5 shrink-0 w-4 h-4" style="color: var(--accent-blue);" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -119,7 +119,7 @@
           <p v-else class="text-sm" style="color: var(--text-secondary);">billed monthly</p>
         </div>
 
-        <ul class="flex-1 space-y-3 mb-8 list-none p-0">
+        <ul class="flex-1 space-y-3 mb-8 list-none p-0" style="text-align: left;">
           <li v-for="f in enterpriseFeatures" :key="f" class="flex items-start gap-2 text-sm" style="color: var(--text-secondary);">
             <svg class="mt-0.5 shrink-0 w-4 h-4" style="color: var(--accent-purple);" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
