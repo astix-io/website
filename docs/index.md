@@ -13,6 +13,7 @@ import TerminalDemo from './.vitepress/theme/components/TerminalDemo.vue'
 import SocialProof from './.vitepress/theme/components/SocialProof.vue'
 import NumbersBar from './.vitepress/theme/components/NumbersBar.vue'
 import TypewriterQuote from './.vitepress/theme/components/TypewriterQuote.vue'
+import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
 const { frontmatter } = useData()
 </script>
 
@@ -326,6 +327,16 @@ Import graph updated, conflict detection built-in
 <p style="color: var(--text-secondary)">From search to impact analysis in seconds.</p>
 </div>
 <TerminalDemo />
+</div>
+</section>
+
+<section class="snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
+<div class="mx-auto max-w-3xl">
+<div class="mb-12 text-center">
+<h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">Frequently asked questions</h2>
+<p style="color: var(--text-secondary)">Everything you need to know about astix.</p>
+</div>
+<PricingFaq />
 </div>
 </section>
 

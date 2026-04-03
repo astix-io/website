@@ -1,13 +1,13 @@
 <template>
   <div class="overflow-x-auto rounded-2xl border" style="border-color: var(--border-muted);">
-    <table class="w-full text-sm border-collapse">
-      <thead>
+    <table class="pricing-table w-full text-sm border-collapse">
+      <thead class="pricing-thead">
         <tr style="background: var(--bg-card);">
           <th class="text-left py-4 px-6 font-semibold" style="color: var(--text-secondary); width: 40%;">Feature</th>
           <th class="text-center py-4 px-4 font-semibold" style="color: var(--text-primary);">Community</th>
           <th
-            class="text-center py-4 px-4 font-semibold"
-            style="color: var(--accent-blue); background: rgba(59,130,246,0.05);"
+            class="text-center py-4 px-4 font-semibold team-col"
+            style="color: var(--accent-blue);"
           >Team</th>
           <th class="text-center py-4 px-4 font-semibold" style="color: var(--text-primary);">Enterprise</th>
         </tr>
@@ -15,7 +15,7 @@
       <tbody>
         <template v-for="group in tableGroups" :key="group.category">
           <!-- Category header row -->
-          <tr style="background: var(--bg-deep);">
+          <tr class="category-row" style="background: var(--bg-deep);">
             <td
               colspan="4"
               class="py-3 px-6 text-xs font-bold uppercase tracking-widest"
@@ -33,7 +33,7 @@
             <td class="py-3 px-4 text-center" style="background: var(--bg-card);">
               <span v-html="renderCell(row.community)" />
             </td>
-            <td class="py-3 px-4 text-center" style="background: rgba(59,130,246,0.03);">
+            <td class="py-3 px-4 text-center team-col">
               <span v-html="renderCell(row.team)" />
             </td>
             <td class="py-3 px-4 text-center" style="background: var(--bg-card);">

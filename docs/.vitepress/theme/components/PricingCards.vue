@@ -48,6 +48,8 @@
           <div class="flex items-end gap-1 mb-1">
             <span class="text-4xl font-bold" style="color: var(--text-primary);">Free</span>
           </div>
+          <!-- Spacer matching the "/user/mo" + "billed monthly" lines in paid cards for vertical alignment -->
+          <div class="mb-1" style="height: 24px;" aria-hidden="true"></div>
           <p class="text-sm" style="color: var(--text-secondary);">Forever. No credit card required.</p>
         </div>
 
