@@ -483,31 +483,35 @@ body {
 .VPPage h4,
 .VPPage h5,
 .VPPage h6 {
-	margin: unset;
-	font-size: unset;
-	font-weight: unset;
-	line-height: unset;
+	margin: revert;
+	font-size: revert;
+	font-weight: revert;
+	line-height: revert;
 }
 
 .VPPage p {
-	margin: unset;
+	margin: revert;
 }
 
 .VPPage ul,
 .VPPage ol {
-	margin: unset;
-	padding: unset;
+	margin: revert;
+	padding: revert;
 	list-style: none;
 }
 
 .VPPage img,
 .VPPage svg {
-	display: unset;
+	display: revert;
 }
 
 .VPPage a {
-	color: unset;
-	text-decoration: unset;
+	color: revert;
+	text-decoration: revert;
+}
+
+.VPPage button {
+	padding: revert;
 }
 
 .VPPage table {
@@ -516,6 +520,6 @@ body {
 
 .VPPage table th,
 .VPPage table td {
-	border: unset;
-	padding: unset;
+	border: revert;
+	padding: revert;
 }
