@@ -70,7 +70,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 					{
 						'@type': 'Offer',
 						name: 'Solo',
-						price: '9',
+						price: '12',
 						priceCurrency: 'EUR',
 						description: 'Full write operations (rename, patch, refactor). stdio transport.',
 					},
@@ -84,7 +84,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 					{
 						'@type': 'Offer',
 						name: 'Enterprise',
-						price: '49',
+						price: '59',
 						priceCurrency: 'EUR',
 						description: 'SSO/SAML/SCIM, approval workflows, policy engine.',
 					},

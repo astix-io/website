@@ -14,7 +14,7 @@ const tiers = [
 	},
 	{
 		name: 'Solo',
-		price: { monthly: 9, annual: 7 },
+		price: { monthly: 12, annual: 10 },
 		billing: 'per month',
 		cta: { text: 'Start Writing', href: '#', style: 'ghost' },
 		popular: false,
@@ -28,7 +28,7 @@ const tiers = [
 	},
 	{
 		name: 'Enterprise',
-		price: { monthly: 49, annual: 39 },
+		price: { monthly: 59, annual: 47 },
 		billing: 'per user / month',
 		cta: { text: 'Contact Sales', href: 'mailto:sales@astix.io', style: 'ghost' },
 		popular: false,
