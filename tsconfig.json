@@ -9,7 +9,6 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
