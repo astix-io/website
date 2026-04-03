@@ -330,7 +330,7 @@ Import graph updated, conflict detection built-in
 </div>
 </section>
 
-<section class="snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
+<section class="faq-section snap-section px-6" style="background: var(--bg-deep); position: relative; z-index: 1;">
 <div class="mx-auto max-w-3xl">
 <div class="mb-12 text-center">
 <h2 class="mb-3 font-sans text-3xl font-bold" style="color: var(--text-primary)">Frequently asked questions</h2>

@@ -20,14 +20,14 @@ import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
   <PricingCards />
 </section>
 
-<section class="mx-auto max-w-5xl px-6 py-16">
+<section class="pricing-section mx-auto max-w-5xl px-6 py-16">
   <h2 class="mb-8 text-center font-sans text-2xl font-bold" style="color: var(--text-primary)">
     Compare all features
   </h2>
   <PricingTable />
 </section>
 
-<section class="mx-auto max-w-3xl px-6 py-16">
+<section class="faq-section mx-auto max-w-3xl px-6 py-16">
   <h2 class="mb-8 text-center font-sans text-2xl font-bold" style="color: var(--text-primary)">
     Frequently asked questions
   </h2>

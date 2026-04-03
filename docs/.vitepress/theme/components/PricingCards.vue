@@ -40,7 +40,7 @@
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       <!-- Community -->
       <div
-        class="relative flex flex-col rounded-2xl border p-8"
+        class="pricing-card relative flex flex-col rounded-2xl border p-8"
         style="background: var(--bg-card); border-color: var(--border-muted);"
       >
         <div class="mb-6">
@@ -67,7 +67,7 @@
 
       <!-- Team (highlighted with gradient border) -->
       <div
-        class="relative flex flex-col rounded-2xl"
+        class="pricing-card relative flex flex-col rounded-2xl"
         style="padding: 2px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));"
       >
         <div class="relative flex flex-col h-full rounded-2xl p-8" style="background: var(--bg-card);">
@@ -104,7 +104,7 @@
 
       <!-- Enterprise -->
       <div
-        class="relative flex flex-col rounded-2xl border p-8"
+        class="pricing-card relative flex flex-col rounded-2xl border p-8"
         style="background: var(--bg-card); border-color: var(--border-muted);"
       >
         <div class="mb-6">
