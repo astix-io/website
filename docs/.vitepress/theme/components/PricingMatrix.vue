@@ -265,7 +265,7 @@ const features: Feature[] = [
 
 .pricing-matrix {
   display: grid;
-  grid-template-columns: minmax(200px, 1.2fr) repeat(3, 1fr);
+  grid-template-columns: minmax(160px, 0.8fr) repeat(3, 1fr);
   min-width: 700px;
 }
 
