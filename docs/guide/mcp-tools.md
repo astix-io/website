@@ -297,3 +297,38 @@ Detect dead code, unused exports, and duplicates. Returns a prioritized list of 
   ]
 }
 ```
+
+---
+
+## Security
+
+### code_health (taint mode)
+
+Detect taint flows from untrusted sources to dangerous sinks across function boundaries.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| check | string | ✓ | Set to `"taint"` for taint analysis |
+| path | string | | Scope to a specific directory |
+| limit | number | | Max results (default 20) |
+
+**Built-in patterns:** SQL injection, XSS, path traversal, SSRF, log injection.
+
+**Example request:**
+```json
+{ "check": "taint", "path": "src/api" }
+```
+
+**Example response:**
+```json
+[
+  {
+    "type": "sql_injection",
+    "severity": "critical",
+    "source": { "file": "src/api/users.ts", "line": 42, "expression": "req.params.id" },
+    "sink": { "file": "src/db/repo.ts", "line": 18, "expression": "db.query(sql)" },
+    "path": ["req.params.id", "getUserById(id)", "db.query(sql)"],
+    "sanitized": false
+  }
+]
+```

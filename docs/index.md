@@ -182,6 +182,10 @@ Grep returns wrong file because it matched a comment
 <svg class="mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
 Refactoring breaks imports silently
 </li>
+<li class="flex items-start gap-3 text-sm leading-relaxed" style="color: var(--text-secondary)">
+<svg class="mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+Security vulnerabilities hidden in data flow across modules
+</li>
 </ul>
 </div>
 <div class="rounded-xl p-8" style="background: var(--bg-card); border: 1px solid var(--border-subtle)">
@@ -211,6 +215,10 @@ Impact analysis: 14 affected symbols, risk level HIGH
 <li class="flex items-start gap-3 text-sm leading-relaxed" style="color: var(--text-secondary)">
 <svg class="mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
 Import graph updated, conflict detection built-in
+</li>
+<li class="flex items-start gap-3 text-sm leading-relaxed" style="color: var(--text-secondary)">
+<svg class="mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+Taint tracking: source→sink vulnerability detection, zero rules to write
 </li>
 </ul>
 </div>
@@ -315,6 +323,20 @@ Import graph updated, conflict detection built-in
 <div class="flex flex-wrap gap-2">
 <span class="rounded-md px-3 py-1 text-xs font-medium" style="background: var(--badge-bg); color: var(--accent-blue); border: 1px solid var(--badge-border)" v-for="lang in ['TypeScript','Python','Rust','Go','Java','C#','C++','Ruby','Swift','Kotlin']" :key="lang">{{ lang }}</span>
 <span class="rounded-md px-3 py-1 text-xs" style="color: var(--text-muted)">+26 more</span>
+</div>
+</div>
+<div class="mb-16 grid items-center gap-8 md:grid-cols-2">
+<div>
+<h3 class="mb-3 font-sans text-xl font-semibold" style="color: var(--text-primary)">Security Analysis</h3>
+<p class="mb-4 text-sm leading-relaxed" style="color: var(--text-secondary)">Taint tracking from source to sink — detect SQL injection, XSS, path traversal, SSRF, and log injection across function boundaries. No rules to write.</p>
+</div>
+<div class="rounded-lg p-4 font-mono text-xs leading-relaxed" style="background: var(--bg-card); border: 1px solid var(--border-subtle);">
+<div><span style="color: var(--accent-blue)">code_health</span>(<span style="color: var(--accent-green)">check='taint'</span>)</div>
+<div style="color: var(--text-muted)">→ 2 vulnerabilities found</div>
+<div style="color: var(--text-muted)">&nbsp;</div>
+<div style="color: #EF4444">⚠ SQL Injection</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;req.params.id → db.query()</div>
+<div style="color: var(--text-muted)">&nbsp;&nbsp;src/api/users.ts:42 → src/db/repo.ts:18</div>
 </div>
 </div>
 </div>
