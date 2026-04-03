@@ -1,0 +1,769 @@
+/* Fonts — self-hosted via fontsource (zero egress, GDPR-safe) */
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource-variable/jetbrains-mono";
+
+@import "tailwindcss";
+
+/* Tailwind v4: dark mode via custom variant on data-theme attribute */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Tailwind v4: theme tokens via @theme (replaces tailwind.config.ts) */
+@theme {
+  --font-sans: "IBM Plex Sans Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-green: var(--accent-green);
+  --color-surface-deep: var(--bg-deep);
+  --color-surface-card: var(--bg-card);
+}
+
+/* ===== DESIGN TOKENS ===== */
+:root {
+	--transition: 0.35s ease;
+}
+
+[data-theme="dark"],
+:root {
+	--bg-deep: #0b1120;
+	--bg-surface: rgba(11, 17, 32, 0.7);
+	--bg-card: #1b2336;
+	--border-subtle: rgba(255, 255, 255, 0.06);
+	--border-muted: rgba(255, 255, 255, 0.1);
+	--text-primary: #f8fafc;
+	--text-secondary: #94a3b8;
+	--text-muted: #64748b;
+	--accent-blue: #3b82f6;
+	--accent-purple: #8b5cf6;
+	--accent-green: #22c55e;
+	--badge-bg: rgba(59, 130, 246, 0.1);
+	--badge-border: rgba(59, 130, 246, 0.2);
+	--cmd-bg: rgba(255, 255, 255, 0.04);
+	--cmd-border: rgba(255, 255, 255, 0.08);
+	--btn-secondary-bg: rgba(255, 255, 255, 0.06);
+	--btn-secondary-border: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] {
+	--bg-deep: #f8fafc;
+	--bg-surface: rgba(255, 255, 255, 0.8);
+	--bg-card: #ffffff;
+	--border-subtle: rgba(0, 0, 0, 0.06);
+	--border-muted: rgba(0, 0, 0, 0.1);
+	--text-primary: #0f172a;
+	--text-secondary: #475569;
+	--text-muted: #94a3b8;
+	--accent-blue: #2563eb;
+	--accent-purple: #7c3aed;
+	--accent-green: #16a34a;
+	--badge-bg: rgba(37, 99, 235, 0.08);
+	--badge-border: rgba(37, 99, 235, 0.2);
+	--cmd-bg: rgba(0, 0, 0, 0.03);
+	--cmd-border: rgba(0, 0, 0, 0.08);
+	--btn-secondary-bg: rgba(0, 0, 0, 0.04);
+	--btn-secondary-border: rgba(0, 0, 0, 0.12);
+}
+
+/* ===== OVERRIDE VITEPRESS DEFAULTS ===== */
+:root {
+	--vp-c-brand-1: var(--accent-blue);
+	--vp-c-brand-2: var(--accent-purple);
+	--vp-font-family-base: "IBM Plex Sans Variable", system-ui, sans-serif;
+	--vp-font-family-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+	/* Override VitePress navbar to respect dark theme */
+	--vp-nav-bg-color: var(--bg-surface);
+	--vp-c-bg: var(--bg-deep);
+	--vp-c-bg-soft: var(--bg-card);
+	--vp-c-bg-alt: var(--bg-card);
+	--vp-c-text-1: var(--text-primary);
+	--vp-c-text-2: var(--text-secondary);
+	--vp-c-text-3: var(--text-muted);
+	--vp-c-border: var(--border-subtle);
+	--vp-c-divider: var(--border-subtle);
+	--vp-c-gutter: var(--border-subtle);
+	--vp-sidebar-bg-color: var(--bg-deep);
+}
+
+/* Navbar glass effect */
+.VPNav {
+	background: var(--bg-surface) !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+/* Theme toggle — plain icon, no border/background, matches social link style */
+.theme-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: none;
+	background: none;
+	cursor: pointer;
+	color: var(--text-secondary);
+	transition: color 0.2s;
+	margin-left: 12px;
+}
+
+.theme-toggle:hover {
+	color: var(--text-primary);
+}
+
+/* Ensure all content sections are above the fixed shader background */
+.vp-doc,
+[class*="VPNav"],
+.VPNav,
+section,
+footer {
+	position: relative;
+	z-index: 1;
+}
+
+/* ===== HERO SHADER — fixed full-viewport background ===== */
+.hero-shader-canvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 0;
+	pointer-events: none;
+}
+
+/* ===== GLOBAL ===== */
+body {
+	background: var(--bg-deep);
+	color: var(--text-primary);
+	transition:
+		background var(--transition),
+		color var(--transition);
+}
+
+/* ===== TOP STRIPE ===== */
+.top-stripe {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	z-index: 200;
+	background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #8b5cf6, #3b82f6);
+	background-size: 200% 100%;
+	animation: stripe 4s linear infinite;
+}
+
+@keyframes stripe {
+	to {
+		background-position: -200% 0;
+	}
+}
+
+/* ===== GRADIENT TEXT ===== */
+.gradient-text {
+	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+	color: #fff;
+	padding: 12px 28px;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 600;
+	border: none;
+	cursor: pointer;
+	transition: opacity 0.15s;
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.btn-primary:hover {
+	opacity: 0.9;
+}
+
+.btn-secondary {
+	background: var(--btn-secondary-bg);
+	border: 1px solid var(--btn-secondary-border);
+	color: var(--text-primary);
+	padding: 12px 28px;
+	border-radius: 10px;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	transition:
+		background var(--transition),
+		border-color var(--transition),
+		color var(--transition);
+	text-decoration: none;
+	display: inline-flex;
+	align-items: center;
+}
+
+.btn-secondary:hover {
+	background: var(--btn-secondary-border);
+}
+
+/* ===== HERO VIGNETTE ===== */
+.hero-vignette {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(ellipse at center, rgba(11, 17, 32, 0.7) 0%, transparent 70%);
+	pointer-events: none;
+	z-index: 0;
+}
+
+[data-theme="light"] .hero-vignette {
+	background: radial-gradient(ellipse at center, rgba(248, 250, 252, 0.75) 0%, transparent 70%);
+}
+
+/* ===== STAGGERED FADE-IN ANIMATIONS ===== */
+@keyframes fadeSlideUp {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-up {
+	opacity: 0;
+	animation: fadeSlideUp 0.8s ease-out forwards;
+}
+
+.animate-delay-1 {
+	animation-delay: 0.15s;
+}
+.animate-delay-2 {
+	animation-delay: 0.4s;
+}
+.animate-delay-3 {
+	animation-delay: 0.7s;
+}
+.animate-delay-4 {
+	animation-delay: 1s;
+}
+.animate-delay-5 {
+	animation-delay: 1.4s;
+}
+.animate-delay-6 {
+	animation-delay: 1.8s;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-up {
+		opacity: 1;
+		animation: none;
+	}
+}
+
+/* ===== WCAG AA contrast fixes for code blocks in dark mode ===== */
+[data-theme="dark"] .vp-code span {
+	--shiki-dark: initial;
+}
+
+[data-theme="dark"] .vp-code {
+	--vp-code-block-bg: var(--bg-card);
+}
+
+/* Ensure code block tab labels are readable */
+.vp-code-group .tabs label {
+	color: var(--text-secondary) !important;
+}
+
+/* Code group tabs dark mode */
+[data-theme="dark"] .vp-code-group .tabs {
+	background: var(--bg-card);
+	border-bottom-color: var(--border-subtle);
+}
+
+[data-theme="dark"] .vp-code-group .tabs label.active {
+	color: var(--text-primary) !important;
+}
+
+/* ===== FULL-PAGE SCROLL SNAPPING ===== */
+.scroll-snap-container {
+	scroll-snap-type: y proximity;
+	overflow-y: scroll;
+	overscroll-behavior: auto;
+	-webkit-overflow-scrolling: touch;
+	height: 100vh;
+	scrollbar-width: none; /* Firefox */
+	-ms-overflow-style: none; /* IE/Edge */
+}
+
+.scroll-snap-container::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
+}
+
+.scroll-snap-container > .snap-section {
+	scroll-snap-align: start;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/* Smooth scroll behavior */
+.scroll-snap-container {
+	scroll-behavior: smooth;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Smooth section transitions with fade */
+.snap-section {
+	transition: opacity 0.3s ease;
+}
+
+/* ===== PRICING CARD HOVER ===== */
+.pricing-card {
+	transition:
+		transform 0.25s ease,
+		box-shadow 0.25s ease,
+		border-color 0.25s ease;
+}
+
+.pricing-card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+	border-color: var(--border-muted);
+}
+
+/* Team card (popular) — already elevated, hover goes further */
+.pricing-card-popular:hover {
+	box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+}
+
+/* ===== FAQ ACCORDION ===== */
+.faq-item {
+	border-radius: 12px;
+	margin-bottom: 8px;
+	background: transparent;
+	transition: background 0.2s ease;
+}
+
+.faq-item:hover {
+	background: var(--bg-card);
+}
+
+.faq-item-open {
+	background: var(--bg-card);
+}
+
+.faq-button {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 20px 24px;
+	border: none;
+	background: none;
+	cursor: pointer;
+	text-align: left;
+}
+
+.faq-question {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.5;
+	color: var(--text-primary);
+}
+
+.faq-chevron {
+	flex-shrink: 0;
+	color: var(--text-secondary);
+	transition: transform 0.3s ease;
+}
+
+.faq-chevron-open {
+	transform: rotate(180deg);
+}
+
+.faq-answer {
+	max-height: 0;
+	overflow: hidden;
+	transition:
+		max-height 0.3s ease,
+		opacity 0.3s ease;
+	opacity: 0;
+}
+
+.faq-answer-open {
+	max-height: 400px;
+	opacity: 1;
+}
+
+.faq-answer p {
+	padding: 0 24px 20px;
+	font-size: 15px;
+	line-height: 1.7;
+	color: var(--text-secondary);
+}
+
+/* Pricing comparison table */
+.pricing-table {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.pricing-table th,
+.pricing-table td {
+	padding: 14px 16px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 14px;
+	border-bottom: 1px solid var(--border-subtle);
+}
+
+.pricing-table th:first-child,
+.pricing-table td:first-child {
+	text-align: left;
+	width: 40%;
+}
+
+.pricing-table thead {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background: var(--bg-deep);
+}
+
+.pricing-table thead th {
+	padding: 16px;
+	font-weight: 600;
+	font-size: 14px;
+	border-bottom: 2px solid var(--border-muted);
+}
+
+/* Team column highlight (4th column = Team in 4-tier model: label + Community + Solo + Team) */
+.pricing-table td:nth-child(4),
+.pricing-table th:nth-child(4) {
+	background: rgba(59, 130, 246, 0.06);
+}
+
+/* Category header rows */
+.pricing-table .category-row td {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: var(--text-muted);
+	padding-top: 28px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid var(--border-muted);
+}
+
+/* Feature tooltip */
+.feature-tooltip {
+	position: relative;
+	cursor: help;
+	border-bottom: 1px dotted var(--text-muted);
+}
+
+.feature-tooltip::after {
+	content: attr(data-tooltip);
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	transform: translateY(-8px);
+	background: var(--bg-card);
+	border: 1px solid var(--border-muted);
+	border-radius: 8px;
+	padding: 10px 14px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--text-secondary);
+	width: 280px;
+	opacity: 0;
+	visibility: hidden;
+	transition:
+		opacity 0.2s,
+		visibility 0.2s;
+	pointer-events: none;
+	z-index: 20;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.feature-tooltip:hover::after {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* ===== PRICING MATRIX — 4-column grid ===== */
+.pricing-matrix {
+	display: grid;
+	grid-template-columns: minmax(160px, 0.8fr) repeat(4, 1fr);
+	min-width: 800px;
+}
+
+.pm-readonly-badge {
+	position: absolute;
+	top: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: var(--text-muted);
+	text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+	.pricing-matrix {
+		grid-template-columns: minmax(120px, 1fr) repeat(4, minmax(120px, 1fr));
+	}
+}
+
+/* Pipeline timeline */
+.pipeline {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 0;
+	padding-top: 40px;
+}
+
+.pipeline::before {
+	content: "";
+	position: absolute;
+	top: 58px;
+	left: 10%;
+	right: 10%;
+	height: 3px;
+	background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+	border-radius: 2px;
+}
+
+.pipeline-step {
+	position: relative;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 0 8px;
+}
+
+.pipeline-dot {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: var(--vp-font-family-mono);
+	font-size: 14px;
+	font-weight: 600;
+	color: #fff;
+	z-index: 1;
+	margin-bottom: 16px;
+	box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+.pipeline-label {
+	font-weight: 600;
+	font-size: 15px;
+	color: var(--text-primary);
+	margin-bottom: 8px;
+}
+
+.pipeline-desc {
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--text-secondary);
+	max-width: 160px;
+}
+
+/* Mobile: vertical timeline */
+@media (max-width: 768px) {
+	.pipeline {
+		flex-direction: column;
+		padding-top: 0;
+		padding-left: 40px;
+		gap: 32px;
+	}
+
+	.pipeline::before {
+		top: 0;
+		bottom: 0;
+		left: 18px;
+		right: auto;
+		width: 3px;
+		height: auto;
+	}
+
+	.pipeline-step {
+		flex-direction: row;
+		align-items: flex-start;
+		text-align: left;
+		gap: 16px;
+		padding: 0;
+	}
+
+	.pipeline-dot {
+		flex-shrink: 0;
+		margin-bottom: 0;
+		margin-left: -40px;
+	}
+
+	.pipeline-desc {
+		max-width: none;
+	}
+}
+
+/* ===== NEUTRALIZE VITEPRESS RESETS ON CUSTOM PAGES ===== */
+/* VitePress injects element-level resets (svg{display:block}, h1-h6{margin:0}, ul{margin:0})
+   that override Tailwind utility classes. We neutralize them on .VPPage (layout:page)
+   so our design system works without !important hacks. */
+.VPPage h1,
+.VPPage h2,
+.VPPage h3,
+.VPPage h4,
+.VPPage h5,
+.VPPage h6 {
+	margin: revert;
+	font-size: revert;
+	font-weight: revert;
+	line-height: revert;
+}
+
+.VPPage p {
+	margin: revert;
+}
+
+.VPPage ul,
+.VPPage ol {
+	margin: revert;
+	padding: revert;
+	list-style: none;
+}
+
+.VPPage img,
+.VPPage svg {
+	display: revert;
+}
+
+.VPPage a {
+	color: revert;
+	text-decoration: revert;
+}
+
+.VPPage button {
+	padding: revert;
+}
+
+.VPPage table {
+	display: table;
+}
+
+.VPPage table:not(.pricing-table) th,
+.VPPage table:not(.pricing-table) td {
+	border: revert;
+	padding: revert;
+}
+
+/* ===== BLOG POST CONTENT ===== */
+.blog-content {
+	font-size: 16px;
+	line-height: 1.8;
+	color: var(--text-secondary);
+}
+
+.blog-content h1 {
+	font-size: 32px;
+	font-weight: 700;
+	color: var(--text-primary);
+	margin: 48px 0 16px;
+	line-height: 1.3;
+}
+
+.blog-content h2 {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--text-primary);
+	margin: 40px 0 16px;
+	line-height: 1.3;
+}
+
+.blog-content h3 {
+	font-size: 20px;
+	font-weight: 600;
+	color: var(--text-primary);
+	margin: 32px 0 12px;
+	line-height: 1.4;
+}
+
+.blog-content p {
+	margin: 0 0 20px;
+}
+
+.blog-content a {
+	color: var(--accent-blue);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+.blog-content a:hover {
+	text-decoration: none;
+}
+
+.blog-content ul,
+.blog-content ol {
+	margin: 0 0 20px;
+	padding-left: 24px;
+}
+
+.blog-content li {
+	margin-bottom: 8px;
+}
+
+.blog-content code {
+	font-family: var(--vp-font-family-mono);
+	font-size: 14px;
+	padding: 2px 6px;
+	border-radius: 4px;
+	background: var(--bg-card);
+}
+
+.blog-content pre {
+	margin: 0 0 24px;
+	border-radius: 8px;
+	overflow-x: auto;
+}
+
+.blog-content blockquote {
+	border-left: 3px solid var(--accent-blue);
+	padding: 12px 20px;
+	margin: 0 0 20px;
+	background: var(--bg-card);
+	border-radius: 0 8px 8px 0;
+	color: var(--text-secondary);
+	font-style: italic;
+}
+
+.blog-content img {
+	border-radius: 8px;
+	margin: 24px 0;
+}
+
+.blog-content hr {
+	border: none;
+	border-top: 1px solid var(--border-subtle);
+	margin: 32px 0;
+}
