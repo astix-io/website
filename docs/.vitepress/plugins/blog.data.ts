@@ -8,6 +8,9 @@ export interface Post {
 	featured: boolean;
 	readingTime: number;
 	excerpt: string;
+	author: string;
+	tldr: string;
+	tags: string[];
 }
 
 declare const data: Post[];
@@ -26,6 +29,9 @@ export default createContentLoader('blog/posts/*.md', {
 				featured: frontmatter.featured || false,
 				readingTime: frontmatter.readingTime || 5,
 				excerpt: excerpt || '',
+				author: frontmatter.author || 'astix team',
+				tldr: frontmatter.tldr || '',
+				tags: frontmatter.tags || [],
 			}))
 			.sort((a, b) => +new Date(b.date) - +new Date(a.date));
 	},

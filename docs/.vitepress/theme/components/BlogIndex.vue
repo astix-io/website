@@ -81,8 +81,12 @@ function formatDate(dateStr: string): string {
         <span class="featured-label">Featured</span>
       </div>
       <h2 class="featured-title">{{ featuredPost.title }}</h2>
-      <p class="featured-excerpt" v-html="featuredPost.excerpt" />
+      <p class="featured-excerpt">{{ featuredPost.tldr || featuredPost.excerpt }}</p>
       <div class="post-footer">
+        <div class="flex items-center gap-2">
+          <div class="author-avatar">A</div>
+          <span class="post-author">{{ featuredPost.author }}</span>
+        </div>
         <span class="post-date">{{ formatDate(featuredPost.date) }}</span>
         <span class="reading-time">{{ featuredPost.readingTime }} min read</span>
       </div>
@@ -107,7 +111,12 @@ function formatDate(dateStr: string): string {
           </span>
         </div>
         <h3 class="post-card-title">{{ post.title }}</h3>
+        <p v-if="post.tldr" class="post-card-tldr">{{ post.tldr }}</p>
         <div class="post-footer">
+          <div class="flex items-center gap-2">
+            <div class="author-avatar">A</div>
+            <span class="post-author">{{ post.author }}</span>
+          </div>
           <span class="post-date">{{ formatDate(post.date) }}</span>
           <span class="reading-time">{{ post.readingTime }} min read</span>
         </div>
@@ -339,6 +348,39 @@ function formatDate(dateStr: string): string {
   background: rgba(20, 184, 166, 0.12);
   color: #2dd4bf;
   border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+/* Author avatar */
+.author-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.post-author {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* Post card TL;DR */
+.post-card-tldr {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
 }
 
 /* Empty state */
