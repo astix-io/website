@@ -46,6 +46,10 @@ Features à ajouter/mettre en avant sur le site :
 ## Backlog
 
 - [ ] 💡 [Pricing] Strategic review: self-hosted vs cloud axis, per-seat vs per-project, consultancy pricing, discount tiers
+- [ ] 🔧 [Legal] CGV/CGU pour astix.io — conditions de vente, politique d'annulation, RGPD. Validation avocat. Priority: P0 (BLOQUANT pour paid tiers)
+- [ ] 🔧 [Legal] Politique TVA — EU B2C (TVA pays client) vs EU B2B (reverse charge). Stripe Tax ou manual. Priority: P0
+- [ ] 💡 [Infra] CF Worker licensing — Stripe webhook → JWT signé → email client. Priority: P1 (après CGV)
+- [ ] 💡 [Landing] Page CGV/CGU + Privacy Policy. Priority: P0
 - [ ] 💡 [Blog] Rédiger les 3 posts de lancement (tutorial setup, benchmark agent comparison, thought leadership)
 - [ ] 💡 [Blog] Article: "Analyzing obfuscated JavaScript with AST intelligence" — how astix parses/traces obfuscated code without decompilation
 - [ ] 💡 [Blog] Article: "Supply chain security: detecting malicious patterns in npm packages" — taint tracking on obfuscated deps
