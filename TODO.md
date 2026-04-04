@@ -47,6 +47,11 @@ Features à ajouter/mettre en avant sur le site :
 
 - [ ] 💡 [Pricing] Strategic review: self-hosted vs cloud axis, per-seat vs per-project, consultancy pricing, discount tiers
 - [ ] 💡 [Blog] Rédiger les 3 posts de lancement (tutorial setup, benchmark agent comparison, thought leadership)
+- [ ] 💡 [Blog] Article: "Analyzing obfuscated JavaScript with AST intelligence" — how astix parses/traces obfuscated code without decompilation
+- [ ] 💡 [Blog] Article: "Supply chain security: detecting malicious patterns in npm packages" — taint tracking on obfuscated deps
+- [ ] 💡 [Blog] Article: "Legal aspects of code deobfuscation for non-compiled languages" — DMCA, EU directive, security research exemptions
+- [ ] 💡 [Landing] Section "Security & Deobfuscation" — EE feature teaser (malware analysis, supply chain, legacy recovery)
+- [ ] 💡 [Business] Update business.md: deobfuscation as EE product line (pricing, target market, legal positioning)
 - [ ] 💡 [Tools Ref] Script de génération auto depuis les inputSchema zod dans astix/packages/mcp-server/src/tools/*.ts
 - [ ] 💡 [Social Proof] Collecter témoignages design partners pour activer la section
 - [ ] 💡 [Infra] Créer repo astix-io/infra avec Terraform Cloudflare (module cf-pages-site, DNS, workflows)
