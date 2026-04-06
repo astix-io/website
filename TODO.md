@@ -57,6 +57,23 @@ Features à ajouter/mettre en avant sur le site :
 - [ ] 💡 [Landing] Section "Security & Deobfuscation" — EE feature teaser (malware analysis, supply chain, legacy recovery)
 - [ ] 💡 [Business] Update business.md: deobfuscation as EE product line (pricing, target market, legal positioning)
 - [ ] 💡 [Tools Ref] Script de génération auto depuis les inputSchema zod dans astix/packages/mcp-server/src/tools/*.ts
+
+### Inspiration: code-review-graph.com (5.2K stars, launched Feb 2026)
+
+**Design patterns to replicate:**
+- [ ] 💡 [Landing] Hero minimal — headline + 1-2 metrics chiffrés (pas de feature overload). Ex: "Index 100K symbols in <30s. Trace data lineage across 10 languages."
+- [ ] 💡 [Landing] Quantified value propositions — lead with numbers, not features. Benchmark agent+grep vs agent+astix on real tasks.
+- [ ] 💡 [Landing] Technical depth first — devs trust precision over marketing. Expliquer le HOW (tree-sitter + PostgreSQL + pgvector) avant le WHY.
+- [ ] 💡 [Landing] Dark/light mode — convention dev tools (code-review-graph le fait)
+
+**Content they lack (our differentiator):**
+- [ ] 💡 [Landing] Interactive demo widget — live semantic search on un sample codebase (ils n'en ont pas, c'est statique)
+- [ ] 💡 [Landing] Comparison table — astix vs code-review-graph vs Sourcegraph vs Semgrep (features matrix)
+- [ ] 💡 [Landing] Social proof section — early adopter count, GitHub stars, benchmark results
+
+**Blog ideas inspired by their messaging:**
+- [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by Nx" — token accounting metrics (leur killer argument, on peut le battre)
+- [ ] 💡 [Blog] Article: "Code-review-graph vs astix — complementary tools or competitors?" — honest comparison, SEO play
 - [ ] 💡 [Social Proof] Collecter témoignages design partners pour activer la section
 - [ ] 💡 [Infra] Créer repo astix-io/infra avec Terraform Cloudflare (module cf-pages-site, DNS, workflows)
 - [ ] 💡 [Analytics] Évaluer options : CF Web Analytics (gratuit, server-side) vs Umami/Plausible + consent banner vs aucun. Vérifier conformité ePrivacy/CNIL avant de choisir
