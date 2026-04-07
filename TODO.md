@@ -71,6 +71,11 @@ Features à ajouter/mettre en avant sur le site :
 - [ ] 💡 [Landing] Comparison table — astix vs code-review-graph vs Sourcegraph vs Semgrep (features matrix)
 - [ ] 💡 [Landing] Social proof section — early adopter count, GitHub stars, benchmark results
 
+**Benchmark (dep: astix eval harness):**
+- [ ] 💡 [Landing] Token savings badge in hero — "Nx fewer tokens" with link to benchmark methodology
+- [ ] 💡 [Blog] Publish benchmark results — per-repo ratios, methodology, honest comparison with code-review-graph
+- [ ] 💡 [Landing] Benchmark comparison table — astix ratio vs code-review-graph ratio on same repos
+
 **Blog ideas inspired by their messaging:**
 - [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by Nx" — token accounting metrics (leur killer argument, on peut le battre)
 - [ ] 💡 [Blog] Article: "Code-review-graph vs astix — complementary tools or competitors?" — honest comparison, SEO play
