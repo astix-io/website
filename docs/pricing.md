@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Pricing — astix
-description: Free read-only intelligence. Solo €9/mo for write operations. Team €29/user/mo for collaboration. Enterprise €49/user/mo for governance.
+title: "astix Pricing — Free, Solo, Team & Enterprise Plans"
+description: "astix pricing plans: Free for read-only code intelligence, Solo at $29/mo for write ops, Team at $179/mo for collaboration. Self-hosted options available."
 ---
 
 <script setup>
@@ -10,8 +10,9 @@ import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
 </script>
 
 <section class="mx-auto max-w-5xl px-6 py-20 text-center">
-<h1 class="mb-4 font-sans text-4xl font-bold" style="color: var(--text-primary)">Choose your plan</h1>
-<p class="mb-12" style="color: var(--text-secondary)">From free read-only intelligence to full enterprise governance.</p>
+<h1 class="mb-4 font-sans text-4xl font-bold" style="color: var(--text-primary)">Simple, transparent pricing</h1>
+<p class="mb-2" style="color: var(--text-secondary)">Start free. Pay only when you need write operations or team collaboration.</p>
+<p class="mb-10" style="color: var(--text-muted); font-size: 14px;">All prices in USD. Self-hosted plans available — toggle below.</p>
 <PricingMatrix />
 </section>
 

@@ -2,7 +2,11 @@ node_modules/
 dist/
 .vitepress/cache/
 .vitepress/dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/.vitepress/config.ts.timestamp-*.mjs
 *.log
 .DS_Store
 .worktrees/
 .superpowers/
+.claude-recovery.md

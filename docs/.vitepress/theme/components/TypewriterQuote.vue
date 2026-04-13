@@ -68,9 +68,9 @@ onUnmounted(() => {
       v-if="showSource"
       class="mt-3 text-sm transition-opacity duration-500"
       :class="showSource ? 'opacity-100' : 'opacity-0'"
-      style="color: var(--text-muted)"
+      style="color: var(--text-secondary)"
     >
-      — <a :href="sourceUrl" target="_blank" rel="noopener" class="underline hover:no-underline" style="color: var(--text-muted)">{{ source }}</a>
+      — <a :href="sourceUrl" target="_blank" rel="noopener" class="underline hover:no-underline" style="color: var(--accent-blue)">{{ source }}</a>
     </p>
   </div>
 </template>

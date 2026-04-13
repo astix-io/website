@@ -1,6 +1,6 @@
 ---
-title: Getting Started
-description: First useful query in under 10 minutes.
+title: "Get Started with astix — First Query in 10 Minutes"
+description: "Set up astix in under 10 minutes. Connect semantic code intelligence to Claude Code or Cursor with PostgreSQL, tree-sitter, and 30+ MCP tools."
 ---
 
 # Getting Started
@@ -9,7 +9,7 @@ description: First useful query in under 10 minutes.
 
 ## Prerequisites
 
-- **PostgreSQL 15+** with the [pgvector](https://github.com/pgvector/pgvector) extension
+- **PostgreSQL 18** with pgvector and ParadeDB (BM25) — see Step 1 for the recommended Docker image
 - **Node.js 18+**
 
 ---
@@ -18,25 +18,43 @@ description: First useful query in under 10 minutes.
 
 ::: code-group
 
-```bash [Docker]
-docker run -d \
-  --name astix-pg \
-  -p 5432:5432 \
+```bash [Docker — full]
+# Recommended: includes pgvector, ParadeDB BM25, and 18 more extensions
+docker run -d --name astix-db \
   -e POSTGRES_PASSWORD=astix \
-  pgvector/pgvector:pg16
+  -e POSTGRES_DB=astix \
+  -p 127.0.0.1:5432:5432 \
+  ghcr.io/oorabona/postgres:18-alpine-full
+```
+
+```bash [Docker — vector only]
+# Lighter alternative: pgvector + ParadeDB BM25 only — sufficient for astix
+docker run -d --name astix-db \
+  -e POSTGRES_PASSWORD=astix \
+  -e POSTGRES_DB=astix \
+  -p 127.0.0.1:5432:5432 \
+  ghcr.io/oorabona/postgres:18-alpine-vector
 ```
 
 ```bash [Local PostgreSQL]
 # Connect to your existing PostgreSQL instance
 psql -U postgres
 
-# Install the pgvector extension
+# Install the required extensions
 CREATE EXTENSION IF NOT EXISTS vector;
+CREATE EXTENSION IF NOT EXISTS pg_bm25;
 
 # Create a database for astix
 CREATE DATABASE astix;
 ```
 
+:::
+
+::: tip Which image should I use?
+Both images are based on **PostgreSQL 18 Alpine** and are bound to localhost only (`127.0.0.1`) for security.
+
+- **`18-alpine-full`** — includes pgvector (embeddings), ParadeDB (BM25 search), and 18 additional extensions. Best for production or if you want room to grow.
+- **`18-alpine-vector`** — lighter image with just pgvector + ParadeDB. Sufficient for all astix features.
 :::
 
 ---

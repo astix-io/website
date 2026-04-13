@@ -43,7 +43,7 @@ onMounted(() => {
     </template>
     <template #nav-bar-content-after>
       <button
-        class="flex h-9 w-9 items-center justify-center"
+        class="flex h-9 w-9 items-center justify-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-deep)]"
         style="margin-left: 12px;"
         :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
         @click="toggleTheme"
@@ -73,6 +73,10 @@ onMounted(() => {
           <a href="/blog/" style="color: var(--text-secondary)" class="hover:underline">Blog</a>
           <a href="https://github.com/astix-io/astix" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">GitHub</a>
           <a href="https://astix.io/slack" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">Slack</a>
+        </nav>
+        <nav class="mb-6 flex flex-wrap items-center justify-center gap-4 text-xs" aria-label="Legal">
+          <a href="/legal/terms" style="color: var(--text-muted)" class="hover:underline">Terms of Service</a>
+          <a href="/legal/privacy" style="color: var(--text-muted)" class="hover:underline">Privacy Policy</a>
         </nav>
         <p class="mb-2 text-xs" style="color: var(--text-muted)">Released under the Apache 2.0 License.</p>
         <p class="text-xs" style="color: var(--text-muted)">© 2026 astix</p>

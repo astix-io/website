@@ -73,11 +73,8 @@ Features à ajouter/mettre en avant sur le site :
 
 **Benchmark (dep: astix eval harness):**
 - [ ] 💡 [Landing] Token savings badge in hero — "Nx fewer tokens" with link to benchmark methodology
-- [ ] 💡 [Blog] Publish benchmark results — per-repo ratios, methodology, honest comparison with code-review-graph
-- [ ] 💡 [Landing] Benchmark comparison table — astix ratio vs code-review-graph ratio on same repos
-
-**Blog ideas inspired by their messaging:**
-- [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by Nx" — token accounting metrics (leur killer argument, on peut le battre)
+- [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by 127.7x" — benchmark done, 6 repos, 24 queries, methodology + honest comparison vs code-review-graph 8.2x. Source: `docs/benchmark.md` in astix repo. Priority: M
+- [ ] 💡 [Landing] Benchmark comparison table — 127.7x astix vs 8.2x code-review-graph on same repos. Priority: M
 - [ ] 💡 [Blog] Article: "Code-review-graph vs astix — complementary tools or competitors?" — honest comparison, SEO play
 - [ ] 💡 [Social Proof] Collecter témoignages design partners pour activer la section
 - [ ] 💡 [Infra] Créer repo astix-io/infra avec Terraform Cloudflare (module cf-pages-site, DNS, workflows)

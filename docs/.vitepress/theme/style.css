@@ -21,6 +21,7 @@
 /* ===== DESIGN TOKENS ===== */
 :root {
 	--transition: 0.35s ease;
+	color-scheme: dark light;
 }
 
 [data-theme="dark"],
@@ -45,6 +46,7 @@
 }
 
 [data-theme="light"] {
+	color-scheme: light;
 	--bg-deep: #f8fafc;
 	--bg-surface: rgba(255, 255, 255, 0.8);
 	--bg-card: #ffffff;
@@ -52,7 +54,7 @@
 	--border-muted: rgba(0, 0, 0, 0.1);
 	--text-primary: #0f172a;
 	--text-secondary: #475569;
-	--text-muted: #94a3b8;
+	--text-muted: #64748b;
 	--accent-blue: #2563eb;
 	--accent-purple: #7c3aed;
 	--accent-green: #16a34a;
@@ -143,6 +145,12 @@ body {
 		color var(--transition);
 }
 
+h1,
+h2,
+h3 {
+	text-wrap: balance;
+}
+
 /* ===== TOP STRIPE ===== */
 .top-stripe {
 	position: fixed;
@@ -168,6 +176,14 @@ body {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
+}
+
+@media (forced-colors: active) {
+	.gradient-text {
+		-webkit-text-fill-color: revert;
+		background-clip: revert;
+		color: LinkText;
+	}
 }
 
 /* ===== BUTTONS ===== */
@@ -269,13 +285,18 @@ body {
 	}
 }
 
-/* ===== WCAG AA contrast fixes for code blocks in dark mode ===== */
-[data-theme="dark"] .vp-code span {
-	--shiki-dark: initial;
+/* Explicit dark color-scheme declaration */
+[data-theme="dark"] {
+	color-scheme: dark;
 }
 
-[data-theme="dark"] .vp-code {
-	--vp-code-block-bg: var(--bg-card);
+/* ===== Code block styling ===== */
+.vp-code {
+	--vp-code-block-bg: #0d1117;
+}
+
+[data-theme="light"] .vp-code {
+	--vp-code-block-bg: #f6f8fa;
 }
 
 /* Ensure code block tab labels are readable */
@@ -283,13 +304,12 @@ body {
 	color: var(--text-secondary) !important;
 }
 
-/* Code group tabs dark mode */
-[data-theme="dark"] .vp-code-group .tabs {
+.vp-code-group .tabs {
 	background: var(--bg-card);
 	border-bottom-color: var(--border-subtle);
 }
 
-[data-theme="dark"] .vp-code-group .tabs label.active {
+.vp-code-group .tabs label.active {
 	color: var(--text-primary) !important;
 }
 
@@ -322,9 +342,11 @@ body {
 	-webkit-overflow-scrolling: touch;
 }
 
-/* Smooth section transitions with fade */
-.snap-section {
-	transition: opacity 0.3s ease;
+/* Smooth section transitions with fade — guarded for reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+	.snap-section {
+		transition: opacity 0.3s ease;
+	}
 }
 
 /* ===== PRICING CARD HOVER ===== */
@@ -528,105 +550,6 @@ body {
 	}
 }
 
-/* Pipeline timeline */
-.pipeline {
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 0;
-	padding-top: 40px;
-}
-
-.pipeline::before {
-	content: "";
-	position: absolute;
-	top: 58px;
-	left: 10%;
-	right: 10%;
-	height: 3px;
-	background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-	border-radius: 2px;
-}
-
-.pipeline-step {
-	position: relative;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	padding: 0 8px;
-}
-
-.pipeline-dot {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: var(--vp-font-family-mono);
-	font-size: 14px;
-	font-weight: 600;
-	color: #fff;
-	z-index: 1;
-	margin-bottom: 16px;
-	box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-}
-
-.pipeline-label {
-	font-weight: 600;
-	font-size: 15px;
-	color: var(--text-primary);
-	margin-bottom: 8px;
-}
-
-.pipeline-desc {
-	font-size: 13px;
-	line-height: 1.5;
-	color: var(--text-secondary);
-	max-width: 160px;
-}
-
-/* Mobile: vertical timeline */
-@media (max-width: 768px) {
-	.pipeline {
-		flex-direction: column;
-		padding-top: 0;
-		padding-left: 40px;
-		gap: 32px;
-	}
-
-	.pipeline::before {
-		top: 0;
-		bottom: 0;
-		left: 18px;
-		right: auto;
-		width: 3px;
-		height: auto;
-	}
-
-	.pipeline-step {
-		flex-direction: row;
-		align-items: flex-start;
-		text-align: left;
-		gap: 16px;
-		padding: 0;
-	}
-
-	.pipeline-dot {
-		flex-shrink: 0;
-		margin-bottom: 0;
-		margin-left: -40px;
-	}
-
-	.pipeline-desc {
-		max-width: none;
-	}
-}
-
 /* ===== NEUTRALIZE VITEPRESS RESETS ON CUSTOM PAGES ===== */
 /* VitePress injects element-level resets (svg{display:block}, h1-h6{margin:0}, ul{margin:0})
    that override Tailwind utility classes. We neutralize them on .VPPage (layout:page)
@@ -738,13 +661,21 @@ body {
 	font-size: 14px;
 	padding: 2px 6px;
 	border-radius: 4px;
-	background: var(--bg-card);
+	background: rgba(110, 118, 129, 0.15);
+	color: var(--text-primary);
 }
 
 .blog-content pre {
 	margin: 0 0 24px;
 	border-radius: 8px;
 	overflow-x: auto;
+	background: #0d1117;
+	padding: 20px;
+	border: 1px solid var(--border-subtle);
+}
+
+[data-theme="light"] .blog-content pre {
+	background: #f6f8fa;
 }
 
 .blog-content blockquote {

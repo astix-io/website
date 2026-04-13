@@ -1,196 +1,304 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const annual = ref(false);
+type DeployMode = 'hosted' | 'self-hosted';
+const deploy = ref<DeployMode>('hosted');
 
-const tiers = [
+interface TierPrice {
+	base: number | null; // null = "Contact us"
+	perSeat?: number; // extra per seat above included
+	billing: string;
+}
+
+interface Tier {
+	name: string;
+	hosted: TierPrice;
+	selfHosted: TierPrice;
+	loc: string;
+	projects: string;
+	devs: string;
+	cta: { text: string; href: string; style: 'ghost' | 'primary' | 'outline' };
+	popular: boolean;
+	badge?: string;
+}
+
+const tiers: Tier[] = [
 	{
-		name: 'Community',
-		price: { monthly: 0, annual: 0 },
-		billing: 'Forever. No credit card required.',
-		cta: { text: 'Get Started', href: '/getting-started', style: 'ghost' },
+		name: 'Free',
+		hosted: { base: 0, billing: 'Forever free' },
+		selfHosted: { base: 0, billing: 'Forever free' },
+		loc: '100K',
+		projects: '3',
+		devs: '1',
+		cta: { text: 'Get started', href: '/getting-started', style: 'ghost' },
 		popular: false,
 		badge: 'READ-ONLY',
 	},
 	{
 		name: 'Solo',
-		price: { monthly: 12, annual: 10 },
-		billing: 'per month',
-		cta: { text: 'Start Writing', href: '#', style: 'ghost' },
+		hosted: { base: 29, billing: 'per month' },
+		selfHosted: { base: 29, billing: 'per month' },
+		loc: '500K',
+		projects: 'Unlimited',
+		devs: '1',
+		cta: { text: 'Get started', href: '#', style: 'ghost' },
 		popular: false,
 	},
 	{
 		name: 'Team',
-		price: { monthly: 29, annual: 23 },
-		billing: 'per user / month',
-		cta: { text: 'Start Trial', href: '#', style: 'primary' },
+		hosted: { base: 179, perSeat: 20, billing: '/mo + $20/seat' },
+		selfHosted: { base: 249, perSeat: 25, billing: '/mo + $25/seat' },
+		loc: '2M',
+		projects: 'Unlimited',
+		devs: '5 included',
+		cta: { text: 'Contact sales', href: 'mailto:sales@astix.io', style: 'primary' },
 		popular: true,
 	},
 	{
 		name: 'Enterprise',
-		price: { monthly: 59, annual: 47 },
-		billing: 'per user / month',
-		cta: { text: 'Contact Sales', href: 'mailto:sales@astix.io', style: 'ghost' },
+		hosted: { base: null, billing: '' },
+		selfHosted: { base: null, billing: '' },
+		loc: 'Unlimited',
+		projects: 'Unlimited',
+		devs: 'Unlimited',
+		cta: { text: 'Contact us', href: 'mailto:sales@astix.io', style: 'outline' },
 		popular: false,
 	},
 ];
+
+const activePrice = computed(() => tiers.map((t) => (deploy.value === 'hosted' ? t.hosted : t.selfHosted)));
 
 interface Feature {
 	name: string;
 	tooltip: string;
 	category?: string;
-	values: [boolean | string, boolean | string, boolean | string, boolean | string];
+	values: [string | boolean, string | boolean, string | boolean, string | boolean];
 }
 
 const features: Feature[] = [
-	// INTELLIGENCE
+	// SEARCH & ANALYSIS
 	{
-		name: 'Search (structural + semantic)',
-		tooltip: 'Find symbols by name pattern or by natural language description.',
-		category: 'INTELLIGENCE',
-		values: [true, true, true, true],
+		name: 'Structural search',
+		tooltip: 'Find symbols by name pattern across the entire codebase.',
+		category: 'SEARCH & ANALYSIS',
+		values: ['50 queries/day', 'Unlimited', 'Unlimited', 'Unlimited'],
 	},
 	{
-		name: 'Call graphs',
-		tooltip: 'Trace which functions call which, across files and modules.',
-		values: [true, true, true, true],
+		name: 'Semantic search (vector + BM25)',
+		tooltip: 'Natural-language search using embeddings and full-text ranking.',
+		values: ['BM25 only, 30/day', 'Hybrid, unlimited', 'Hybrid, unlimited', 'Hybrid, unlimited'],
 	},
 	{
-		name: 'Impact analysis',
-		tooltip: 'Know the blast radius before changing anything.',
-		values: [true, true, true, true],
+		name: 'Cross-project search',
+		tooltip: 'Search across multiple repositories in a single query.',
+		values: ['1 project', true, true, true],
 	},
-	{ name: 'Data lineage', tooltip: 'Trace how variables flow across functions.', values: [true, true, true, true] },
-	{ name: 'Execution paths', tooltip: 'Map all possible paths through a function.', values: [true, true, true, true] },
 	{
-		name: 'Code health',
-		tooltip: 'Detect dead code, unused exports, duplicated logic.',
-		values: [true, true, true, true],
+		name: 'Impact analysis (blast radius)',
+		tooltip: 'Know which symbols are affected before making a change.',
+		values: ['Depth 2', 'Depth 3', 'Depth 5', 'Unlimited'],
 	},
-	// WRITE SAFETY
 	{
-		name: 'Rename',
-		tooltip: 'Rename across the entire call graph + imports.',
-		category: 'WRITE SAFETY',
+		name: 'Duplicate detection',
+		tooltip: 'Find structurally or semantically similar code blocks.',
+		values: ['Exact only', '4 modes', '4 modes', '4 modes'],
+	},
+	{
+		name: 'Community detection',
+		tooltip: 'Map clusters of tightly coupled modules.',
+		values: [true, true, '+ trends', '+ trends'],
+	},
+	// WRITE OPERATIONS
+	{
+		name: 'patch_symbol / patch_file',
+		tooltip: 'Edit code within a symbol using literal or regex patterns.',
+		category: 'WRITE OPERATIONS',
 		values: [false, true, true, true],
 	},
 	{
-		name: 'Patch / Write',
-		tooltip: 'Edit code within functions using regex or literal patterns.',
+		name: 'insert_symbol / delete_symbol',
+		tooltip: 'Add or remove symbols with automatic index update.',
 		values: [false, true, true, true],
 	},
-	{ name: 'Rollback', tooltip: 'Undo any write operation.', values: [false, true, true, true] },
 	{
-		name: 'Approval workflows',
-		tooltip: 'Require human approval before write operations.',
-		values: [false, false, false, true],
+		name: 'rename_symbol (cross-file)',
+		tooltip: 'Rename across the entire call graph and all import sites.',
+		values: [false, true, true, true],
 	},
-	// DEPLOYMENT
 	{
-		name: 'stdio (local)',
-		tooltip: 'Run astix as a local process via stdin/stdout.',
-		category: 'DEPLOYMENT',
-		values: [true, true, true, true],
+		name: 'Conflict detection',
+		tooltip: 'Detect concurrent edits before applying write operations.',
+		values: [false, true, true, true],
 	},
-	{ name: 'HTTP daemon', tooltip: 'Shared server for multiple developers.', values: [false, false, true, true] },
+	// INTELLIGENCE / LLM (BYOK)
 	{
-		name: 'Air-gap',
-		tooltip: 'Fully isolated environments, all dependencies bundled.',
-		values: [false, false, false, true],
+		name: 'explain_symbol',
+		tooltip: 'Generate natural-language explanations of functions and classes. Requires BYOK.',
+		category: 'INTELLIGENCE / LLM (BYOK)',
+		values: ['10/mo', '200/mo', 'Unlimited', 'Unlimited'],
 	},
-	// GOVERNANCE
 	{
-		name: 'OAuth 2.1',
-		tooltip: 'Industry-standard authentication.',
-		category: 'GOVERNANCE',
+		name: 'trace_flow (Mermaid/JSON)',
+		tooltip: 'Visualize execution flows as Mermaid diagrams or structured JSON.',
+		values: ['10/mo', '200/mo', 'Unlimited', 'Unlimited'],
+	},
+	{
+		name: 'suggest_tests',
+		tooltip: 'Generate test skeletons from uncovered execution paths.',
+		values: [false, '100/mo', 'Unlimited', 'Unlimited'],
+	},
+	{
+		name: 'fill_descriptions (batch)',
+		tooltip: 'Auto-generate doc descriptions for all symbols in bulk.',
+		values: [false, '500/mo', 'Unlimited', 'Unlimited'],
+	},
+	// INFRASTRUCTURE
+	{
+		name: 'API rate limit',
+		tooltip: 'Maximum requests per hour to the astix MCP server.',
+		category: 'INFRASTRUCTURE',
+		values: ['100 req/h', '1K req/h', '10K req/h', 'Unlimited'],
+	},
+	{
+		name: 'SSO (SAML / OAuth)',
+		tooltip: 'Single sign-on with your identity provider.',
 		values: [false, false, true, true],
 	},
-	{ name: 'SSO / SAML', tooltip: 'Single sign-on with your identity provider.', values: [false, false, false, true] },
-	{ name: 'SCIM', tooltip: 'Automated user provisioning.', values: [false, false, false, true] },
-	{ name: 'RBAC', tooltip: 'Role-based access control per project.', values: [false, false, true, true] },
-	{ name: 'Audit logs', tooltip: 'Complete action audit trail.', values: [false, false, true, true] },
 	{
-		name: 'Policy engine',
-		tooltip: 'Custom rules for blocking risky operations.',
+		name: 'Audit log',
+		tooltip: 'Complete trail of all read and write operations.',
 		values: [false, false, false, true],
 	},
-	// SUPPORT
 	{
-		name: 'Community',
-		tooltip: 'Slack community, GitHub issues, docs.',
-		category: 'SUPPORT',
-		values: [true, true, true, true],
+		name: 'Tenant isolation',
+		tooltip: 'Degree of data isolation between workspaces.',
+		values: ['—', 'RLS', 'Schema', 'Physical'],
 	},
-	{ name: 'Standard', tooltip: 'Email support, 48h response time.', values: [false, false, true, true] },
-	{ name: 'Premium + SLA', tooltip: 'Dedicated engineer, 4h response SLA.', values: [false, false, false, true] },
+	{
+		name: 'Dashboard',
+		tooltip: 'Web UI for project health, query history, and team usage.',
+		values: [false, 'Localhost', 'Hosted + shareable', 'Hosted + shareable'],
+	},
+	{
+		name: 'History & trends',
+		tooltip: 'Track code health metrics and usage trends over time.',
+		values: [false, false, true, true],
+	},
 ];
 </script>
 
 <template>
   <div>
-    <!-- Billing toggle -->
-    <div class="pm-toggle">
-      <span :class="['pm-toggle-label', { 'pm-toggle-label-active': !annual }]">Monthly</span>
+    <!-- Hosted / Self-hosted toggle -->
+    <div class="pm-deploy-toggle">
       <button
-        class="pm-toggle-switch"
-        :style="{ background: annual ? 'var(--accent-blue)' : 'var(--border-muted)' }"
-        role="switch"
-        :aria-checked="annual"
-        @click="annual = !annual"
+        class="pm-deploy-btn"
+        :class="{ 'pm-deploy-btn-active': deploy === 'hosted' }"
+        @click="deploy = 'hosted'"
       >
-        <span
-          class="pm-toggle-knob"
-          :style="{ transform: annual ? 'translateX(22px)' : 'translateX(4px)' }"
-        />
+        Hosted
       </button>
-      <span :class="['pm-toggle-label', { 'pm-toggle-label-active': annual }]">Annual</span>
-      <span v-if="annual" class="pm-save-badge">Save 20%</span>
+      <button
+        class="pm-deploy-btn"
+        :class="{ 'pm-deploy-btn-active': deploy === 'self-hosted' }"
+        @click="deploy = 'self-hosted'"
+      >
+        Self-hosted
+      </button>
+    </div>
+    <p class="pm-deploy-note">
+      <template v-if="deploy === 'hosted'">
+        Managed by astix — zero ops, always up to date.
+      </template>
+      <template v-else>
+        Run on your own infrastructure. Zero code egress.
+      </template>
+    </p>
+
+    <!-- Pricing cards -->
+    <div class="pm-cards">
+      <div
+        v-for="(tier, i) in tiers"
+        :key="tier.name"
+        class="pm-card"
+        :class="{ 'pm-card-popular': tier.popular }"
+      >
+        <div v-if="tier.popular" class="pm-popular-badge">MOST POPULAR</div>
+        <div v-if="tier.badge" class="pm-tier-badge">{{ tier.badge }}</div>
+
+        <div class="pm-card-name">{{ tier.name }}</div>
+
+        <div class="pm-price">
+          <template v-if="activePrice[i].base === null">
+            <span class="pm-price-contact">Contact us</span>
+          </template>
+          <template v-else-if="activePrice[i].base === 0">
+            <span class="pm-price-value">$0</span>
+            <span class="pm-price-period">/mo</span>
+          </template>
+          <template v-else>
+            <span class="pm-price-prefix">$</span>
+            <span class="pm-price-value">{{ activePrice[i].base }}</span>
+            <span class="pm-price-period">/mo</span>
+          </template>
+        </div>
+
+        <div class="pm-billing">{{ activePrice[i].billing }}</div>
+
+        <ul class="pm-highlights">
+          <li><span class="pm-hl-label">LOC</span> {{ tier.loc }}</li>
+          <li><span class="pm-hl-label">Projects</span> {{ tier.projects }}</li>
+          <li><span class="pm-hl-label">Developers</span> {{ tier.devs }}</li>
+        </ul>
+
+        <a :href="tier.cta.href" class="pm-cta" :class="'pm-cta-' + tier.cta.style">
+          {{ tier.cta.text }}
+        </a>
+      </div>
     </div>
 
-    <!-- Pricing matrix -->
-    <div class="pm-scroll">
+    <!-- All plans include -->
+    <div class="pm-all-include">
+      <div class="pm-all-include-label">All plans include</div>
+      <div class="pm-all-include-items">
+        <span>38 languages</span>
+        <span>AST parsing</span>
+        <span>Call graphs</span>
+        <span>Data lineage</span>
+        <span>Execution paths</span>
+        <span>Self-hosted option</span>
+        <span>Apache 2.0 core</span>
+      </div>
+    </div>
+
+    <!-- Feature comparison table -->
+    <div class="pm-scroll" style="margin-top: 56px;">
       <div class="pricing-matrix">
 
-        <!-- Header row: tier names + prices + CTAs -->
+        <!-- Header row -->
         <div class="pm-row pm-header">
-          <div class="pm-label"></div>
+          <div class="pm-label pm-label-header">Feature comparison</div>
           <div
-            v-for="tier in tiers"
+            v-for="(tier, i) in tiers"
             :key="tier.name"
             class="pm-cell pm-tier"
-            :class="{ 'pm-popular': tier.popular }"
+            :class="{ 'pm-popular-col': tier.popular }"
           >
-            <div v-if="tier.popular" class="pm-popular-badge">POPULAR</div>
-            <div v-if="tier.badge" class="pm-readonly-badge">{{ tier.badge }}</div>
             <div class="pm-tier-name">{{ tier.name }}</div>
-            <div class="pm-price">
-              <template v-if="tier.price.monthly === 0">
-                <span class="pm-price-value">Free</span>
-              </template>
-              <template v-else>
-                <span class="pm-price-value">€{{ annual ? tier.price.annual : tier.price.monthly }}</span>
-                <span class="pm-price-period">/mo</span>
-              </template>
+            <div class="pm-tier-subprice">
+              <template v-if="activePrice[i].base === null">Contact</template>
+              <template v-else-if="activePrice[i].base === 0">Free</template>
+              <template v-else>${{ activePrice[i].base }}/mo</template>
             </div>
-            <div class="pm-billing">
-              <template v-if="tier.price.monthly === 0">{{ tier.billing }}</template>
-              <template v-else-if="annual">billed annually</template>
-              <template v-else>{{ tier.billing }}</template>
-            </div>
-            <a :href="tier.cta.href" class="pm-cta" :class="'pm-cta-' + tier.cta.style">
-              {{ tier.cta.text }}
-            </a>
           </div>
         </div>
 
         <!-- Feature rows -->
         <template v-for="feat in features" :key="feat.name">
-          <!-- Category header -->
           <div v-if="feat.category" class="pm-row pm-category">
             <div class="pm-label">{{ feat.category }}</div>
             <div class="pm-cell" v-for="n in 4" :key="n"></div>
           </div>
-          <!-- Feature row -->
           <div class="pm-row">
             <div class="pm-label">
               <span class="feature-tooltip" :data-tooltip="feat.tooltip">{{ feat.name }}</span>
@@ -212,7 +320,6 @@ const features: Feature[] = [
                 stroke-width="2.5"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                style="display: inline-block;"
                 aria-label="Included"
               >
                 <path d="M20 6 9 17l-5-5"/>
@@ -229,58 +336,238 @@ const features: Feature[] = [
 </template>
 
 <style scoped>
-/* ===== BILLING TOGGLE ===== */
-.pm-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 40px;
+/* ===== DEPLOY TOGGLE ===== */
+.pm-deploy-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border-muted);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.pm-deploy-btn {
+  padding: 8px 24px;
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  background: transparent;
   color: var(--text-secondary);
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
 }
 
-.pm-toggle-label {
-  font-weight: 400;
-  color: var(--text-secondary);
-  transition: color 0.2s;
-}
-
-.pm-toggle-label-active {
+.pm-deploy-btn-active {
+  background: var(--accent-blue);
+  color: #fff;
   font-weight: 600;
+}
+
+.pm-deploy-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+}
+
+/* ===== PRICING CARDS ===== */
+.pm-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.pm-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  position: relative;
+  background: var(--bg-card);
+  transition: border-color 0.2s;
+}
+
+.pm-card:hover {
+  border-color: var(--border-muted);
+}
+
+.pm-card-popular {
+  border-color: var(--accent-blue);
+  border-width: 2px;
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.pm-popular-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: var(--accent-blue);
+  padding: 3px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.pm-tier-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.pm-card-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.pm-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px;
+  margin-top: 4px;
+}
+
+.pm-price-contact {
+  font-size: 22px;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
-.pm-toggle-switch {
-  position: relative;
-  display: inline-flex;
-  height: 28px;
-  width: 48px;
-  align-items: center;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  padding: 0;
+.pm-price-prefix {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-.pm-toggle-knob {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  border-radius: 9999px;
-  background: #fff;
-  transition: transform 0.2s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+.pm-price-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
 }
 
-.pm-save-badge {
-  border-radius: 9999px;
-  padding: 2px 10px;
+.pm-price-period {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.pm-billing {
   font-size: 12px;
+  color: var(--text-muted);
+  min-height: 18px;
+}
+
+.pm-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: left;
+  width: 100%;
+}
+
+.pm-hl-label {
   font-weight: 600;
-  background: rgba(34, 197, 94, 0.15);
-  color: var(--accent-green);
+  color: var(--text-primary);
+  margin-right: 4px;
+}
+
+/* ===== CTAs ===== */
+.pm-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.pm-cta-ghost {
+  background: transparent;
+  border: 1px solid var(--border-muted);
+  color: var(--text-primary);
+}
+
+.pm-cta-ghost:hover {
+  border-color: var(--text-secondary);
+  background: var(--btn-secondary-bg);
+}
+
+.pm-cta-primary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  border: none;
+  color: #fff;
+}
+
+.pm-cta-primary:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+}
+
+.pm-cta-outline {
+  background: transparent;
+  border: 1px solid var(--border-muted);
+  color: var(--text-secondary);
+}
+
+.pm-cta-outline:hover {
+  border-color: var(--text-muted);
+}
+
+/* ===== ALL PLANS INCLUDE ===== */
+.pm-all-include {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.pm-all-include-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.pm-all-include-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pm-all-include-items span {
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 4px 14px;
 }
 
 /* ===== MATRIX CONTAINER ===== */
@@ -290,8 +577,8 @@ const features: Feature[] = [
 
 .pricing-matrix {
   display: grid;
-  grid-template-columns: minmax(160px, 0.8fr) repeat(4, 1fr);
-  min-width: 800px;
+  grid-template-columns: minmax(200px, 1.2fr) repeat(4, 1fr);
+  min-width: 760px;
 }
 
 .pm-row {
@@ -306,6 +593,14 @@ const features: Feature[] = [
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+.pm-label-header {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 /* ===== DATA CELLS ===== */
@@ -348,134 +643,48 @@ const features: Feature[] = [
   border-bottom: 1px solid var(--border-muted);
 }
 
-/* ===== TIER HEADER CELLS ===== */
+/* ===== TIER HEADER CELLS (in matrix) ===== */
 .pm-tier {
   flex-direction: column;
-  padding: 32px 24px;
-  gap: 4px;
+  padding: 20px 16px;
+  gap: 2px;
   border-bottom: 2px solid var(--border-muted);
-  position: relative;
-}
-
-.pm-popular {
-  background: rgba(59, 130, 246, 0.04);
-  border-left: 2px solid var(--accent-blue);
-  border-right: 2px solid var(--accent-blue);
-  border-top: 2px solid var(--accent-blue);
-  margin-top: -8px;
-  padding-top: 40px;
-  border-radius: 12px 12px 0 0;
-}
-
-.pm-popular-badge {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--accent-blue);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.pm-readonly-badge {
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  white-space: nowrap;
 }
 
 .pm-tier-name {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.pm-price {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 2px;
-}
-
-.pm-price-value {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--text-primary);
-  font-family: var(--vp-font-family-base);
-}
-
-.pm-price-period {
-  font-size: 14px;
-  color: var(--text-muted);
-}
-
-.pm-billing {
   font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-/* ===== CTAs ===== */
-.pm-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.pm-cta-ghost {
-  background: transparent;
-  border: 1px solid var(--border-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   color: var(--text-primary);
 }
 
-.pm-cta-ghost:hover {
-  border-color: var(--text-secondary);
-  background: var(--btn-secondary-bg);
+.pm-tier-subprice {
+  font-size: 12px;
+  color: var(--text-muted);
 }
 
-.pm-cta-primary {
-  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-  border: none;
-  color: #fff;
-}
-
-.pm-cta-primary:hover {
-  opacity: 0.9;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+/* ===== FOCUS VISIBLE ===== */
+.pm-cta:focus-visible,
+.pm-deploy-btn:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
 }
 
 /* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .pricing-matrix {
-    grid-template-columns: minmax(120px, 1fr) repeat(4, minmax(120px, 1fr));
+@media (max-width: 900px) {
+  .pm-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .pm-cards {
+    grid-template-columns: 1fr;
   }
 
-  .pm-tier {
-    padding: 24px 12px;
-  }
-
-  .pm-price-value {
-    font-size: 28px;
+  .pm-deploy-btn {
+    padding: 8px 16px;
   }
 }
 </style>

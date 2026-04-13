@@ -223,6 +223,26 @@ Articles centrés sur ce qu'astix FAIT, pas sur comment il est construit. Pour l
 
 **Why it matters**: Plugin developers need to understand the architecture. astix makes it transparent.
 
+**Why function names survive minification** (key insight for the article):
+Bundlers (esbuild, Bun) only mangle LOCAL variables/parameters — NOT property names. `obj.executeTool()` uses a string key at runtime, so renaming it would break dynamic access (`obj[name]()`). That's why ~30% of function names are preserved: they're class methods, object properties, or export names. Local vars become `q`, `K`, `XJ7` but `handlePermissionRequest`, `runHooks`, `executeTool` survive intact.
+
+**Legal considerations (CHECK BEFORE PUBLISHING)**:
+- Code is publicly distributed via npm — not accessing anything private
+- We're parsing JavaScript (AST analysis), not decompiling a binary
+- EU Software Directive (2009/24/CE) allows analysis for interoperability
+- HOWEVER: Anthropic's license terms at https://code.claude.com/docs/en/legal-and-compliance may restrict analysis/publication
+- The comment `// Want to see the unminified source? We're hiring!` suggests awareness but is NOT legal permission
+- **ACTION REQUIRED**: Consumer Terms Section 3(3) explicitly prohibits "reverse engineer, disassemble, or reduce to human-readable form" EXCEPT "when prohibited by applicable law" (EU interop exception applies)
+- Section 3(2) also prohibits developing competing products (astix does NOT compete with Claude Code)
+- **VERDICT: DO NOT publish architecture details from Claude Code bundle without Anthropic's written permission**
+- **Contact channels to try**:
+  1. Contact Sales form: https://www.anthropic.com/contact-sales (mention partnership/integration use case)
+  2. HackerOne (security): https://hackerone.com/anthropic-vdp — NOT for this, only security vulns
+  3. GitHub Issues: https://github.com/anthropics/claude-code/issues — ask publicly about analysis permission
+  4. Twitter/X: @AnthropicAI — public visibility may get faster response
+  5. Email: legal@anthropic.com or partnerships@anthropic.com (try both)
+- **Alternative SAFE angle**: "Analyzing minified JavaScript bundles with AST tools" — use Express.js bundled with esbuild as the example (open-source, MIT license, no legal risk). Mention Claude Code only as "we tested on a real-world 13MB bundle" without publishing internal architecture details
+
 **Tested (2026-04-09)**: Indexed the npm package `@anthropic-ai/claude-code@2.1.97`:
 - `cli.js`: 16K lines bundled on ~1 line, mangled names → **0 symbols extracted**. tree-sitter parses it but no named functions survive minification.
 - `sdk-tools.d.ts`: **43 interfaces/types** perfectly indexed with doc comments. The SDK contract IS analyzable.

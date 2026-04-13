@@ -1,11 +1,11 @@
 ---
-title: Language Support
-description: astix supports 36 programming languages across 3 tiers of intelligence.
+title: "38 Supported Languages — astix Code Intelligence"
+description: "astix supports 38 programming languages across 3 tiers. Full call graphs for TypeScript, Python, Rust, Go, Java, and 5 more. Symbol search for 28 additional languages."
 ---
 
 # Language Support
 
-**astix supports 36 programming languages across 3 tiers.**
+**astix supports 38 programming languages across 3 tiers.**
 
 All languages are parsed with [tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammars, giving astix a consistent, error-tolerant AST across the entire codebase. The tier determines how much intelligence astix can extract beyond raw symbol names.
 
@@ -51,17 +51,19 @@ Tier 2 languages have full symbol extraction and basic import tracking. You can 
 
 ---
 
-## Tier 3 — Symbols Only (3 languages)
+## Tier 3 — Symbols Only (5 languages)
 
 Tier 3 covers structured configuration and build files. astix extracts top-level keys and sections as symbols, enabling `search_structural` queries across config files alongside source code.
 
 **Features:** Symbols
 
-| Language | Extensions |
-|----------|------------|
-| TOML | `.toml` |
-| YAML | `.yaml`, `.yml` |
-| Dockerfile | `Dockerfile`, `.dockerfile` |
+| Language | Extensions | Notes |
+|----------|------------|-------|
+| TOML | `.toml` | |
+| YAML | `.yaml`, `.yml` | |
+| Dockerfile | `Dockerfile`, `.dockerfile` | |
+| JSON | `.json` | Config and data files, key-value pairs |
+| CSS | `.css` | Stylesheets, selectors and properties |
 
 ---
 

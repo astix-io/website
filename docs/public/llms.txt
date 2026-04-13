@@ -1,0 +1,29 @@
+# astix — Semantic Code Intelligence for AI Coding Assistants
+
+> astix is a self-hosted semantic code intelligence platform that gives AI coding assistants (Claude Code, Cursor, Copilot) structured access to codebases via the Model Context Protocol (MCP). It replaces raw file reads with AST-level queries — call graphs, data lineage, impact analysis — reducing token consumption by 128x on average (up to 1,000x for trace queries).
+
+## Key Pages
+- [Home](https://astix.io/): Product overview, value proposition, and quick start
+- [Getting Started](https://astix.io/getting-started): 10-minute setup guide with PostgreSQL, npm, and MCP configuration
+- [Pricing](https://astix.io/pricing): Free, Solo ($29/mo), Team ($179/mo + $20/seat), Enterprise plans
+- [MCP Tools Reference](https://astix.io/guide/mcp-tools): Documentation for 30+ semantic code intelligence tools
+- [Supported Languages](https://astix.io/guide/languages): 38 languages across 3 tiers (10 Tier-1 with full call graphs)
+- [Blog](https://astix.io/blog/): Technical articles on code intelligence, benchmarks, and tutorials
+
+## Key Facts
+- 128x average token reduction vs raw file reads (benchmarked on 6 repos, 24 queries; up to 1,000x for trace queries)
+- 38 programming languages supported via tree-sitter
+- 30+ MCP tools: search, analysis, refactoring, code health
+- Self-hosted with zero code egress — BYOK embeddings, BYOM LLM
+- Apache 2.0 open source core, Elastic License v2 for premium features
+- Works with Claude Code, Cursor, Copilot, Cline, and any MCP-compatible client
+- Built on PostgreSQL + pgvector for AST storage and vector search
+
+## Products
+- Code Intelligence: structural/semantic search, impact analysis, data lineage, execution paths, rename/refactor, code health (Free to $29/mo)
+- Security Analysis (coming soon): CFG-aware taint tracking, SQL injection, XSS, SSRF detection across function boundaries
+
+## Contact
+- Website: https://astix.io
+- GitHub: https://github.com/astix-io/astix
+- License: Apache 2.0 (core) + ELv2 (premium)

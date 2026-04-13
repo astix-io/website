@@ -34,9 +34,9 @@ interface Stat {
 
 const stats: Stat[] = [
 	{ target: 5000, suffix: '+', label: 'tests', isText: false },
-	{ target: 36, suffix: '', label: 'languages', isText: false },
+	{ target: 38, suffix: '', label: 'languages', isText: false },
 	{ target: 30, suffix: '+', label: 'MCP tools', isText: false },
-	{ target: 0, suffix: 'Apache 2.0', label: '', isText: true },
+	{ target: 0, suffix: '128x', label: 'avg token reduction', isText: true },
 ];
 
 const container = ref<HTMLElement | null>(null);
@@ -77,6 +77,11 @@ function animateStat(idx: number, target: number, delay: number) {
 function triggerCountUp() {
 	if (triggered) return;
 	triggered = true;
+
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		displayValues.value = stats.map((s) => s.target);
+		return;
+	}
 
 	for (let i = 0; i < stats.length; i++) {
 		if (!stats[i].isText) {

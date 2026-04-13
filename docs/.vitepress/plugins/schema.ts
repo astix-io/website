@@ -6,7 +6,9 @@ function jsonLd(schema: Record<string, unknown>): HeadConfig {
 }
 
 export function generateSchemaHead({ pageData, title, description }: TransformContext): HeadConfig[] {
-	const slug = pageData.relativePath.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
+	const rawSlug = pageData.relativePath.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
+	// Apply the blog/posts/:slug → blog/:slug rewrite for canonical URLs
+	const slug = rawSlug.replace(/^blog\/posts\//, 'blog/');
 	const url = slug ? `https://astix.io/${slug}` : 'https://astix.io';
 
 	const heads: HeadConfig[] = [
@@ -22,7 +24,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 		['meta', { name: 'twitter:image', content: 'https://astix.io/og-image.png' }],
 	];
 
-	// Home — SoftwareApplication
+	// Home — SoftwareApplication + Organization + WebSite
 	if (pageData.relativePath === 'index.md') {
 		heads.push(
 			jsonLd({
@@ -31,10 +33,33 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				name: 'astix',
 				applicationCategory: 'DeveloperApplication',
 				operatingSystem: 'Linux, macOS, Windows',
-				description: 'Self-hosted code intelligence for AI coding agents. 36 languages, 30+ MCP tools.',
+				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 30+ MCP tools.',
 				url: 'https://astix.io',
 				license: 'https://www.apache.org/licenses/LICENSE-2.0',
-				offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR', description: 'Community edition — free forever' },
+				offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Community edition — free forever' },
+			}),
+		);
+		heads.push(
+			jsonLd({
+				'@context': 'https://schema.org',
+				'@type': 'Organization',
+				name: 'astix',
+				url: 'https://astix.io',
+				logo: 'https://astix.io/logo.svg',
+				sameAs: ['https://github.com/astix-io/astix'],
+			}),
+		);
+		heads.push(
+			jsonLd({
+				'@context': 'https://schema.org',
+				'@type': 'WebSite',
+				name: 'astix',
+				url: 'https://astix.io',
+				potentialAction: {
+					'@type': 'SearchAction',
+					target: 'https://astix.io/guide/mcp-tools?q={search_term_string}',
+					'query-input': 'required name=search_term_string',
+				},
 			}),
 		);
 	}
@@ -57,46 +82,50 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				'@context': 'https://schema.org',
 				'@type': 'Product',
 				name: 'astix',
-				description: 'Self-hosted code intelligence for AI coding agents. 36 languages, 30+ MCP tools.',
-				url: 'https://astix.io',
+				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 30+ MCP tools.',
+				url: 'https://astix.io/pricing',
 				offers: [
 					{
 						'@type': 'Offer',
 						name: 'Community',
 						price: '0',
-						priceCurrency: 'EUR',
+						priceCurrency: 'USD',
 						description: 'Read-only intelligence. Free forever.',
 					},
 					{
 						'@type': 'Offer',
 						name: 'Solo',
-						price: '12',
-						priceCurrency: 'EUR',
-						description: 'Write-enabled intelligence for individual developers. €12/month.',
+						price: '29',
+						priceCurrency: 'USD',
+						description: 'Write-enabled intelligence for individual developers. $29/month.',
 					},
 					{
 						'@type': 'Offer',
 						name: 'Team',
-						price: '29',
-						priceCurrency: 'EUR',
-						description: 'HTTP daemon, shared indexes, OAuth 2.1, RBAC, audit logs.',
+						price: '179',
+						priceCurrency: 'USD',
+						description: 'HTTP daemon, shared indexes, OAuth 2.1, RBAC, audit logs. $179/month + $20/seat.',
 					},
 					{
 						'@type': 'Offer',
 						name: 'Enterprise',
-						price: '59',
-						priceCurrency: 'EUR',
-						description: 'SSO/SAML/SCIM, approval workflows, policy engine.',
+						description: 'Contact us for custom pricing',
 					},
 				],
 			}),
 		);
 	}
 
-	// Blog posts — BlogPosting + og:type article
+	// og:type — article for blog posts, website for everything else
+	if (pageData.relativePath.startsWith('blog/posts/')) {
+		heads.push(['meta', { property: 'og:type', content: 'article' }]);
+	} else {
+		heads.push(['meta', { property: 'og:type', content: 'website' }]);
+	}
+
+	// Blog posts — BlogPosting schema
 	if (pageData.relativePath.startsWith('blog/posts/')) {
 		const fm = pageData.frontmatter;
-		heads.push(['meta', { property: 'og:type', content: 'article' }]);
 		if (fm.date) {
 			heads.push(
 				jsonLd({
@@ -104,6 +133,8 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 					'@type': 'BlogPosting',
 					headline: fm.title || title,
 					datePublished: fm.date,
+					dateModified: fm.date,
+					image: fm.ogImage || 'https://astix.io/og-image.png',
 					author: { '@type': 'Organization', name: 'astix' },
 					publisher: { '@type': 'Organization', name: 'astix', logo: 'https://astix.io/logo.svg' },
 					description: fm.description || description,
@@ -111,6 +142,29 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				}),
 			);
 		}
+	}
+
+	// Author profile — Person
+	if (pageData.relativePath.startsWith('blog/authors/')) {
+		heads.push(
+			jsonLd({
+				'@context': 'https://schema.org',
+				'@type': 'Person',
+				name: 'Olivier Orabona',
+				url: 'https://astix.io/blog/authors/olivier-orabona',
+				jobTitle: 'Founder & Lead Developer',
+				worksFor: {
+					'@type': 'Organization',
+					name: 'astix',
+				},
+				sameAs: [
+					'https://github.com/oorabona',
+					'https://x.com/oorabona',
+					'https://www.linkedin.com/in/olivierorabona/',
+				],
+				knowsAbout: ['code intelligence', 'cloud architecture', 'cybersecurity', 'MCP protocol', 'tree-sitter'],
+			}),
+		);
 	}
 
 	// Docs — TechArticle

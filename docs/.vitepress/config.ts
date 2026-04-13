@@ -5,11 +5,15 @@ import { generateSchemaHead } from './plugins/schema';
 
 export default defineConfig({
 	title: 'astix',
-	description: 'Trustworthy code intelligence for AI coding agents',
+	description: 'Semantic code intelligence for AI coding assistants',
 	lang: 'en-US',
 	cleanUrls: true,
 	appearance: false,
 	srcExclude: ['superpowers/**'],
+
+	rewrites: {
+		'blog/posts/:slug': 'blog/:slug',
+	},
 
 	vite: {
 		plugins: [
@@ -17,18 +21,22 @@ export default defineConfig({
 			RssPlugin({
 				title: 'astix Blog',
 				baseUrl: 'https://astix.io',
-				copyright: '© astix',
+				copyright: '© 2026 astix',
 			}),
 		],
+		ssr: {
+			noExternal: [],
+			external: ['mermaid'],
+		},
 	},
 
 	head: [
 		['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-		['meta', { property: 'og:type', content: 'website' }],
+		['meta', { name: 'theme-color', content: '#0b1120' }],
+		['link', { rel: 'alternate', type: 'application/rss+xml', title: 'astix Blog', href: 'https://astix.io/feed.rss' }],
 		['meta', { property: 'og:site_name', content: 'astix' }],
 		['meta', { property: 'og:locale', content: 'en_US' }],
 		['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-		['meta', { name: 'twitter:image', content: 'https://astix.io/og-image.png' }],
 	],
 
 	themeConfig: {

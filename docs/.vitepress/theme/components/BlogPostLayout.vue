@@ -43,9 +43,9 @@ const lastUpdated = computed(() => {
     <!-- Author -->
     <div class="flex items-center gap-2">
       <div class="flex h-7 w-7 items-center justify-center rounded-full" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));">
-        <span class="text-xs font-bold text-white">A</span>
+        <span class="text-xs font-bold text-white">{{ $frontmatter.author?.charAt(0) || 'A' }}</span>
       </div>
-      <span>{{ frontmatter.author || "astix team" }}</span>
+      <a :href="'/blog/authors/' + ($frontmatter.author || 'astix-team').toLowerCase().replace(/\s+/g, '-')" class="author-link">{{ frontmatter.author || 'astix team' }}</a>
     </div>
     <span>·</span>
     <!-- Date -->
@@ -91,3 +91,14 @@ const lastUpdated = computed(() => {
   </div>
 </article>
 </template>
+
+<style scoped>
+.author-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.author-link:hover {
+  color: var(--accent-blue);
+}
+</style>
