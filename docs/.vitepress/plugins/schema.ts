@@ -151,6 +151,23 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				],
 			}),
 		);
+		heads.push(
+			jsonLd({
+				'@context': 'https://schema.org',
+				'@type': 'SoftwareSourceCode',
+				name: 'astix',
+				description: 'Semantic code intelligence for AI coding assistants. Apache 2.0 core, Elastic License v2 for premium features.',
+				codeRepository: 'https://github.com/astix-io/astix',
+				programmingLanguage: 'TypeScript',
+				runtimePlatform: 'Node.js',
+				license: 'https://www.apache.org/licenses/LICENSE-2.0',
+				author: {
+					'@type': 'Organization',
+					name: 'astix',
+					url: 'https://astix.io',
+				},
+			}),
+		);
 	}
 
 	// Pricing — FAQPage + Product with offers
