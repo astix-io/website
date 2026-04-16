@@ -1,5 +1,20 @@
 # TODO — astix.io website
 
+## Review findings — 2026-04-16 (from `/review` on PR #1, post-fast-track)
+
+### Non-blocking (post-merge OK)
+
+- [ ] 🔧 [Schema] **F-005: BreadcrumbList emits broken intermediate link `/docs`** — no `docs/index.md` exists, so the "Docs" crumb points to a 404. Either add a landing page at `docs/index.md` OR omit the `item` URL for intermediate segments when the target does not exist. File: `docs/.vitepress/plugins/schema.ts:330-333`. — Priority: M
+- [ ] 🔧 [Schema] **F-006: Same breadcrumb broken-link issue for `/blog/authors`** (on author pages). Same fix as F-005. — Priority: M
+- [ ] 🔧 [Schema] **F-007: Breadcrumb label capitalization mangles acronyms** — "mcp-tools" → "Mcp Tools" (should be "MCP Tools"). Add an override map `{'mcp-tools': 'MCP Tools', 'mcp': 'MCP'}` or fall back to `pageData.title` for the last segment. File: `schema.ts:323-325`. — Priority: M
+- [ ] 🔧 [Technical] **F-009: `X-Frame-Options: SAMEORIGIN` conflicts with CSP `frame-ancestors 'none'`** — modern browsers honor CSP (stricter), but OWASP recommends alignment. Change XFO to `DENY` or remove XFO entirely. File: `docs/public/_headers`. — Priority: M
+- [ ] 🔧 [Technical] **F-010: Add explicit `object-src 'none'` to CSP** — covered by default-src fallback, but OWASP recommends explicit anti-plugin declaration. File: `docs/public/_headers`. — Priority: L
+- [ ] 🔧 [Schema] **F-011: Dead code `rawSlug.replace(/^blog\/posts\//, 'blog/')`** — rewrite already applied at `pageData.relativePath`, replace is no-op. Remove + rename `rawSlug` → `slug`. File: `schema.ts:9-12`. — Priority: L
+- [ ] 🔧 [Schema] **F-013: Sitemap `lastmod` set to build timestamp for all URLs** — Google prefers per-file mtime. Read `fs.statSync(sourcePath).mtime` or parse `git log -1 --format=%cI` per file in `transformItems`. File: `docs/.vitepress/config.ts:79-82`. — Priority: M
+- [ ] 🔧 [Schema] **F-014: SoftwareApplication + SoftwareSourceCode on home** — both valid but redundant; consider cross-reference via `@id`. Not broken per Google docs. File: `schema.ts`. — Priority: L
+- [ ] 🔧 [Schema] **F-015: Home FAQPage data inline in schema.ts** — breaks DRY (faq.ts is the pricing FAQ source of truth). Move home FAQ entries to `data/homeFaq.ts`. — Priority: L
+- [ ] 🔧 [Design] **F-017: pricing.md "Next steps" section uses inline `style="..."` attributes** — consistent with rest of file but not best practice. Abstract to CSS classes/utilities post-launch. File: `docs/pricing.md:31,35,39`. — Priority: L
+
 ## SEO Audit — 2026-04-16 (full report: `docs/plans/SEO-AUDIT-2026-04-16.md`)
 
 Overall score 59/100 — **not launch-ready**. P0 items block Show HN on 2026-04-24.

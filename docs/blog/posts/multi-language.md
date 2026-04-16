@@ -98,11 +98,11 @@ These languages have full call graphs, type bindings, control flow graphs (CFG),
 
 Full call graph extraction in Tier 1 languages required building language-specific resolution logic on top of the tree-sitter CST: import resolution (which module does this `import` statement actually load?), method dispatch (which class's `handle` method does this call resolve to?), and type narrowing (what is the concrete type of this variable at this point in the CFG?). None of this is free — it's why Tier 1 is 11 languages and not 38.
 
-**Tier 2 — 23 languages: Kotlin, Swift, Scala, PHP, Ruby, Elixir, Haskell, Lua, R, MATLAB, and more.**
+**Tier 2 — 22 languages: Kotlin, Scala, PHP, Elixir, Haskell, Lua, R, MATLAB, and more.**
 
 These languages have symbol extraction and basic import tracking. Call detection is best-effort: astix identifies call-shaped expressions and links them to symbols with the same name in the index, without full type resolution. The results are useful — you get a call graph — but precision is lower. Refactoring tools work; blast radius estimates are approximate.
 
-**Tier 3 — 5 file types: JSON, YAML, TOML, Dockerfile, Makefile.**
+**Tier 3 — 5 file types: JSON, YAML, TOML, Dockerfile, CSS.**
 
 These are not programming languages in the traditional sense, but they're part of your codebase. astix parses them into key-value pairs and structured entries. You can `search_structural` for a specific configuration key across all your YAML files, or find which Dockerfiles reference a particular base image. Call graphs don't apply, but symbol-level indexing still gives you searchable, queryable structure.
 

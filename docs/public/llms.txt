@@ -6,14 +6,14 @@
 - [Home](https://astix.io/): Product overview, value proposition, and quick start
 - [Getting Started](https://astix.io/docs/getting-started): 10-minute setup guide with PostgreSQL, npm, and MCP configuration
 - [Pricing](https://astix.io/pricing): Free (self-hosted), Solo ($49/mo annual), Team ($299/mo + $29/seat annual), Enterprise plans
-- [MCP Tools Reference](https://astix.io/docs/mcp-tools): Documentation for 30+ semantic code intelligence tools
+- [MCP Tools Reference](https://astix.io/docs/mcp-tools): Documentation for 40+ semantic code intelligence tools
 - [Supported Languages](https://astix.io/docs/languages): 38 languages across 3 tiers (11 Tier-1 with full call graphs)
 - [Blog](https://astix.io/blog/): Technical articles on code intelligence, benchmarks, and tutorials
 
 ## Key Facts
 - 128x average token reduction vs raw file reads (benchmarked on 6 repos, 24 queries; up to 1,000x for trace queries)
 - 38 programming languages supported via tree-sitter
-- 30+ MCP tools: search, analysis, refactoring, code health
+- 40+ MCP tools: search, analysis, refactoring, code health
 - Self-hosted with zero code egress — BYOK embeddings, BYOM LLM
 - Apache 2.0 open source core, Elastic License v2 for premium features
 - Works with Claude Code, Cursor, Copilot, Cline, and any MCP-compatible client

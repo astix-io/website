@@ -1,6 +1,6 @@
 ---
 title: "38 Supported Languages — astix Code Intelligence"
-description: "astix supports 38 programming languages across 3 tiers. Full call graphs for TypeScript, Python, Rust, Go, Java, and 5 more. Symbol search for 28 additional languages."
+description: "astix supports 38 programming languages across 3 tiers. Full call graphs for TypeScript, Python, Rust, Go, Java, and 6 more. Symbol search for 27 additional languages."
 ---
 
 # Language Support

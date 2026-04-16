@@ -22,7 +22,7 @@ import BlogPostLayout from '../../.vitepress/theme/components/BlogPostLayout.vue
 
 <BlogPostLayout>
 
-> astix is a self-hosted semantic code intelligence platform that gives AI coding assistants structured access to codebases through the Model Context Protocol (MCP). Instead of reading raw source files line by line, an AI assistant queries astix for specific symbols, call graphs, data lineage, and impact analysis — receiving only the relevant metadata. This approach reduces token consumption by a median of [128x compared to raw file reads](/blog/token-benchmark), measured across 7 repositories and 28 query types. astix parses 38 programming languages via tree-sitter, stores AST-level relationships in PostgreSQL with pgvector, and exposes [30+ MCP tools](/docs/mcp-tools) following the MCP standard. It is fully self-hosted with zero code egress and supports BYOK embeddings and BYOM LLM configurations.
+> astix is a self-hosted semantic code intelligence platform that gives AI coding assistants structured access to codebases through the Model Context Protocol (MCP). Instead of reading raw source files line by line, an AI assistant queries astix for specific symbols, call graphs, data lineage, and impact analysis — receiving only the relevant metadata. This approach reduces token consumption by a median of [128x compared to raw file reads](/blog/token-benchmark), measured across 6 repositories and 24 query types. astix parses 38 programming languages via tree-sitter, stores AST-level relationships in PostgreSQL with pgvector, and exposes [40+ MCP tools](/docs/mcp-tools) following the MCP standard. It is fully self-hosted with zero code egress and supports BYOK embeddings and BYOM LLM configurations.
 
 ## The problem astix solves
 

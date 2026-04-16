@@ -70,7 +70,7 @@ The difference matters for two reasons:
 
 ## Performance: the token economy
 
-For AI coding assistants specifically, the comparison is about tokens, not features. A few reference numbers from [our benchmark on 7 real repos, 28 query types](/blog/token-benchmark):
+For AI coding assistants specifically, the comparison is about tokens, not features. A few reference numbers from [our benchmark on 6 real repos, 24 query types](/blog/token-benchmark):
 
 - **Raw file read** (baseline): full source file, every query.
 - **`grep` / `ripgrep`**: file paths + matched lines. ~10–20x reduction vs raw read, but high false-positive rate requires the agent to re-read files.

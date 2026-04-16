@@ -11,7 +11,7 @@ import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
 
 <section class="mx-auto max-w-5xl px-6 py-20 text-center">
 <h1 class="mb-4 font-sans text-4xl font-bold" style="color: var(--text-primary)">Simple, transparent pricing</h1>
-<p class="mb-4" style="color: var(--text-secondary)">astix is self-hosted semantic code intelligence for AI coding assistants — 38 languages, 30+ MCP tools, 128x fewer tokens than raw file reads.</p>
+<p class="mb-4" style="color: var(--text-secondary)">astix is self-hosted semantic code intelligence for AI coding assistants — 38 languages, 40+ MCP tools, 128x fewer tokens than raw file reads.</p>
 <p class="mb-2" style="color: var(--text-secondary)"><strong>Two products. One platform.</strong> Code Intelligence to understand and change code. Security Analysis to keep it safe.</p>
 <p class="mb-2" style="color: var(--text-secondary)">Start free for individual self-hosted use. Upgrade when you need hosted deployment, write operations, or team collaboration.</p>
 <p class="mb-4" style="color: var(--vp-c-brand-1); font-size: 14px; font-weight: 600;">Launch offer: 3 months free on any annual plan — ends June 24, 2026.</p>

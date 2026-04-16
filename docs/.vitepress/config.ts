@@ -9,7 +9,7 @@ export default defineConfig({
 	lang: 'en-US',
 	cleanUrls: true,
 	appearance: false,
-	srcExclude: ['superpowers/**', 'blog-ideas-astix.md'],
+	srcExclude: ['superpowers/**', 'blog-ideas-astix.md', 'plans/**'],
 	titleTemplate: ':title',
 
 	rewrites: {

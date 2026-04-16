@@ -33,7 +33,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				name: 'astix',
 				applicationCategory: 'DeveloperApplication',
 				operatingSystem: 'Linux, macOS, Windows',
-				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 30+ MCP tools.',
+				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 40+ MCP tools.',
 				url: 'https://astix.io',
 				license: 'https://www.apache.org/licenses/LICENSE-2.0',
 				offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', description: 'Community edition — free forever' },
@@ -80,7 +80,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 						name: 'How does astix work?',
 						acceptedAnswer: {
 							'@type': 'Answer',
-							text: 'astix parses your code with tree-sitter, stores symbols, calls, and imports in PostgreSQL, and optionally embeds symbol signatures into pgvector for semantic search. AI coding assistants query the index through 30+ MCP tools instead of reading raw source files.',
+							text: 'astix parses your code with tree-sitter, stores symbols, calls, and imports in PostgreSQL, and optionally embeds symbol signatures into pgvector for semantic search. AI coding assistants query the index through 40+ MCP tools instead of reading raw source files.',
 						},
 					},
 					{
@@ -188,7 +188,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 				'@context': 'https://schema.org',
 				'@type': 'Product',
 				name: 'astix',
-				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 30+ MCP tools.',
+				description: 'Semantic code intelligence for AI coding assistants. 38 languages, 40+ MCP tools.',
 				url: 'https://astix.io/pricing',
 				offers: [
 					{
