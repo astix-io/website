@@ -1,17 +1,17 @@
 ---
-title: Language Support
-description: astix supports 36 programming languages across 3 tiers of intelligence.
+title: "38 Supported Languages — astix Code Intelligence"
+description: "astix supports 38 programming languages across 3 tiers. Full call graphs for TypeScript, Python, Rust, Go, Java, and 6 more. Symbol search for 27 additional languages."
 ---
 
 # Language Support
 
-**astix supports 36 programming languages across 3 tiers.**
+**astix supports 38 programming languages across 3 tiers.**
 
 All languages are parsed with [tree-sitter](https://tree-sitter.github.io/tree-sitter/) grammars, giving astix a consistent, error-tolerant AST across the entire codebase. The tier determines how much intelligence astix can extract beyond raw symbol names.
 
 ---
 
-## Tier 1 — Full Intelligence (10 languages)
+## Tier 1 — Full Intelligence (11 languages)
 
 Tier 1 languages have complete call graph extraction, control-flow graph (CFG) analysis, type binding resolution, and class hierarchy tracking. These languages get the full benefit of every astix tool: `impact_analysis`, `data_lineage`, `get_execution_paths`, and more.
 
@@ -29,10 +29,11 @@ Tier 1 languages have complete call graph extraction, control-flow graph (CFG) a
 | C | Includes `.c`, `.h` |
 | C++ | Includes `.cpp`, `.cc`, `.cxx`, `.hpp` |
 | Ruby | Includes `.rb` |
+| Swift | Includes `.swift` |
 
 ---
 
-## Tier 2 — Symbols + Imports (23 languages)
+## Tier 2 — Symbols + Imports (22 languages)
 
 Tier 2 languages have full symbol extraction and basic import tracking. You can search for symbols by name or intent (`search_structural`, `search_semantic`), navigate to definitions, and see cross-file import edges. Call graph analysis is not available.
 
@@ -40,28 +41,30 @@ Tier 2 languages have full symbol extraction and basic import tracking. You can 
 
 | Language | Language | Language |
 |----------|----------|----------|
-| PHP | Swift | Kotlin |
-| Scala | Dart | Lua |
-| Elixir | Haskell | OCaml |
-| R | Julia | Perl |
-| Zig | Nim | Crystal |
-| Clojure | Erlang | F# |
-| Groovy | MATLAB | PowerShell |
-| Shell | Objective-C | |
+| PHP | Kotlin | Scala |
+| Dart | Lua | Elixir |
+| Haskell | OCaml | R |
+| Julia | Perl | Zig |
+| Nim | Crystal | Clojure |
+| Erlang | F# | Groovy |
+| MATLAB | PowerShell | Shell |
+| Objective-C | | |
 
 ---
 
-## Tier 3 — Symbols Only (3 languages)
+## Tier 3 — Symbols Only (5 languages)
 
 Tier 3 covers structured configuration and build files. astix extracts top-level keys and sections as symbols, enabling `search_structural` queries across config files alongside source code.
 
 **Features:** Symbols
 
-| Language | Extensions |
-|----------|------------|
-| TOML | `.toml` |
-| YAML | `.yaml`, `.yml` |
-| Dockerfile | `Dockerfile`, `.dockerfile` |
+| Language | Extensions | Notes |
+|----------|------------|-------|
+| TOML | `.toml` | |
+| YAML | `.yaml`, `.yml` | |
+| Dockerfile | `Dockerfile`, `.dockerfile` | |
+| JSON | `.json` | Config and data files, key-value pairs |
+| CSS | `.css` | Stylesheets, selectors and properties |
 
 ---
 

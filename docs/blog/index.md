@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Blog — astix
-description: Tutorials, benchmarks, and insights on code intelligence for AI agents.
+title: "Blog — astix Code Intelligence for AI Agents"
+description: "Technical articles about semantic code intelligence, AI coding assistants, token optimization, and software architecture analysis with astix."
 ---
 
 <script setup>

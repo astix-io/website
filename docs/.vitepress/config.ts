@@ -1,3 +1,6 @@
+import { execSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress';
 import { RssPlugin } from 'vitepress-plugin-rss';
@@ -5,11 +8,16 @@ import { generateSchemaHead } from './plugins/schema';
 
 export default defineConfig({
 	title: 'astix',
-	description: 'Trustworthy code intelligence for AI coding agents',
+	description: 'Semantic code intelligence for AI coding assistants',
 	lang: 'en-US',
 	cleanUrls: true,
 	appearance: false,
-	srcExclude: ['superpowers/**'],
+	srcExclude: ['superpowers/**', 'blog-ideas-astix.md', 'plans/**'],
+	titleTemplate: ':title',
+
+	rewrites: {
+		'blog/posts/:slug': 'blog/:slug',
+	},
 
 	vite: {
 		plugins: [
@@ -17,25 +25,29 @@ export default defineConfig({
 			RssPlugin({
 				title: 'astix Blog',
 				baseUrl: 'https://astix.io',
-				copyright: '© astix',
+				copyright: '© 2026 astix',
 			}),
 		],
+		ssr: {
+			noExternal: [],
+			external: ['mermaid'],
+		},
 	},
 
 	head: [
 		['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-		['meta', { property: 'og:type', content: 'website' }],
+		['meta', { name: 'theme-color', content: '#0b1120' }],
+		['link', { rel: 'alternate', type: 'application/rss+xml', title: 'astix Blog', href: 'https://astix.io/feed.rss' }],
 		['meta', { property: 'og:site_name', content: 'astix' }],
 		['meta', { property: 'og:locale', content: 'en_US' }],
 		['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-		['meta', { name: 'twitter:image', content: 'https://astix.io/og-image.png' }],
 	],
 
 	themeConfig: {
 		siteTitle: false,
 
 		nav: [
-			{ text: 'Docs', link: '/getting-started' },
+			{ text: 'Docs', link: '/docs/getting-started' },
 			{ text: 'Pricing', link: '/pricing' },
 			{ text: 'Blog', link: '/blog/' },
 		],
@@ -52,13 +64,13 @@ export default defineConfig({
 		],
 
 		sidebar: {
-			'/guide/': [
+			'/docs/': [
 				{
 					text: 'Guide',
 					items: [
-						{ text: 'Getting Started', link: '/getting-started' },
-						{ text: 'MCP Tools', link: '/guide/mcp-tools' },
-						{ text: 'Languages', link: '/guide/languages' },
+						{ text: 'Getting Started', link: '/docs/getting-started' },
+						{ text: 'MCP Tools', link: '/docs/mcp-tools' },
+						{ text: 'Languages', link: '/docs/languages' },
 					],
 				},
 			],
@@ -67,6 +79,31 @@ export default defineConfig({
 
 	sitemap: {
 		hostname: 'https://astix.io',
+		transformItems: (items) => {
+			const buildTime = new Date().toISOString();
+			return items.map((item) => {
+				let relPath = new URL(item.url, 'https://astix.io').pathname.replace(/^\//, '').replace(/\/$/, '');
+				if (!relPath) relPath = 'index';
+
+				const candidates = [`docs/${relPath}.md`, `docs/${relPath}/index.md`];
+				// Reverse the blog/posts rewrite
+				if (relPath.startsWith('blog/') && !relPath.startsWith('blog/authors') && relPath !== 'blog') {
+					candidates.unshift(`docs/blog/posts/${relPath.slice('blog/'.length)}.md`);
+				}
+
+				for (const cand of candidates) {
+					const abs = resolve(process.cwd(), cand);
+					if (!existsSync(abs)) continue;
+					try {
+						const iso = execSync(`git log -1 --format=%cI -- "${cand}"`, { encoding: 'utf8' }).trim();
+						if (iso) return { ...item, lastmod: iso };
+					} catch {
+						// git not available or file not tracked — fall through
+					}
+				}
+				return { ...item, lastmod: buildTime };
+			});
+		},
 	},
 
 	async transformHead(context) {

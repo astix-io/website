@@ -23,7 +23,7 @@ export default createContentLoader('blog/posts/*.md', {
 		return raw
 			.map(({ url, frontmatter, excerpt }) => ({
 				title: frontmatter.title,
-				url,
+				url: url.replace(/^\/blog\/posts\//, '/blog/'),
 				date: frontmatter.date,
 				category: frontmatter.category || 'insights',
 				featured: frontmatter.featured || false,

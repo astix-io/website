@@ -21,6 +21,7 @@
 /* ===== DESIGN TOKENS ===== */
 :root {
 	--transition: 0.35s ease;
+	color-scheme: dark light;
 }
 
 [data-theme="dark"],
@@ -45,6 +46,7 @@
 }
 
 [data-theme="light"] {
+	color-scheme: light;
 	--bg-deep: #f8fafc;
 	--bg-surface: rgba(255, 255, 255, 0.8);
 	--bg-card: #ffffff;
@@ -52,7 +54,7 @@
 	--border-muted: rgba(0, 0, 0, 0.1);
 	--text-primary: #0f172a;
 	--text-secondary: #475569;
-	--text-muted: #94a3b8;
+	--text-muted: #64748b;
 	--accent-blue: #2563eb;
 	--accent-purple: #7c3aed;
 	--accent-green: #16a34a;
@@ -143,6 +145,12 @@ body {
 		color var(--transition);
 }
 
+h1,
+h2,
+h3 {
+	text-wrap: balance;
+}
+
 /* ===== TOP STRIPE ===== */
 .top-stripe {
 	position: fixed;
@@ -170,30 +178,44 @@ body {
 	background-clip: text;
 }
 
+@media (forced-colors: active) {
+	.gradient-text {
+		-webkit-text-fill-color: revert;
+		background-clip: revert;
+		color: LinkText;
+	}
+}
+
 /* ===== BUTTONS ===== */
 .btn-primary {
 	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-	color: #fff;
+	color: #ffffff !important;
 	padding: 12px 28px;
 	border-radius: 10px;
 	font-size: 15px;
 	font-weight: 600;
-	border: none;
+	border: 1px solid transparent;
 	cursor: pointer;
-	transition: opacity 0.15s;
-	text-decoration: none;
+	transition:
+		box-shadow 0.2s ease,
+		transform 0.2s ease;
+	text-decoration: none !important;
 	display: inline-flex;
 	align-items: center;
+	box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-	opacity: 0.9;
+	background: linear-gradient(135deg, #2563eb, #7c3aed);
+	box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+	transform: translateY(-1px);
+	color: #ffffff !important;
 }
 
 .btn-secondary {
 	background: var(--btn-secondary-bg);
 	border: 1px solid var(--btn-secondary-border);
-	color: var(--text-primary);
+	color: var(--text-primary) !important;
 	padding: 12px 28px;
 	border-radius: 10px;
 	font-size: 15px;
@@ -203,13 +225,15 @@ body {
 		background var(--transition),
 		border-color var(--transition),
 		color var(--transition);
-	text-decoration: none;
+	text-decoration: none !important;
 	display: inline-flex;
 	align-items: center;
 }
 
 .btn-secondary:hover {
-	background: var(--btn-secondary-border);
+	background: var(--bg-card);
+	border-color: var(--accent-blue);
+	color: var(--text-primary) !important;
 }
 
 /* ===== HERO VIGNETTE ===== */
@@ -269,13 +293,18 @@ body {
 	}
 }
 
-/* ===== WCAG AA contrast fixes for code blocks in dark mode ===== */
-[data-theme="dark"] .vp-code span {
-	--shiki-dark: initial;
+/* Explicit dark color-scheme declaration */
+[data-theme="dark"] {
+	color-scheme: dark;
 }
 
-[data-theme="dark"] .vp-code {
-	--vp-code-block-bg: var(--bg-card);
+/* ===== Code block styling ===== */
+.vp-code {
+	--vp-code-block-bg: #0d1117;
+}
+
+[data-theme="light"] .vp-code {
+	--vp-code-block-bg: #f6f8fa;
 }
 
 /* Ensure code block tab labels are readable */
@@ -283,48 +312,43 @@ body {
 	color: var(--text-secondary) !important;
 }
 
-/* Code group tabs dark mode */
-[data-theme="dark"] .vp-code-group .tabs {
+.vp-code-group .tabs {
 	background: var(--bg-card);
 	border-bottom-color: var(--border-subtle);
 }
 
-[data-theme="dark"] .vp-code-group .tabs label.active {
+.vp-code-group .tabs label.active {
 	color: var(--text-primary) !important;
 }
 
 /* ===== FULL-PAGE SCROLL SNAPPING ===== */
-.scroll-snap-container {
+/* Page-level snap (no nested scroll context). `proximity` is gentle —
+   it only snaps when the user stops close to a boundary, so normal
+   scrolling through the page feels natural. No-op on pages without
+   .snap-section children. */
+html {
 	scroll-snap-type: y proximity;
-	overflow-y: scroll;
-	overscroll-behavior: auto;
-	-webkit-overflow-scrolling: touch;
-	height: 100vh;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE/Edge */
+	scroll-behavior: smooth;
 }
 
-.scroll-snap-container::-webkit-scrollbar {
-	display: none; /* Chrome/Safari */
+.scroll-snap-container {
+	/* passive wrapper — no overflow, no height, no own scroll context */
 }
 
-.scroll-snap-container > .snap-section {
+.snap-section {
 	scroll-snap-align: start;
+	scroll-snap-stop: normal;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-/* Smooth scroll behavior */
-.scroll-snap-container {
-	scroll-behavior: smooth;
-	-webkit-overflow-scrolling: touch;
-}
-
-/* Smooth section transitions with fade */
-.snap-section {
-	transition: opacity 0.3s ease;
+/* Smooth section transitions with fade — guarded for reduced-motion */
+@media (prefers-reduced-motion: no-preference) {
+	.snap-section {
+		transition: opacity 0.3s ease;
+	}
 }
 
 /* ===== PRICING CARD HOVER ===== */
@@ -528,105 +552,6 @@ body {
 	}
 }
 
-/* Pipeline timeline */
-.pipeline {
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 0;
-	padding-top: 40px;
-}
-
-.pipeline::before {
-	content: "";
-	position: absolute;
-	top: 58px;
-	left: 10%;
-	right: 10%;
-	height: 3px;
-	background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
-	border-radius: 2px;
-}
-
-.pipeline-step {
-	position: relative;
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	padding: 0 8px;
-}
-
-.pipeline-dot {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-family: var(--vp-font-family-mono);
-	font-size: 14px;
-	font-weight: 600;
-	color: #fff;
-	z-index: 1;
-	margin-bottom: 16px;
-	box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-}
-
-.pipeline-label {
-	font-weight: 600;
-	font-size: 15px;
-	color: var(--text-primary);
-	margin-bottom: 8px;
-}
-
-.pipeline-desc {
-	font-size: 13px;
-	line-height: 1.5;
-	color: var(--text-secondary);
-	max-width: 160px;
-}
-
-/* Mobile: vertical timeline */
-@media (max-width: 768px) {
-	.pipeline {
-		flex-direction: column;
-		padding-top: 0;
-		padding-left: 40px;
-		gap: 32px;
-	}
-
-	.pipeline::before {
-		top: 0;
-		bottom: 0;
-		left: 18px;
-		right: auto;
-		width: 3px;
-		height: auto;
-	}
-
-	.pipeline-step {
-		flex-direction: row;
-		align-items: flex-start;
-		text-align: left;
-		gap: 16px;
-		padding: 0;
-	}
-
-	.pipeline-dot {
-		flex-shrink: 0;
-		margin-bottom: 0;
-		margin-left: -40px;
-	}
-
-	.pipeline-desc {
-		max-width: none;
-	}
-}
-
 /* ===== NEUTRALIZE VITEPRESS RESETS ON CUSTOM PAGES ===== */
 /* VitePress injects element-level resets (svg{display:block}, h1-h6{margin:0}, ul{margin:0})
    that override Tailwind utility classes. We neutralize them on .VPPage (layout:page)
@@ -738,13 +663,21 @@ body {
 	font-size: 14px;
 	padding: 2px 6px;
 	border-radius: 4px;
-	background: var(--bg-card);
+	background: rgba(110, 118, 129, 0.15);
+	color: var(--text-primary);
 }
 
 .blog-content pre {
 	margin: 0 0 24px;
 	border-radius: 8px;
 	overflow-x: auto;
+	background: #0d1117;
+	padding: 20px;
+	border: 1px solid var(--border-subtle);
+}
+
+[data-theme="light"] .blog-content pre {
+	background: #f6f8fa;
 }
 
 .blog-content blockquote {
@@ -766,4 +699,105 @@ body {
 	border: none;
 	border-top: 1px solid var(--border-subtle);
 	margin: 32px 0;
+}
+
+/* Hero stats strip — 3-column numeric KPIs under the H1 */
+.hero-stats {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2.5rem;
+	margin: 0 auto 3rem;
+	max-width: 32rem;
+	flex-wrap: nowrap;
+}
+.hero-stat {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+	min-width: 0;
+}
+.hero-stat-value {
+	font-family: var(--vp-font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1;
+	color: var(--text-primary);
+	letter-spacing: -0.02em;
+}
+.hero-stat-label {
+	font-family: var(--vp-font-family-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+	font-size: 0.75rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--text-muted);
+	white-space: nowrap;
+}
+.hero-stat-divider {
+	width: 1px;
+	height: 32px;
+	background: var(--border-subtle);
+	flex-shrink: 0;
+}
+@media (max-width: 540px) {
+	.hero-stats {
+		gap: 1.25rem;
+	}
+	.hero-stat-value {
+		font-size: 1.5rem;
+	}
+	.hero-stat-label {
+		font-size: 0.6875rem;
+	}
+	.hero-stat-divider {
+		height: 24px;
+	}
+}
+
+/* Next-steps card used by /pricing */
+.next-step-card {
+	background: var(--bg-card);
+	border: 1px solid var(--border-subtle);
+	color: var(--text-primary);
+	text-decoration: none;
+	transition:
+		border-color 0.2s ease,
+		transform 0.2s ease;
+}
+.next-step-card:hover {
+	border-color: var(--accent-blue);
+	transform: translateY(-2px);
+}
+.next-step-card h3 {
+	color: var(--text-primary);
+}
+.next-step-card p {
+	color: var(--text-secondary);
+}
+
+/* ===== HERO REVEAL — per-character entrance animation ===== */
+.hero-reveal {
+	display: block;
+}
+.hero-char {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(0.5em);
+	animation: hero-char-reveal 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+	will-change: transform, opacity;
+}
+@keyframes hero-char-reveal {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.hero-char {
+		opacity: 1;
+		transform: none;
+		animation: none;
+	}
 }

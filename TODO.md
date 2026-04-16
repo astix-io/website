@@ -1,5 +1,65 @@
 # TODO — astix.io website
 
+## Review findings — 2026-04-16 (from `/review` on PR #1, post-fast-track)
+
+### Resolved 2026-04-16 (all 10 addressed in same session)
+
+- [x] ✅ F-005 — `docs/docs/index.md` landing page added → `/docs` breadcrumb link valid (2026-04-16)
+- [x] ✅ F-006 — `docs/blog/authors/index.md` landing page added → `/blog/authors` breadcrumb link valid (2026-04-16)
+- [x] ✅ F-007 — `LABEL_OVERRIDES` map in schema.ts preserves "MCP Tools" / "FAQ" / "API" / "SEO" (2026-04-16)
+- [x] ✅ F-009 — `_headers` `X-Frame-Options: DENY` aligned with CSP `frame-ancestors 'none'` (2026-04-16)
+- [x] ✅ F-010 — `object-src 'none'` added to CSP (2026-04-16)
+- [x] ✅ F-011 — `rawSlug` dead-code replace removed; renamed to `slug` (2026-04-16)
+- [x] ✅ F-013 — sitemap `lastmod` now uses per-file `git log -1 --format=%cI` with build-time fallback (2026-04-16)
+- [x] ✅ F-014 — `@id` on SoftwareApplication + SoftwareSourceCode with `mainEntityOfPage` cross-reference (2026-04-16)
+- [x] ✅ F-015 — home FAQ extracted to `docs/.vitepress/data/homeFaq.ts` (2026-04-16)
+- [x] ✅ F-017 — `.next-step-card` CSS class replaces inline styles on pricing.md "Next steps" cards (2026-04-16)
+
+## SEO Audit — 2026-04-16 (full report: `docs/plans/SEO-AUDIT-2026-04-16.md`)
+
+Overall score 59/100 — **not launch-ready**. P0 items block Show HN on 2026-04-24.
+
+### P0 — Critical / High (block launch)
+
+- [ ] 🔴 [Schema] **C1: `schema.ts` emits 0 JSON-LD on 11 blog posts + 3 docs pages** — conditionals never match actual `pageData.relativePath` after rewrite. Patch L134/141/185. Affected: all `blog/*.html` (no BlogPosting, `og:type=website` instead of `article`), `docs/*.html` (no TechArticle). — Priority: H
+- [ ] 🔴 [Technical] **C2: Create `docs/public/_headers` for Cloudflare Pages** — zero security headers today (no HSTS, CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy). Template in audit doc. — Priority: H
+- [ ] 🔴 [SEO] **C3: Exclude `blog-ideas-astix.md` from build** — internal planning doc is currently indexed in sitemap + published at `https://astix.io/blog-ideas-astix`. Add to `srcExclude` in `config.ts`. — Priority: H
+- [ ] 🔴 [Landing] **C4: Replace "10 Tier-1" → "11 Tier-1"** across `FeatureShowcase.vue`, `blog/posts/introducing-astix.md`, `blog/posts/multi-language.md`, `public/llms.txt:10`, `docs/languages.md` header. Add Swift + Dart to Tier-1 list. — Priority: H
+- [ ] 🔴 [SEO] **C5: Add `<lastmod>` to sitemap.xml** — all 21 URLs miss lastmod/changefreq/priority. Use `transformItems` in VitePress sitemap config. — Priority: H
+- [ ] 🟡 [Landing] **H1: Pricing page dead-end + thin (~200 words)** — zero internal links, description 179 chars (truncated), no product definition in opening sentence. Expand to 350+ words, add 3 outbound links to docs. — Priority: H
+- [ ] 🟡 [SEO] **H2: Shorten title tags > 70 chars** on index.md (71), pricing.md (74), mcp-tools.md (67), languages.md (67). Target 50-60. Also fix `titleTemplate` to avoid `| astix` duplication when page title already contains brand. — Priority: H
+- [ ] 🟡 [SEO] **H3: Trim descriptions > 170 chars** on pricing.md (179) and mcp-tools.md (171). Target 140-160. — Priority: H
+- [ ] 🟡 [SEO] **H4: Add internal links** to pricing.md, getting-started.md, mcp-tools.md, languages.md (currently 0 each). 3-5 contextual links per page. — Priority: H
+
+### P1 — Pre-launch if time permits
+
+- [ ] 🟡 [Content] **H5: Write `/blog/what-is-astix.md`** (150-200w definition) for AI search citability. Similar articles: "What is MCP?", "How does astix work?", "astix vs Sourcegraph/Semgrep/grep". — Priority: M
+- [ ] 🟡 [Schema] **H6: Expand 8 FAQ answers < 50 words** in `docs/.vitepress/data/faq.ts` (47% too short for FAQPage rich results). — Priority: M
+- [ ] 🟡 [Schema] **H7: Add Team monthly pricing** ($359/mo + $39/seat) to `Product.offers` in `schema.ts`. — Priority: M
+- [ ] 🟡 [Schema] **H8: Add `FAQPage` + `HowTo` JSON-LD to home** — currently FAQPage only on `/pricing`. HowTo for the 5-step quick-start. — Priority: M
+- [ ] 🟡 [Schema] **M3: Add `BreadcrumbList` to docs/blog pages** for sitelinks in SERP. — Priority: M
+- [ ] 🟡 [Images] **M4: Blog post Unsplash images** — add `alt`, `width`, `height`, `loading="lazy"`, `decoding="async"` on 11 blog posts. — Priority: M
+- [ ] 🟢 [Blog] **M5: Link blog author names to bio page** (`/blog/authors/olivier-orabona`). Currently text-only in posts. — Priority: L
+
+### P2 — Post-launch
+
+- [ ] 🟢 [Perf] M2: Code-split PricingMatrix.vue (1288 LOC) + Mermaid ecosystem (~1.7 MB total). Add `prefers-reduced-motion` guard to HeroShader.vue. — Priority: L
+- [ ] 🟢 [Content] Write `/blog/astix-vs-competitors.md` comparison article. — Priority: L
+- [ ] 🟢 [Schema] Add `SoftwareSourceCode` (codeRepository=GitHub), `VideoObject` (when demo video uploaded), `AggregateRating` (when testimonials collected). — Priority: L
+- [ ] 🟢 [Perf] M6: Evaluate analytics (CF Web Analytics / Plausible) — coordinate with GDPR TODO line ~157. — Priority: L
+- [ ] 🟢 [Perf] M7: Verify `font-display: swap` on Inter + IBM Plex Sans. — Priority: L
+
+### Findings confirmed already addressed
+
+- ✅ robots.txt — GPTBot/ClaudeBot/PerplexityBot allow, CCBot/anthropic-ai/Bytespider/cohere-ai disallow
+- ✅ llms.txt — present, comprehensive (except stale "10 Tier-1" — see C4)
+- ✅ og-image.png + og-image.svg — present, 1200×630 (F-008 from prior TODO is effectively done)
+- ✅ Home JSON-LD — SoftwareApplication + Organization + WebSite (3 blocks)
+- ✅ Author page JSON-LD — Person schema with sameAs links
+- ✅ Pricing JSON-LD — FAQPage + Product
+- ✅ Canonical tags — generated correctly per page
+- ✅ Mobile responsive — Tailwind md/lg/sm classes, viewport auto by VitePress
+
 ## Content Updates — Session 2026-04-02/03
 
 Features à ajouter/mettre en avant sur le site :
@@ -30,6 +90,140 @@ Features à ajouter/mettre en avant sur le site :
 
 ### Changelog
 - [ ] 📝 [Blog/Changelog] Écrire le changelog de cette session (15+ commits, 5000+ lignes)
+
+## Content Updates — Session 2026-04-15/16
+
+Astix monorepo shipped 16 commits (`70a227f..89e85f7`) pushed to `origin/main` 2026-04-16. Four user-facing features to add to the site, plus five under-exposed features from prior sessions that the 2026-04-16 audit surfaced. Reference: MEMORY.md + `/mnt/wsl/shared/dev/astix-io/astix/TODO.md`.
+
+### Hero headline — stale count
+
+- [ ] 📝 [Landing] Hero subheading says "10 Tier-1 languages" — now 11 (Swift and Dart both promoted to full Tier-1 parity in TIER1-PARITY). File: `docs/index.md` hero section. Search for "10 Tier-1" or "10 Tier 1" and bump to 11.  Current Tier-1 list: TS/JS, Python, Go, Rust, Java, C, C++, Kotlin, Swift, Dart. Verify language support table (`docs/docs/languages.md`) shows Swift and Dart with the same capability checkmarks as other Tier-1 langs. — Priority: M
+- [ ] 📝 [Features] If hero keeps a language count, explain what "Tier-1" MEANS in a one-liner tooltip or footnote: "Full parity — identical extraction, test detection, attribute metadata, call graph, impact analysis behavior." Current site implies tiers without defining them. — Priority: M
+
+### 11-language unified experience (TIER1-PARITY, 7 commits `70a227f..e50b372`)
+
+Each Tier-1 language now emits the same symbol metadata shape: is_test flag, parent relationships, attributes, test framework detection. This matters because agents/tools don't need per-language special cases.
+
+- [ ] 📝 [Landing] Add a "Consistent behavior across languages" pitch near the feature grid. Angle: "Switch from TypeScript to Rust or Swift — your refactoring, impact analysis, and dead-code detection work identically. No feature matrix to memorize." — Priority: M
+- [ ] 📝 [Blog] Article: "What Tier-1 means in astix, and why you should care" — explain unified metadata schema, test detection across 11 langs (pytest/xunit/go test/XCTest/swift-testing/JUnit/Kotlin-test/dart-test/GTest/Catch2/Unity/CMocka/Tap-style), decorator/annotation extraction parity. 1000-1500 words. Target audience: tech leads choosing tools for polyglot stacks. — Priority: L
+- [ ] 📝 [Docs] `docs/docs/languages.md` — audit the capability matrix. Ensure each of the 11 langs has equal coverage in: symbol kinds, test detection, attributes/decorators/annotations, CFG paths, call graph, type bindings where applicable. If the matrix is missing columns for test framework detection, add them. Source of truth: astix `packages/core/src/parser/lang/*.ts` + `parity-contract.spec.ts`. — Priority: M
+
+### Entry-point intelligence (commit `98d1183 feat(sync): detect package entries in Python, Rust, Java, Kotlin`)
+
+Dead-code analysis now recognizes package entry points across build systems. This ELIMINATES a specific class of false positives: "dead_code reports my main.py/app entry as unused".
+
+- [ ] 📝 [Features] Add to Dead Code Detection section on landing: "Entry-point aware — your `main.py`, Spring Boot `@SpringBootApplication` class, Maven `<mainClass>`, or Cargo `[[bin]]` target is never mistakenly flagged as dead code." — Priority: M
+- [ ] 📝 [Docs] Extend `docs/docs/` with a "Package entry detection" subsection (new file or within existing Code Health doc). Exhaustive list:
+  - **Python**: `[project.scripts]` and `[tool.poetry.scripts]` in `pyproject.toml` (both flat and `src/` layout), `__init__.py`, `__main__.py`
+  - **Rust**: `src/main.rs`, `src/lib.rs`, `build.rs`, and ALL `[[bin]]` entries in Cargo.toml (explicit `path` + implicit `src/bin/<name>.rs`)
+  - **Java/Kotlin**: `<mainClass>` in `pom.xml` (both `src/main/java` and `src/main/kotlin` layouts), plus any file containing a class annotated `@SpringBootApplication` or `@QuarkusMain`
+  - **TS/JS**: already supported (`main`/`types`/`exports` in `package.json`)
+  - **Go**: `main.go` in module root
+  Source: `packages/core/src/sync/lang-resolve.ts` — functions `extractCargoBinPaths`, `extractPyprojectScriptModules`, `resolvePythonModule`, `extractPomMainClass`, `resolveMavenMainClass`, `querySpringQuarkusEntries`. — Priority: M
+- [ ] 📝 [Blog] Article: "Why your polyglot project's dead-code report has false positives (and how we fixed it)" — problem statement, show a before/after on a real polyglot repo. Could double as recruiting/design-partner bait. 800-1200 words. — Priority: L
+
+### extends vs implements distinction (commits `fb9fca3` Go + `8c9700a` Swift)
+
+Go has structural interface satisfaction (implicit `implements`). Swift uses identical AST nodes for class inheritance AND protocol conformance but they should be semantically different. Both now resolved correctly post-parse.
+
+- [ ] 📝 [Features] Under Impact Analysis or Call Graph feature card, add: "Correctly distinguishes class inheritance from protocol/interface conformance — impact_analysis on an interface returns consumers, not subclasses." — Priority: M
+- [ ] 📝 [Docs] Tools reference for `impact_analysis` — mention the `inherited_by[]` field now carries correct `parent_kind` (`extends` vs `implements`). Source: `packages/core/src/sync/resolve-go-interfaces.ts` + `resolve-swift-protocols.ts`. — Priority: L
+- [ ] 📝 [Blog] Article (optional): "Why Go's implicit interfaces and Swift's protocols matter for code intelligence" — technical deep-dive showing how we resolve them post-parse. 600-1000 words. Audience: devs interested in tree-sitter / static analysis. — Priority: L
+
+### Under-exposed features (shipped pre-2026-04-15, missing/weak on site)
+
+These were identified by the 2026-04-16 website audit (see details in `~/.claude/projects/-mnt-wsl-shared-dev-astix-io-astix/memory/project_website_features.md`) as shipped-but-invisible.
+
+- [ ] 📝 [Features] **LLM description auto-generation** (MCP tools `set_description`, `get_description`, bulk `fill_descriptions`) — configure any LLM provider (Ollama, OpenAI-compatible, Anthropic) to generate one-liner purpose descriptions per symbol. Descriptions feed BM25 + embeddings → better `search_semantic` hit quality on large codebases. Config: `~/.config/astix/config.json` → `llm` section. Source: MEMORY.md "LLM Configuration" + `docs/dbsp-feature-requests.md`. — Priority: M
+- [ ] 📝 [Features] **Semantic diff** — `semantic_diff` MCP tool compares exported symbols in code vs doc strings using embedding similarity. Detects drift between code and documentation. Under-documented. — Priority: L
+- [ ] 📝 [Features] **CFG-aware data lineage** — `data_lineage(crossFunction=true)` returns `paths[].traces[]` grouped by execution path, not flat. Answers "can variable X be null at line Y?" across branches. Already vaguely mentioned; deserves a dedicated feature card or doc page with a worked example. Source: MEMORY "Roadmap item 8 CFG-aware lineage DONE". — Priority: M
+- [ ] 📝 [Features] **Computed-dispatch resolution** — `obj[key]()` registry/dispatch patterns (e.g. plugin maps, command dispatchers) no longer flagged as dead_code false positives. Source: MEMORY 2026-03-15 "COMPUTED-DISPATCH (4 blocks, 3565 tests)". Relevant for frameworks with dynamic handler maps. — Priority: L
+- [ ] 📝 [Features] **`astix health` CLI** — 6-check diagnostic: BM25 index readiness, grammar parser compatibility, embedding provider connectivity, vacuum stats, pgvector HNSW health, + `--fix` flag for auto-repair. Useful troubleshooting blurb for self-hosters. Source: MEMORY 2026-03-19. — Priority: L
+- [ ] 📝 [Features] **JSONL transcript search** — parser indexes `.jsonl` session transcripts (3 kinds: exchange, question, session). Lets you search past conversations via `search_semantic` once `oorabona/claude` or similar transcript-store project is registered. Niche but novel. Source: MEMORY "JSONL parser: 3 symbol kinds". — Priority: L
+
+### SEO / site hygiene (from 2026-04-16 audit)
+
+Existing TODO already tracks F-007 (ToolSearch), F-008 (OG image), F-009 (RSS), F-011 (schema mismatch) — not duplicating those. New findings:
+
+- [ ] 🔧 [SEO] No `/changelog` page exists. Either (a) repurpose the existing blog index as a mixed news+changelog feed, or (b) add a dedicated `docs/changelog.md` that lists shipped features grouped by month with release tags. With 16 recent commits and TIER1-PARITY being a big story, absence of a changelog is a credibility hole for tech-savvy visitors. — Priority: M
+- [ ] 🔧 [SEO] Stale "10 Tier-1" in landing copy (see Hero section above) — same issue repeats in other pages if present. Scan all `docs/**/*.md` for "10 Tier" / "10 languages" / "Tier 1" and reconcile. — Priority: S
+- [ ] 🔧 [Docs] Capability matrix in `docs/docs/languages.md` — verify parity (11 Tier-1 all with test detection + metadata + attributes + CFG paths). If columns were written pre-TIER1-PARITY, they may under-report Swift/Dart/Kotlin capability. Cross-reference against `packages/core/src/parser/lang/parity-contract.spec.ts`. — Priority: M
+- [ ] 🔧 [SEO] Tools reference page — 14 code_health checks exist but only a subset documented. Inventory: `dead_code`, `unused_exports`, `circular_imports`, `high_coupling`, `code_complexity`, `taint`, `data_flow`, `unused_variables`, `hardcoded_values`, `unresolved_type_bindings`, plus others. Source: astix `packages/core/src/analysis/code-health/*.ts`. Auto-generate if possible (see existing backlog item about zod→doc generation). — Priority: M
+- [ ] 🔧 [SEO] Benchmark table comparison (already in backlog under "Inspiration: code-review-graph.com" section) — flagging here as SEO priority for Show HN / launch day. Having a side-by-side comparison table is a strong conversion driver vs competitor sites that don't offer one. — Priority: M
+
+### Blog post candidate — "Dogfooding astix found a bug astix already knew about"
+
+**Angle**: After shipping 16 commits (TIER1-PARITY + Swift protocol resolver + multi-lang package entries + crash instrumentation + perf + cleanup), we pointed astix at its own source to demo the new features. It found a real false positive. That false positive was already in our backlog as a known limitation. The demo closed the loop.
+
+**Why this post works**:
+- Shows off 3 shipped features simultaneously without sounding like a changelog (semantic search on fresh code, call graph navigation, dead_code with entry-point awareness)
+- "Dogfooding" is a credibility multiplier — devs trust tools that eat their own food
+- Self-deprecating truth-telling (we found our own gap) builds more trust than a feature list
+- Closes with a backlog item that's now concrete, not abstract — shows the product improvement loop
+
+**Draft structure (target ~1000-1400 words)**:
+
+1. **Hook** (150w) — "We shipped 16 commits yesterday. To make sure nothing broke, we ran astix on its own source. Here's what we found."
+
+2. **Act 1 — Fresh index, fresh search** (250w) — demonstrate that semantic search picks up the new crash-handler module. Use the actual query from the session: `search_semantic("structured crash dump with ring buffer of last MCP tool calls on uncaught exception")` → top hit is `onUncaughtException` in `crash-handler.ts:178` with BM25 score 181. Point: astix re-indexes on the fly, no rebuild needed.
+
+3. **Act 2 — Call graph check** (250w) — `get_symbol` on `resolveSwiftProtocolParents` (shipped in commit `8c9700a`). 10 direct callers: 8 tests + `resolveAllReferences:263` + `resolveReferencesForFiles:332` — exactly the 2 production call sites we wired. `impact_analysis` depth=3 returns 100 transitive callers across 16 affected files — risk level `high` (it sits in the hot sync path). Point: the graph is real, not a static guess.
+
+4. **Act 3 — Dead code with entry points** (250w) — run `code_health(check="dead_code")`. 74 findings across ~12,700 symbols (0.6% ratio — healthy). The interesting thing isn't what's there, it's what's NOT: our stdio MCP `main()`, HTTP daemon `serve()`, CLI entry — all absent from the list. That's the entry-point detection from `98d1183` preventing our own infrastructure from showing up as dead. Point: the feature works on real polyglot codebases, we can prove it on ours.
+
+5. **Act 4 — The catch** (300w) — one finding caught our eye: `TEST_PARENT_CLASS_TO_FRAMEWORK`, a lookup table we had JUST extended yesterday to add Swift. astix flagged it as dead. Was our addition wasted?
+
+   Walk through the investigation:
+   - `get_variable_uses` → 0 uses
+   - `search_structural` → 1 symbol (the def)
+   - Fall back to native grep → found it: `shared.ts:1418` — `TEST_PARENT_CLASS_TO_FRAMEWORK[language]` — bracket access with a runtime string key.
+   
+   astix's variable-use tracking doesn't link `map[dynamicKey]` reads back to the map. It's the read-side cousin of COMPUTED-DISPATCH (which we shipped in March for the call-side: `obj[key]()`). We fixed calls; reads are still a blind spot.
+
+   The best part: this limitation was already in our backlog — `Dynamic property lookup tracking — obj[key] where obj is Record/Map`. Demo made it concrete, immediately reproducible, and moves it up the priority list.
+
+6. **Close** (100w) — the self-improvement loop. When you dogfood a code intelligence engine, you find its edges quickly. The right answer isn't "no false positives" (unachievable) but "false positives lead back to a known roadmap item you can verify in 12ms of query time." That's astix.
+
+**Source facts for the writer**:
+- Date shipped: 16 commits pushed 2026-04-16 (`70a227f..89e85f7`)
+- Dogfooding demo done: 2026-04-17
+- Semantic search query exact text: `"structured crash dump with ring buffer of last MCP tool calls on uncaught exception"` → hit `onUncaughtException:178` in `packages/core/src/utils/crash-handler.ts`, BM25 181
+- `resolveSwiftProtocolParents` location: `packages/core/src/sync/resolve-swift-protocols.ts:24-70`, signature `(orm: AstixOrm, projectId: number): Promise<{ resolved: number }>`
+- Call graph: 10 direct (8 test + `resolveAllReferences:263` + `resolveReferencesForFiles:332`), 100 transitive at depth=3, risk_level `high`
+- Dead code finding of the day: `TEST_PARENT_CLASS_TO_FRAMEWORK` at `packages/core/src/parser/lang/shared.ts:1291`, usage at `shared.ts:1418` via `TEST_PARENT_CLASS_TO_FRAMEWORK[language]`
+- Prior art in backlog: `TODO.md:54` "Dynamic property lookup tracking — obj[key] where obj is Record/Map"
+- Index state at demo time: 378 files, 12,679 symbols, 70,522 calls, 3,088 imports, 174,152 embeddings
+
+**Tone**: confident but self-aware. Dev reader. No buzzwords. Show, don't tell.
+
+**Blog metadata**:
+- Suggested slug: `/blog/posts/dogfooding-astix.md`
+- Target publish: after Show HN launch (post-2026-04-24) — cleaner narrative when we can reference real Show HN engagement
+- Tags: case-study, dogfooding, static-analysis, limitations
+- Author: Olivier Orabona
+
+**NOT for this post (separate articles or changelog)**:
+- The 16-commit feature list itself → changelog page
+- Vitest migration / CI hygiene / crash instrumentation → reliability changelog, not blog
+- TIER1-PARITY deep-dive → own post "What Tier-1 means in astix" (already in this TODO above)
+
+- [ ] 💡 [Blog] Write `/blog/posts/dogfooding-astix.md` per above draft — Priority: M
+
+### Implementation hints for the next Claude Code session on the website
+
+1. **Stack context**: VitePress 1.6, Vue 3.5, Tailwind 4.2. Content in `docs/`. Build via `pnpm docs:build`, preview via `pnpm docs:dev`.
+2. **Reference for shipped features**: 
+   - Astix monorepo at `/mnt/wsl/shared/dev/astix-io/astix/`
+   - `MEMORY.md` in `~/.claude/projects/-mnt-wsl-shared-dev-astix-io-astix/memory/` has the cumulative feature ledger
+   - `docs/superpowers/specs/2026-04-10-ce-ee-strategy-design.md` has the Apache 2.0 core vs Elastic L2 premium split (already formalized — no action needed unless expanding to marketing that calls out EE features)
+3. **EE-flagged features** (teaser material only, don't list as shipped): entry_patterns framework packs (Tauri/Spring/Flask/Express), TaintMatcher `@RequestParam` discriminated union, code deobfuscation.
+4. **Tone**: user-value first, not implementation jargon. "Crash instrumentation" is a reliability prerequisite, NOT a feature — don't list it. Same for parser consolidation, test fixtures, perf gating, vitest migration.
+5. **Suggested execution order**:
+   (a) fix the stale "10 Tier-1" hero immediately (single-word edit, 5 min)
+   (b) write changelog page with the 16 commits reorganized by user value (1h)
+   (c) expand Dead Code section with entry-point angle (30 min)
+   (d) add LLM description + semantic diff + CFG-aware lineage docs (45 min)
+   (e) blog posts are optional, can defer to dedicated writing sessions
 
 ## Review Findings (non-blocking)
 
@@ -73,11 +267,8 @@ Features à ajouter/mettre en avant sur le site :
 
 **Benchmark (dep: astix eval harness):**
 - [ ] 💡 [Landing] Token savings badge in hero — "Nx fewer tokens" with link to benchmark methodology
-- [ ] 💡 [Blog] Publish benchmark results — per-repo ratios, methodology, honest comparison with code-review-graph
-- [ ] 💡 [Landing] Benchmark comparison table — astix ratio vs code-review-graph ratio on same repos
-
-**Blog ideas inspired by their messaging:**
-- [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by Nx" — token accounting metrics (leur killer argument, on peut le battre)
+- [ ] 💡 [Blog] Article: "How astix reduces LLM token consumption by 127.7x" — benchmark done, 6 repos, 24 queries, methodology + honest comparison vs code-review-graph 8.2x. Source: `docs/benchmark.md` in astix repo. Priority: M
+- [ ] 💡 [Landing] Benchmark comparison table — 127.7x astix vs 8.2x code-review-graph on same repos. Priority: M
 - [ ] 💡 [Blog] Article: "Code-review-graph vs astix — complementary tools or competitors?" — honest comparison, SEO play
 - [ ] 💡 [Social Proof] Collecter témoignages design partners pour activer la section
 - [ ] 💡 [Infra] Créer repo astix-io/infra avec Terraform Cloudflare (module cf-pages-site, DNS, workflows)

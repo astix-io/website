@@ -10,6 +10,7 @@
           v-for="i in 5"
           :key="i"
           class="h-8 rounded"
+          role="img"
           style="width: 96px; background: var(--border-muted);"
           :aria-label="`Partner logo ${i}`"
         ></div>
@@ -19,7 +20,7 @@
     <!-- Testimonial carousel -->
     <div class="max-w-2xl mx-auto">
       <div
-        class="rounded-xl border p-8 transition-all duration-500"
+        class="rounded-xl border p-8 transition-opacity duration-500"
         style="background: var(--bg-card); border-color: var(--border-muted);"
       >
         <blockquote>
@@ -88,9 +89,12 @@ let interval: ReturnType<typeof setInterval> | undefined;
 
 onMounted(() => {
 	if (!props.enabled) return;
-	interval = window.setInterval(() => {
-		current.value = (current.value + 1) % TESTIMONIALS.length;
-	}, 5000);
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (!prefersReducedMotion) {
+		interval = window.setInterval(() => {
+			current.value = (current.value + 1) % TESTIMONIALS.length;
+		}, 5000);
+	}
 });
 
 onUnmounted(() => {

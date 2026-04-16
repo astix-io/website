@@ -23,6 +23,7 @@ function toggle(i: number) {
     <button
       class="faq-button"
       :aria-expanded="openIndex === i"
+      :aria-controls="'faq-answer-' + i"
       @click="toggle(i)"
     >
       <span class="faq-question">{{ item.question }}</span>
@@ -44,6 +45,7 @@ function toggle(i: number) {
     </button>
     <div
       class="faq-answer"
+      :id="'faq-answer-' + i"
       :class="{ 'faq-answer-open': openIndex === i }"
     >
       <p>{{ item.answer }}</p>
