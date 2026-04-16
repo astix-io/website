@@ -67,7 +67,7 @@ const gridPosts = computed(() =>
       class="featured-card"
     >
       <div v-if="featuredPost.image" class="featured-image">
-        <img :src="featuredPost.image" :alt="featuredPost.title" width="800" height="400" loading="lazy" decoding="async" />
+        <img :src="featuredPost.image" :alt="featuredPost.title" loading="lazy" decoding="async" />
       </div>
       <div class="featured-meta">
         <span :class="['category-badge', categoryColors[featuredPost.category] ?? 'badge-blue']">
@@ -101,7 +101,7 @@ const gridPosts = computed(() =>
         class="post-card"
       >
         <div v-if="post.image" class="post-image">
-          <img :src="post.image" :alt="post.title" width="800" height="400" loading="lazy" decoding="async" />
+          <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" />
         </div>
         <div class="post-card-meta">
           <span :class="['category-badge', categoryColors[post.category] ?? 'badge-blue']">
