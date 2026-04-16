@@ -29,7 +29,7 @@ import BlogPostLayout from '../../.vitepress/theme/components/BlogPostLayout.vue
 
 Here's how we measured it, where the number comes from, and where astix loses.
 
-> Structured code queries are [structured MCP tool calls](/guide/mcp-tools) that return only the requested symbol metadata — signature, callers, callees, type annotations — rather than entire source files. When an AI coding assistant calls `get_symbol` instead of reading a file, the response typically contains 97 tokens instead of 17,858. TOKEN-BENCH measured this difference systematically across 6 open-source repositories and 24 query types, finding an average reduction of 128x. The benchmark compares NAIVE (simulated raw file reads, the approach most AI assistants use) against ASTIX (structured MCP tool responses), counting tokens using `Math.ceil(text.length / 4)` — the same formula used by code-review-graph for a fair head-to-head comparison.
+> Structured code queries are [structured MCP tool calls](/docs/mcp-tools) that return only the requested symbol metadata — signature, callers, callees, type annotations — rather than entire source files. When an AI coding assistant calls `get_symbol` instead of reading a file, the response typically contains 97 tokens instead of 17,858. TOKEN-BENCH measured this difference systematically across 6 open-source repositories and 24 query types, finding an average reduction of 128x. The benchmark compares NAIVE (simulated raw file reads, the approach most AI assistants use) against ASTIX (structured MCP tool responses), counting tokens using `Math.ceil(text.length / 4)` — the same formula used by code-review-graph for a fair head-to-head comparison.
 
 ## Why Tokens Matter
 
@@ -180,7 +180,7 @@ For semantic search, pgvector's HNSW index finds semantically similar symbols vi
 
 ### MCP protocol → structured tool calls
 
-The Model Context Protocol gives AI assistants a clean interface for [structured MCP tool calls](/guide/mcp-tools). Instead of `read_file("src/parser/input.ts")` → parse the whole file → find the function, the agent calls `get_symbol("parseUserInput")` → gets exactly what it needs.
+The Model Context Protocol gives AI assistants a clean interface for [structured MCP tool calls](/docs/mcp-tools). Instead of `read_file("src/parser/input.ts")` → parse the whole file → find the function, the agent calls `get_symbol("parseUserInput")` → gets exactly what it needs.
 
 The MCP tool call overhead (schema, parameters, response envelope) is roughly 50–100 tokens per call. That's included in the ASTIX numbers above — it's not hidden.
 
@@ -198,6 +198,6 @@ This isn't about AI models getting better at reading code. It's about giving the
 
 [Introducing astix](/blog/introducing-astix) explains the full architecture behind these numbers. The benchmark is the proof; the system is the explanation.
 
-[Get started in 10 minutes →](/getting-started) · [Read the launch post →](/blog/introducing-astix)
+[Get started in 10 minutes →](/docs/getting-started) · [Read the launch post →](/blog/introducing-astix)
 
 </BlogPostLayout>

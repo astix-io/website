@@ -303,6 +303,6 @@ Pair it with `rename_symbol` for atomic refactors, or use the caller list to man
 
 No more "I didn't know X depended on Y." That information is in the graph. Now you can see it.
 
-[Get started →](/getting-started) or [explore the full MCP tools reference →](/guide/mcp-tools)
+[Get started →](/docs/getting-started) or [explore the full MCP tools reference →](/docs/mcp-tools)
 
 </BlogPostLayout>

@@ -248,6 +248,6 @@ If you have not traced a variable through your production codebase yet, try it n
 
 Data lineage is [part of our 6-step codebase exploration method](/blog/source-code-archaeology) — the final step that answers "where does this data go?" after you have mapped modules, traced execution paths, and assessed blast radius.
 
-[Get started →](/getting-started) · [Read the full MCP tools reference →](/guide/mcp-tools)
+[Get started →](/docs/getting-started) · [Read the full MCP tools reference →](/docs/mcp-tools)
 
 </BlogPostLayout>

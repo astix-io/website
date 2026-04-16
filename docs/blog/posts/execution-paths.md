@@ -342,6 +342,6 @@ You don't need to wait for production to find your edge cases.
 
 `get_execution_paths`, `get_uncovered_paths`, and `suggest_tests` are available on the Solo plan and above. The CFG is built automatically during indexing — no annotations, no configuration.
 
-[Get started →](/getting-started) or [view the tool reference →](/guide/mcp-tools)
+[Get started →](/docs/getting-started) or [view the tool reference →](/docs/mcp-tools)
 
 </BlogPostLayout>

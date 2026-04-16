@@ -34,7 +34,7 @@ const diffItems = [
           <div class="fs-feat" role="listitem"><span class="fs-check" style="color: #3b82f6" aria-hidden="true">✓</span> Duplicate detection</div>
           <div class="fs-feat" role="listitem"><span class="fs-check" style="color: #3b82f6" aria-hidden="true">✓</span> Code health checks</div>
         </div>
-        <div class="fs-product-footer">Free tier available · Solo from $29/mo</div>
+        <div class="fs-product-footer">Free tier available · Solo from $49/mo</div>
       </div>
 
       <!-- Security Analysis -->
@@ -54,7 +54,7 @@ const diffItems = [
           <div class="fs-feat" role="listitem"><span class="fs-check" style="color: #f59e0b" aria-hidden="true">✓</span> Compliance mapping (OWASP, CWE)</div>
         </div>
         <p class="fs-product-note">No rules to write — the call graph already knows the paths.</p>
-        <div class="fs-product-footer">Included with Team plans</div>
+        <div class="fs-product-footer">Add-on from $79/mo</div>
       </div>
     </div>
 

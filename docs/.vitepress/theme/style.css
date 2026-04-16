@@ -189,27 +189,33 @@ h3 {
 /* ===== BUTTONS ===== */
 .btn-primary {
 	background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-	color: #fff;
+	color: #ffffff !important;
 	padding: 12px 28px;
 	border-radius: 10px;
 	font-size: 15px;
 	font-weight: 600;
-	border: none;
+	border: 1px solid transparent;
 	cursor: pointer;
-	transition: opacity 0.15s;
-	text-decoration: none;
+	transition:
+		box-shadow 0.2s ease,
+		transform 0.2s ease;
+	text-decoration: none !important;
 	display: inline-flex;
 	align-items: center;
+	box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-	opacity: 0.9;
+	background: linear-gradient(135deg, #2563eb, #7c3aed);
+	box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+	transform: translateY(-1px);
+	color: #ffffff !important;
 }
 
 .btn-secondary {
 	background: var(--btn-secondary-bg);
 	border: 1px solid var(--btn-secondary-border);
-	color: var(--text-primary);
+	color: var(--text-primary) !important;
 	padding: 12px 28px;
 	border-radius: 10px;
 	font-size: 15px;
@@ -219,13 +225,15 @@ h3 {
 		background var(--transition),
 		border-color var(--transition),
 		color var(--transition);
-	text-decoration: none;
+	text-decoration: none !important;
 	display: inline-flex;
 	align-items: center;
 }
 
 .btn-secondary:hover {
-	background: var(--btn-secondary-border);
+	background: var(--bg-card);
+	border-color: var(--accent-blue);
+	color: var(--text-primary) !important;
 }
 
 /* ===== HERO VIGNETTE ===== */

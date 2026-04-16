@@ -142,6 +142,6 @@ And return a structured list of every exported symbol — with file paths, line 
 ::: tip You're all set
 Now explore what astix can do:
 
-- [MCP Tools Reference](/guide/mcp-tools) — full list of 30+ tools with examples
-- [Language Support](/guide/languages) — check if your language has Tier 1 support
+- [MCP Tools Reference](/docs/mcp-tools) — full list of 30+ tools with examples
+- [Language Support](/docs/languages) — check if your language has Tier 1 support
 :::

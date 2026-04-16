@@ -261,6 +261,6 @@ detect_communities({ persist: true })
 
 If the modularity score surprises you — higher or lower than expected — you've already learned something about your codebase that wasn't in any document.
 
-[Get started with astix →](/getting-started) · [Full MCP tools reference →](/guide/mcp-tools)
+[Get started with astix →](/docs/getting-started) · [Full MCP tools reference →](/docs/mcp-tools)
 
 </BlogPostLayout>

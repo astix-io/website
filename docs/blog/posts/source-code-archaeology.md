@@ -375,6 +375,6 @@ Total: under 25 minutes to have a structural understanding of an unfamiliar code
 
 The traditional approach builds your mental model from the bottom up, reading file by file until enough pieces click together. These six tools give you the top-down structure first — architecture, then flow, then risk, then detail. You read source files to confirm what you already understand, not to discover it.
 
-Get started at [astix.io/getting-started](/getting-started). Add a project, connect to Claude Code, and run `detect_communities` on the codebase that's been intimidating you. You'll have a clearer picture in five minutes than you'd get from a day of grepping. See the [full MCP tools reference](/guide/mcp-tools) for every tool used in this walkthrough.
+Get started at [astix.io/docs/getting-started](/docs/getting-started). Add a project, connect to Claude Code, and run `detect_communities` on the codebase that's been intimidating you. You'll have a clearer picture in five minutes than you'd get from a day of grepping. See the [full MCP tools reference](/docs/mcp-tools) for every tool used in this walkthrough.
 
 </BlogPostLayout>

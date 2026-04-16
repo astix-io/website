@@ -277,6 +277,6 @@ For AI coding assistants, this means the tool layer is language-agnostic. `impac
 
 One API. Every language. No fragmentation.
 
-[Start indexing your polyglot codebase →](/getting-started)
+[Start indexing your polyglot codebase →](/docs/getting-started)
 
 </BlogPostLayout>

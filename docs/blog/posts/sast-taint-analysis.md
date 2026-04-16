@@ -240,7 +240,7 @@ You need accurate data to make a decision. Here's how astix compares on the fact
 
 | | **astix** | **Semgrep OSS** | **CodeQL** | **Snyk Code** |
 |---|---|---|---|---|
-| **Price** | [Free / $29/month Solo](/pricing#astix-pricing) | Free (OSS rules) | Free (GitHub), $6K+ enterprise | Free tier, $98/dev/mo+ |
+| **Price** | [Free (self-hosted) / Solo from $49/mo](/pricing#astix-pricing) | Free (OSS rules) | Free (GitHub), $6K+ enterprise | Free tier, $98/dev/mo+ |
 | **Approach** | AST call graph + taint | Pattern matching | Dataflow / QL query language | Dataflow (proprietary) |
 | **Cross-function taint** | Yes | No | Yes | Yes |
 | **Setup time** | ~10 minutes (Docker + `npx`) | ~5 minutes | 30–120 minutes (CodeQL DB build) | 5 minutes (SaaS) |
@@ -284,6 +284,6 @@ astix add-project /path/to/your/project
 # Then ask your AI assistant: code_health({ check: "taint" })
 ```
 
-[Read the Getting Started guide →](/getting-started) — first taint scan in under 10 minutes.
+[Read the Getting Started guide →](/docs/getting-started) — first taint scan in under 10 minutes.
 
 </BlogPostLayout>

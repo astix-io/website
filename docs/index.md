@@ -37,7 +37,7 @@ Semantic code intelligence for <span class="gradient-text">AI coding assistants<
 128x fewer tokens &nbsp;·&nbsp; 38 languages &nbsp;·&nbsp; AST + embeddings + call graph
 </p>
 <div class="animate-fade-up animate-delay-4 mb-16 flex flex-wrap items-center justify-center gap-4">
-<a href="/getting-started" class="btn-primary">Get started in 5 minutes</a>
+<a href="/docs/getting-started" class="btn-primary">Get started in 5 minutes</a>
 <a href="https://github.com/astix-io/astix" class="btn-secondary">View on GitHub</a>
 </div>
 <button class="animate-fade-up animate-delay-5 inline-flex cursor-pointer items-center gap-3 rounded-xl px-6 py-3.5 font-mono text-sm transition-colors" style="background: var(--cmd-bg); border: 1px solid var(--cmd-border); color: var(--text-secondary); font-family: inherit" onclick="navigator.clipboard.writeText('npx @astix/mcp-server init')">
@@ -240,8 +240,9 @@ Taint tracking: source→sink vulnerability detection, zero rules to write
 <div class="mx-auto max-w-2xl text-center">
 <h2 class="mb-4 font-sans text-3xl font-bold" style="color: var(--text-primary)">Ready to understand your codebase?</h2>
 <p class="mb-8" style="color: var(--text-secondary)">Get started in under 10 minutes. Free forever.</p>
+<div class="mb-8" style="color: var(--text-muted); font-size: 13px;">🎉 Launch offer: 3 months free on annual plans — ends June 24, 2026</div>
 <div class="flex flex-wrap items-center justify-center gap-4 mb-6">
-<a href="/getting-started" class="btn-primary">Get Started</a>
+<a href="/docs/getting-started" class="btn-primary">Get Started</a>
 <a href="/pricing" class="btn-secondary">View Pricing</a>
 </div>
 <p class="text-xs" style="color: var(--text-muted)">Self-hosted · Zero code egress · BYOK · Apache 2.0</p>

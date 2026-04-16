@@ -26,7 +26,7 @@ import BlogPostLayout from '../../.vitepress/theme/components/BlogPostLayout.vue
 
 Your AI agent doesn't understand your codebase. It reads files. There's a difference.
 
-> astix is a self-hosted semantic code intelligence platform that gives AI coding assistants structured access to codebases through the Model Context Protocol (MCP). Instead of reading raw source files, AI assistants query astix for specific symbols, call graphs, data lineage, and impact analysis — receiving only the relevant metadata. This approach reduces token consumption by a median of [128x fewer tokens](/blog/token-benchmark) compared to raw file reads, as measured across 7 repositories and 28 query types. astix parses 38 programming languages using tree-sitter, stores AST-level relationships in PostgreSQL with pgvector for vector search, and exposes [30+ MCP tools](/guide/mcp-tools) via the MCP standard. It is fully self-hosted with zero code egress and supports BYOK embeddings and BYOM LLM configurations.
+> astix is a self-hosted semantic code intelligence platform that gives AI coding assistants structured access to codebases through the Model Context Protocol (MCP). Instead of reading raw source files, AI assistants query astix for specific symbols, call graphs, data lineage, and impact analysis — receiving only the relevant metadata. This approach reduces token consumption by a median of [128x fewer tokens](/blog/token-benchmark) compared to raw file reads, as measured across 7 repositories and 28 query types. astix parses 38 programming languages using tree-sitter, stores AST-level relationships in PostgreSQL with pgvector for vector search, and exposes [30+ MCP tools](/docs/mcp-tools) via the MCP standard. It is fully self-hosted with zero code egress and supports BYOK embeddings and BYOM LLM configurations.
 
 ## The Problem
 
@@ -55,7 +55,7 @@ Under the hood, three components work together:
 
 **PostgreSQL + pgvector** stores the structural index (symbols, calls, imports) and optional vector embeddings in the same database. No separate vector database to manage. Structural queries go through standard SQL; semantic search goes through pgvector's HNSW index.
 
-**MCP protocol** exposes everything as [30+ MCP tools](/guide/mcp-tools) that any AI assistant can call. Claude Code, Cursor, or any MCP-compatible client connects to astix and gains structured access to your codebase.
+**MCP protocol** exposes everything as [30+ MCP tools](/docs/mcp-tools) that any AI assistant can call. Claude Code, Cursor, or any MCP-compatible client connects to astix and gains structured access to your codebase.
 
 The payoff is dramatic. We benchmarked astix against raw file reads across 7 repositories and 28 different queries. The median token reduction: **[128x fewer tokens](/blog/token-benchmark)**.
 
@@ -127,7 +127,7 @@ Then add astix to your Claude Code configuration:
 
 Restart Claude Code and ask it to `search_structural` for any function name in your codebase. First query typically completes in under a second.
 
-[Read the full Getting Started guide →](/getting-started)
+[Read the full Getting Started guide →](/docs/getting-started)
 
 
 
@@ -135,15 +135,17 @@ Restart Claude Code and ask it to `search_structural` for any function name in y
 
 astix is open-source (Apache 2.0). The core structural engine — parsing, call graphs, impact analysis, 30+ read tools — is free.
 
-**Free tier** — full read-only access, up to 100K lines of code, 3 projects. No credit card.
+**Free (self-hosted)** — full read-only access, unlimited lines of code, unlimited projects. No credit card. Self-hosted only.
 
-**Solo — $29/month** — write operations (rename, patch, write_symbol), intelligence features (execution paths, data lineage), unlimited projects.
+**Solo — $49/month** (annual) or $59/month — write operations (rename, patch, write_symbol), intelligence features (execution paths, data lineage), unlimited projects. For individual developers.
 
-**Team — $179/seat/month** — hosted dashboard, SSO, RBAC, audit logs, collaboration features. Includes everything in Solo.
+**Team — $299/month + $29/seat** (annual) or $359 + $39/seat — HTTP daemon mode, OAuth 2.1, RBAC, audit logs, collaboration features. Required for commercial use with 2+ developers.
 
-**Enterprise** — on-prem deployment, air-gap support, SLA, dedicated support. [Contact us](mailto:hello@astix.io).
+**Enterprise** — on-prem deployment, air-gap support, SSO/SAML/SCIM, policy engine, SLA. [Contact us](mailto:hello@astix.io).
 
 BYOK and BYOM: you configure your own embedding and LLM providers. We never see your tokens, we never resell them.
+
+> **Launch offer:** 3 months free on annual plans — valid until June 24, 2026. [See pricing →](/pricing)
 
 ## What's Next
 

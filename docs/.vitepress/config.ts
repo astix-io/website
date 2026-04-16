@@ -43,7 +43,7 @@ export default defineConfig({
 		siteTitle: false,
 
 		nav: [
-			{ text: 'Docs', link: '/getting-started' },
+			{ text: 'Docs', link: '/docs/getting-started' },
 			{ text: 'Pricing', link: '/pricing' },
 			{ text: 'Blog', link: '/blog/' },
 		],
@@ -60,13 +60,13 @@ export default defineConfig({
 		],
 
 		sidebar: {
-			'/guide/': [
+			'/docs/': [
 				{
 					text: 'Guide',
 					items: [
-						{ text: 'Getting Started', link: '/getting-started' },
-						{ text: 'MCP Tools', link: '/guide/mcp-tools' },
-						{ text: 'Languages', link: '/guide/languages' },
+						{ text: 'Getting Started', link: '/docs/getting-started' },
+						{ text: 'MCP Tools', link: '/docs/mcp-tools' },
+						{ text: 'Languages', link: '/docs/languages' },
 					],
 				},
 			],

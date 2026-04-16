@@ -223,6 +223,6 @@ Dead code is tech debt you can measure. Most teams discover it only when a new d
 
 Run `code_health` on your project. See what your linter missed.
 
-[Get started →](/getting-started) or [explore the `code_health` tool →](/guide/mcp-tools#code-health)
+[Get started →](/docs/getting-started) or [explore the `code_health` tool →](/docs/mcp-tools#code-health)
 
 </BlogPostLayout>

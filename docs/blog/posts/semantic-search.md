@@ -278,6 +278,6 @@ Combine `search_semantic` with [`get_symbol`](/blog/impact-analysis#understand-c
 
 For large codebases, this isn't a quality-of-life improvement — it's the difference between understanding the system and operating in the dark.
 
-[Read the MCP tools reference →](/guide/mcp-tools) or [run your first semantic query in 10 minutes →](/getting-started).
+[Read the MCP tools reference →](/docs/mcp-tools) or [run your first semantic query in 10 minutes →](/docs/getting-started).
 
 </BlogPostLayout>
