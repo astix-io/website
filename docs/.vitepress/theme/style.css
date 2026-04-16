@@ -706,3 +706,22 @@ h3 {
 	border-top: 1px solid var(--border-subtle);
 	margin: 32px 0;
 }
+
+/* Next-steps card used by /pricing */
+.next-step-card {
+	background: var(--bg-card);
+	border: 1px solid var(--border-subtle);
+	color: var(--text-primary);
+	text-decoration: none;
+	transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.next-step-card:hover {
+	border-color: var(--accent-blue);
+	transform: translateY(-2px);
+}
+.next-step-card h3 {
+	color: var(--text-primary);
+}
+.next-step-card p {
+	color: var(--text-secondary);
+}

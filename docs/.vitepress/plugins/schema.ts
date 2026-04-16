@@ -1,14 +1,13 @@
 import type { HeadConfig, TransformContext } from 'vitepress';
 import { faqItems } from '../data/faq';
+import { homeFaqItems } from '../data/homeFaq';
 
 function jsonLd(schema: Record<string, unknown>): HeadConfig {
 	return ['script', { type: 'application/ld+json' }, JSON.stringify(schema)];
 }
 
 export function generateSchemaHead({ pageData, title, description }: TransformContext): HeadConfig[] {
-	const rawSlug = pageData.relativePath.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
-	// Apply the blog/posts/:slug → blog/:slug rewrite for canonical URLs
-	const slug = rawSlug.replace(/^blog\/posts\//, 'blog/');
+	const slug = pageData.relativePath.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
 	const url = slug ? `https://astix.io/${slug}` : 'https://astix.io';
 
 	const heads: HeadConfig[] = [
@@ -30,6 +29,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 			jsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'SoftwareApplication',
+				'@id': 'https://astix.io/#software',
 				name: 'astix',
 				applicationCategory: 'DeveloperApplication',
 				operatingSystem: 'Linux, macOS, Windows',
@@ -66,48 +66,11 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 			jsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'FAQPage',
-				mainEntity: [
-					{
-						'@type': 'Question',
-						name: 'What is astix?',
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: 'astix is a self-hosted semantic code intelligence platform that gives AI coding assistants structured access to codebases via the Model Context Protocol (MCP). It replaces raw file reads with AST-level queries — call graphs, data lineage, impact analysis — reducing token consumption by 128x on average.',
-						},
-					},
-					{
-						'@type': 'Question',
-						name: 'How does astix work?',
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: 'astix parses your code with tree-sitter, stores symbols, calls, and imports in PostgreSQL, and optionally embeds symbol signatures into pgvector for semantic search. AI coding assistants query the index through 40+ MCP tools instead of reading raw source files.',
-						},
-					},
-					{
-						'@type': 'Question',
-						name: 'Which AI coding assistants work with astix?',
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: 'Any MCP-compatible client: Claude Code, Cursor, GitHub Copilot, Cline, and any custom agent that speaks the Model Context Protocol. astix exposes itself as a standard MCP server.',
-						},
-					},
-					{
-						'@type': 'Question',
-						name: 'How many languages does astix support?',
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: '38 programming languages across 3 tiers. 11 Tier-1 languages (TypeScript, JavaScript, Python, Rust, Go, Java, C#, C, C++, Ruby, Swift) get full call graphs, CFG analysis, and type binding resolution. 22 Tier-2 languages get symbols and imports. 5 Tier-3 languages get symbol extraction.',
-						},
-					},
-					{
-						'@type': 'Question',
-						name: 'Is astix open source?',
-						acceptedAnswer: {
-							'@type': 'Answer',
-							text: 'Yes. The core is Apache 2.0 licensed (GitHub: astix-io/astix). Premium features are under Elastic License v2. Self-hosted Free tier is unlimited and free forever.',
-						},
-					},
-				],
+				mainEntity: homeFaqItems.map((item) => ({
+					'@type': 'Question',
+					name: item.question,
+					acceptedAnswer: { '@type': 'Answer', text: item.answer },
+				})),
 			}),
 		);
 		heads.push(
@@ -155,6 +118,8 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 			jsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'SoftwareSourceCode',
+				'@id': 'https://astix.io/#source-code',
+				mainEntityOfPage: { '@id': 'https://astix.io/#software' },
 				name: 'astix',
 				description: 'Semantic code intelligence for AI coding assistants. Apache 2.0 core, Elastic License v2 for premium features.',
 				codeRepository: 'https://github.com/astix-io/astix',
@@ -320,7 +285,15 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 		for (let i = 0; i < segments.length; i++) {
 			accumulated += (i === 0 ? '' : '/') + segments[i];
 			const isLast = i === segments.length - 1;
-			const name = segments[i]
+			const LABEL_OVERRIDES: Record<string, string> = {
+				'mcp-tools': 'MCP Tools',
+				'mcp': 'MCP',
+				'faq': 'FAQ',
+				'api': 'API',
+				'seo': 'SEO',
+			};
+			const segLower = segments[i].toLowerCase();
+			const name = LABEL_OVERRIDES[segLower] ?? segments[i]
 				.replace(/-/g, ' ')
 				.replace(/\b\w/g, (c) => c.toUpperCase());
 			const listItem: Record<string, unknown> = {

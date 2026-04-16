@@ -1,3 +1,6 @@
+import { execSync } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitepress';
 import { RssPlugin } from 'vitepress-plugin-rss';
@@ -77,8 +80,29 @@ export default defineConfig({
 	sitemap: {
 		hostname: 'https://astix.io',
 		transformItems: (items) => {
-			const now = new Date().toISOString();
-			return items.map((item) => ({ ...item, lastmod: now }));
+			const buildTime = new Date().toISOString();
+			return items.map((item) => {
+				let relPath = new URL(item.url, 'https://astix.io').pathname.replace(/^\//, '').replace(/\/$/, '');
+				if (!relPath) relPath = 'index';
+
+				const candidates = [`docs/${relPath}.md`, `docs/${relPath}/index.md`];
+				// Reverse the blog/posts rewrite
+				if (relPath.startsWith('blog/') && !relPath.startsWith('blog/authors') && relPath !== 'blog') {
+					candidates.unshift(`docs/blog/posts/${relPath.slice('blog/'.length)}.md`);
+				}
+
+				for (const cand of candidates) {
+					const abs = resolve(process.cwd(), cand);
+					if (!existsSync(abs)) continue;
+					try {
+						const iso = execSync(`git log -1 --format=%cI -- "${cand}"`, { encoding: 'utf8' }).trim();
+						if (iso) return { ...item, lastmod: iso };
+					} catch {
+						// git not available or file not tracked — fall through
+					}
+				}
+				return { ...item, lastmod: buildTime };
+			});
 		},
 	},
 

@@ -28,17 +28,17 @@ import PricingFaq from './.vitepress/theme/components/PricingFaq.vue'
 <h2 class="mb-4 font-sans text-2xl font-bold" style="color: var(--text-primary)">Next steps</h2>
 <p class="mb-6" style="color: var(--text-secondary)">Not sure which plan fits? Start with the Free self-hosted tier — full read-only intelligence across unlimited projects, forever. Upgrade when you need write operations or team collaboration.</p>
 <div class="grid gap-4 md:grid-cols-3 text-left">
-<a href="/docs/getting-started" class="rounded-xl p-6 no-underline" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-primary)">
+<a href="/docs/getting-started" class="rounded-xl p-6 next-step-card">
 <h3 class="mb-2 font-sans text-base font-semibold">Get started →</h3>
-<p class="text-sm" style="color: var(--text-secondary)">Install astix in under 10 minutes. PostgreSQL + npm + MCP config.</p>
+<p class="text-sm">Install astix in under 10 minutes. PostgreSQL + npm + MCP config.</p>
 </a>
-<a href="/docs/mcp-tools" class="rounded-xl p-6 no-underline" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-primary)">
+<a href="/docs/mcp-tools" class="rounded-xl p-6 next-step-card">
 <h3 class="mb-2 font-sans text-base font-semibold">See all tools →</h3>
-<p class="text-sm" style="color: var(--text-secondary)">40+ MCP tools: semantic search, impact analysis, data lineage, refactoring.</p>
+<p class="text-sm">40+ MCP tools: semantic search, impact analysis, data lineage, refactoring.</p>
 </a>
-<a href="/blog/introducing-astix" class="rounded-xl p-6 no-underline" style="background: var(--bg-card); border: 1px solid var(--border-subtle); color: var(--text-primary)">
+<a href="/blog/introducing-astix" class="rounded-xl p-6 next-step-card">
 <h3 class="mb-2 font-sans text-base font-semibold">Read the intro →</h3>
-<p class="text-sm" style="color: var(--text-secondary)">What astix is, the problem it solves, and why token economy matters for AI coding.</p>
+<p class="text-sm">What astix is, the problem it solves, and why token economy matters for AI coding.</p>
 </a>
 </div>
 </section>
