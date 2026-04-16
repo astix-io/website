@@ -12,12 +12,12 @@ export const faqItems: FaqItem[] = [
 	{
 		question: 'Is self-hosted Free really unlimited?',
 		answer:
-			'Yes. Unlimited lines of code, unlimited projects, read-only access. The only constraint is that you run and maintain the PostgreSQL instance yourself. There are no LOC caps or project limits on the Free self-hosted tier.',
+			'Yes. The Free self-hosted tier has no LOC cap, no project cap, and no time limit. Index unlimited lines of code across unlimited projects with full read-only intelligence — structural search, call graphs, impact analysis, data lineage, execution paths, dead-code detection. The only thing you manage yourself is the PostgreSQL instance (PostgreSQL 15+ with pgvector and ParadeDB). Use Docker, a managed database (Supabase, Neon, RDS), or bare-metal. No credit card, no trial period, no feature gating on volume.',
 	},
 	{
 		question: 'Can I use the Free tier hosted (without running my own database)?',
 		answer:
-			'No. The Free tier is self-hosted only — you manage your own PostgreSQL instance. The entry point for hosted deployment is the Solo plan at $49/mo billed annually (or $59/mo monthly).',
+			'No. Hosted deployment — where astix runs the PostgreSQL instance and the MCP server for you — starts at the Solo plan at $49/mo billed annually (or $59/mo monthly). The Free tier is self-hosted only: you operate PostgreSQL on your own infrastructure. This lets us keep Free genuinely free and unlimited, while hosted plans cover the infrastructure and write-operation safety features you get in Solo.',
 	},
 	{
 		question: 'Why are write operations paid?',
@@ -47,7 +47,7 @@ export const faqItems: FaqItem[] = [
 	{
 		question: 'What counts as a line of code?',
 		answer:
-			'Lines of code (LOC) are measured as SLOC — source lines of code excluding blank lines and comments. All files indexed by astix contribute to the count, across all projects in your workspace.',
+			'Lines of code are measured as SLOC — source lines of code excluding blank lines and comments. Every file astix indexes contributes to the count, across every project in your workspace. Only files the parser actually processes count; excluded files (via your configured `exclude` patterns or `.astixignore`) do not. LOC limits apply only to paid plans — the Free self-hosted tier has no LOC cap. Usage is visible in the `astix://projects/{name}/stats` resource.',
 	},
 	{
 		question: 'What happens if I exceed my LOC limit?',
@@ -57,7 +57,7 @@ export const faqItems: FaqItem[] = [
 	{
 		question: 'Can I self-host astix?',
 		answer:
-			'Yes. Every plan — including Free — can be self-hosted. You run astix on your own infrastructure (PostgreSQL + Docker). Self-hosted paid plans have the same pricing as hosted. Zero code egress on all tiers.',
+			'Yes. Every plan — including Free — can be self-hosted. You run astix on your own infrastructure: PostgreSQL 15+ with pgvector, plus the astix CLI or MCP server via Docker, npm, or a bare-metal install. Self-hosted paid plans cost the same as hosted. Zero code egress on all tiers — your source code stays on your machines. Enterprise deployments support air-gapped environments with offline embedding providers and on-prem LLM configurations.',
 	},
 	{
 		question: 'What is BYOK / BYOM?',
@@ -67,22 +67,22 @@ export const faqItems: FaqItem[] = [
 	{
 		question: 'What payment methods do you accept?',
 		answer:
-			'Credit card (Visa, Mastercard, Amex) for Solo and Team. Wire transfer is available for Enterprise. All payments are processed securely — we never store card details.',
+			'Credit card (Visa, Mastercard, American Express) via Stripe for Solo and Team plans. Wire transfer, ACH, and purchase orders are available for Enterprise contracts. All payments are processed securely by Stripe — we never store card details ourselves. European customers are billed in USD with Stripe automatically handling VAT/tax treatment per your location (EU B2C with VAT, EU B2B with reverse charge).',
 	},
 	{
 		question: 'Do I need to send my code to a third-party service?',
 		answer:
-			'Never. astix parses and indexes your code locally. Optional LLM features are BYOK — you control which provider receives your code snippets, and only the snippets you explicitly query.',
+			'Never. astix parses and indexes your code locally inside your PostgreSQL database. No code is sent to astix servers — neither in self-hosted nor in hosted deployments, since hosted instances run dedicated PostgreSQL per customer. Optional LLM-powered features (explain_symbol, suggest_tests, fill_descriptions) are BYOK: you supply your provider key, you control which code snippets get sent, and you bill LLM usage directly with your provider. The embedding layer is also BYOK and runs locally by default (Ollama, local transformers).',
 	},
 	{
 		question: 'What PostgreSQL version do I need?',
 		answer:
-			'PostgreSQL 15 or higher with the pgvector and ParadeDB extensions for full-text search. Works with Docker, managed cloud databases (Supabase, Neon, RDS), or bare-metal installs.',
+			'PostgreSQL 15 or higher with two extensions: pgvector for vector search (embeddings) and ParadeDB for BM25 full-text search. Works with Docker images (we recommend `ghcr.io/oorabona/postgres:18-alpine-full`), managed cloud databases that expose these extensions (Supabase, Neon, self-managed RDS with custom image), or bare-metal installs. pgvector HNSW indexes are enabled by default for fast nearest-neighbor search. ParadeDB provides BM25 scoring that complements vector similarity in the hybrid search mode.',
 	},
 	{
 		question: 'Can I switch plans or cancel anytime?',
 		answer:
-			'Yes. Upgrades take effect immediately. Downgrades and cancellations apply at the end of your current billing period — you keep full access until then.',
+			'Yes. Upgrades take effect immediately — you get access to new features and write operations the moment payment processes. Downgrades and cancellations apply at the end of your current billing period: you keep full access until the period ends, then revert to the new plan (or to the Free self-hosted tier on full cancellation). Your indexed projects and configuration persist across plan changes. No cancellation fees, no lock-in. Annual-plan prorations are credited to the next billing cycle.',
 	},
 	{
 		question: 'Do you offer discounts for open-source projects or education?',
