@@ -66,20 +66,13 @@ onMounted(() => {
       <div id="main-content" />
     </template>
     <template #layout-bottom>
-      <footer class="border-t px-6 py-12 text-center" style="border-color: var(--border-subtle); background: var(--bg-deep);">
-        <nav class="mb-4 flex flex-wrap items-center justify-center gap-6 text-sm">
-          <a href="/docs/getting-started" style="color: var(--text-secondary)" class="hover:underline">Docs</a>
-          <a href="/pricing" style="color: var(--text-secondary)" class="hover:underline">Pricing</a>
-          <a href="/blog/" style="color: var(--text-secondary)" class="hover:underline">Blog</a>
-          <a href="https://github.com/astix-io/astix" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">GitHub</a>
-          <a href="https://astix.io/slack" target="_blank" rel="noopener" style="color: var(--text-secondary)" class="hover:underline">Slack</a>
-        </nav>
-        <nav class="mb-6 flex flex-wrap items-center justify-center gap-4 text-xs" aria-label="Legal">
+      <footer class="border-t px-6 py-8 text-center" style="border-color: var(--border-subtle); background: var(--bg-deep);">
+        <nav class="mb-3 flex flex-wrap items-center justify-center gap-4 text-xs" aria-label="Legal">
           <a href="/legal/terms" style="color: var(--text-muted)" class="hover:underline">Terms of Service</a>
+          <span style="color: var(--text-muted)">·</span>
           <a href="/legal/privacy" style="color: var(--text-muted)" class="hover:underline">Privacy Policy</a>
         </nav>
-        <p class="mb-2 text-xs" style="color: var(--text-muted)">Released under the Apache 2.0 License.</p>
-        <p class="text-xs" style="color: var(--text-muted)">© 2026 astix</p>
+        <p class="text-xs" style="color: var(--text-muted)">© 2026 astix · Released under the Apache 2.0 License</p>
       </footer>
     </template>
   </Layout>

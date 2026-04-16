@@ -33,9 +33,22 @@ Open Source · Self-Hosted · Apache 2.0
 <h1 class="animate-fade-up animate-delay-2 mb-6 font-sans text-5xl font-bold leading-tight tracking-tight md:text-7xl" style="color: var(--text-primary)">
 Semantic code intelligence for <span class="gradient-text">AI coding assistants</span>
 </h1>
-<p class="animate-fade-up animate-delay-3 mx-auto mb-12 max-w-lg text-lg leading-relaxed font-mono" style="color: var(--text-secondary)">
-128x fewer tokens &nbsp;·&nbsp; 38 languages &nbsp;·&nbsp; AST + embeddings + call graph
-</p>
+<div class="animate-fade-up animate-delay-3 hero-stats">
+<div class="hero-stat">
+<div class="hero-stat-value">128×</div>
+<div class="hero-stat-label">fewer tokens</div>
+</div>
+<div class="hero-stat-divider" aria-hidden="true"></div>
+<div class="hero-stat">
+<div class="hero-stat-value">38</div>
+<div class="hero-stat-label">languages</div>
+</div>
+<div class="hero-stat-divider" aria-hidden="true"></div>
+<div class="hero-stat">
+<div class="hero-stat-value">40+</div>
+<div class="hero-stat-label">MCP tools</div>
+</div>
+</div>
 <div class="animate-fade-up animate-delay-4 mb-16 flex flex-wrap items-center justify-center gap-4">
 <a href="/docs/getting-started" class="btn-primary">Get started in 5 minutes</a>
 <a href="https://github.com/astix-io/astix" class="btn-secondary">View on GitHub</a>
