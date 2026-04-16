@@ -322,32 +322,26 @@ h3 {
 }
 
 /* ===== FULL-PAGE SCROLL SNAPPING ===== */
-.scroll-snap-container {
+/* Page-level snap (no nested scroll context). `proximity` is gentle —
+   it only snaps when the user stops close to a boundary, so normal
+   scrolling through the page feels natural. No-op on pages without
+   .snap-section children. */
+html {
 	scroll-snap-type: y proximity;
-	overflow-y: scroll;
-	overscroll-behavior: auto;
-	-webkit-overflow-scrolling: touch;
-	height: 100vh;
-	scrollbar-width: none; /* Firefox */
-	-ms-overflow-style: none; /* IE/Edge */
+	scroll-behavior: smooth;
 }
 
-.scroll-snap-container::-webkit-scrollbar {
-	display: none; /* Chrome/Safari */
+.scroll-snap-container {
+	/* passive wrapper — no overflow, no height, no own scroll context */
 }
 
-.scroll-snap-container > .snap-section {
+.snap-section {
 	scroll-snap-align: start;
+	scroll-snap-stop: normal;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-/* Smooth scroll behavior */
-.scroll-snap-container {
-	scroll-behavior: smooth;
-	-webkit-overflow-scrolling: touch;
 }
 
 /* Smooth section transitions with fade — guarded for reduced-motion */
@@ -768,7 +762,9 @@ h3 {
 	border: 1px solid var(--border-subtle);
 	color: var(--text-primary);
 	text-decoration: none;
-	transition: border-color 0.2s ease, transform 0.2s ease;
+	transition:
+		border-color 0.2s ease,
+		transform 0.2s ease;
 }
 .next-step-card:hover {
 	border-color: var(--accent-blue);
@@ -779,4 +775,29 @@ h3 {
 }
 .next-step-card p {
 	color: var(--text-secondary);
+}
+
+/* ===== HERO REVEAL — per-character entrance animation ===== */
+.hero-reveal {
+	display: block;
+}
+.hero-char {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(0.5em);
+	animation: hero-char-reveal 0.7s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+	will-change: transform, opacity;
+}
+@keyframes hero-char-reveal {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.hero-char {
+		opacity: 1;
+		transform: none;
+		animation: none;
+	}
 }

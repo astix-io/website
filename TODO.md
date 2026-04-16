@@ -151,6 +151,64 @@ Existing TODO already tracks F-007 (ToolSearch), F-008 (OG image), F-009 (RSS), 
 - [ ] 🔧 [SEO] Tools reference page — 14 code_health checks exist but only a subset documented. Inventory: `dead_code`, `unused_exports`, `circular_imports`, `high_coupling`, `code_complexity`, `taint`, `data_flow`, `unused_variables`, `hardcoded_values`, `unresolved_type_bindings`, plus others. Source: astix `packages/core/src/analysis/code-health/*.ts`. Auto-generate if possible (see existing backlog item about zod→doc generation). — Priority: M
 - [ ] 🔧 [SEO] Benchmark table comparison (already in backlog under "Inspiration: code-review-graph.com" section) — flagging here as SEO priority for Show HN / launch day. Having a side-by-side comparison table is a strong conversion driver vs competitor sites that don't offer one. — Priority: M
 
+### Blog post candidate — "Dogfooding astix found a bug astix already knew about"
+
+**Angle**: After shipping 16 commits (TIER1-PARITY + Swift protocol resolver + multi-lang package entries + crash instrumentation + perf + cleanup), we pointed astix at its own source to demo the new features. It found a real false positive. That false positive was already in our backlog as a known limitation. The demo closed the loop.
+
+**Why this post works**:
+- Shows off 3 shipped features simultaneously without sounding like a changelog (semantic search on fresh code, call graph navigation, dead_code with entry-point awareness)
+- "Dogfooding" is a credibility multiplier — devs trust tools that eat their own food
+- Self-deprecating truth-telling (we found our own gap) builds more trust than a feature list
+- Closes with a backlog item that's now concrete, not abstract — shows the product improvement loop
+
+**Draft structure (target ~1000-1400 words)**:
+
+1. **Hook** (150w) — "We shipped 16 commits yesterday. To make sure nothing broke, we ran astix on its own source. Here's what we found."
+
+2. **Act 1 — Fresh index, fresh search** (250w) — demonstrate that semantic search picks up the new crash-handler module. Use the actual query from the session: `search_semantic("structured crash dump with ring buffer of last MCP tool calls on uncaught exception")` → top hit is `onUncaughtException` in `crash-handler.ts:178` with BM25 score 181. Point: astix re-indexes on the fly, no rebuild needed.
+
+3. **Act 2 — Call graph check** (250w) — `get_symbol` on `resolveSwiftProtocolParents` (shipped in commit `8c9700a`). 10 direct callers: 8 tests + `resolveAllReferences:263` + `resolveReferencesForFiles:332` — exactly the 2 production call sites we wired. `impact_analysis` depth=3 returns 100 transitive callers across 16 affected files — risk level `high` (it sits in the hot sync path). Point: the graph is real, not a static guess.
+
+4. **Act 3 — Dead code with entry points** (250w) — run `code_health(check="dead_code")`. 74 findings across ~12,700 symbols (0.6% ratio — healthy). The interesting thing isn't what's there, it's what's NOT: our stdio MCP `main()`, HTTP daemon `serve()`, CLI entry — all absent from the list. That's the entry-point detection from `98d1183` preventing our own infrastructure from showing up as dead. Point: the feature works on real polyglot codebases, we can prove it on ours.
+
+5. **Act 4 — The catch** (300w) — one finding caught our eye: `TEST_PARENT_CLASS_TO_FRAMEWORK`, a lookup table we had JUST extended yesterday to add Swift. astix flagged it as dead. Was our addition wasted?
+
+   Walk through the investigation:
+   - `get_variable_uses` → 0 uses
+   - `search_structural` → 1 symbol (the def)
+   - Fall back to native grep → found it: `shared.ts:1418` — `TEST_PARENT_CLASS_TO_FRAMEWORK[language]` — bracket access with a runtime string key.
+   
+   astix's variable-use tracking doesn't link `map[dynamicKey]` reads back to the map. It's the read-side cousin of COMPUTED-DISPATCH (which we shipped in March for the call-side: `obj[key]()`). We fixed calls; reads are still a blind spot.
+
+   The best part: this limitation was already in our backlog — `Dynamic property lookup tracking — obj[key] where obj is Record/Map`. Demo made it concrete, immediately reproducible, and moves it up the priority list.
+
+6. **Close** (100w) — the self-improvement loop. When you dogfood a code intelligence engine, you find its edges quickly. The right answer isn't "no false positives" (unachievable) but "false positives lead back to a known roadmap item you can verify in 12ms of query time." That's astix.
+
+**Source facts for the writer**:
+- Date shipped: 16 commits pushed 2026-04-16 (`70a227f..89e85f7`)
+- Dogfooding demo done: 2026-04-17
+- Semantic search query exact text: `"structured crash dump with ring buffer of last MCP tool calls on uncaught exception"` → hit `onUncaughtException:178` in `packages/core/src/utils/crash-handler.ts`, BM25 181
+- `resolveSwiftProtocolParents` location: `packages/core/src/sync/resolve-swift-protocols.ts:24-70`, signature `(orm: AstixOrm, projectId: number): Promise<{ resolved: number }>`
+- Call graph: 10 direct (8 test + `resolveAllReferences:263` + `resolveReferencesForFiles:332`), 100 transitive at depth=3, risk_level `high`
+- Dead code finding of the day: `TEST_PARENT_CLASS_TO_FRAMEWORK` at `packages/core/src/parser/lang/shared.ts:1291`, usage at `shared.ts:1418` via `TEST_PARENT_CLASS_TO_FRAMEWORK[language]`
+- Prior art in backlog: `TODO.md:54` "Dynamic property lookup tracking — obj[key] where obj is Record/Map"
+- Index state at demo time: 378 files, 12,679 symbols, 70,522 calls, 3,088 imports, 174,152 embeddings
+
+**Tone**: confident but self-aware. Dev reader. No buzzwords. Show, don't tell.
+
+**Blog metadata**:
+- Suggested slug: `/blog/posts/dogfooding-astix.md`
+- Target publish: after Show HN launch (post-2026-04-24) — cleaner narrative when we can reference real Show HN engagement
+- Tags: case-study, dogfooding, static-analysis, limitations
+- Author: Olivier Orabona
+
+**NOT for this post (separate articles or changelog)**:
+- The 16-commit feature list itself → changelog page
+- Vitest migration / CI hygiene / crash instrumentation → reliability changelog, not blog
+- TIER1-PARITY deep-dive → own post "What Tier-1 means in astix" (already in this TODO above)
+
+- [ ] 💡 [Blog] Write `/blog/posts/dogfooding-astix.md` per above draft — Priority: M
+
 ### Implementation hints for the next Claude Code session on the website
 
 1. **Stack context**: VitePress 1.6, Vue 3.5, Tailwind 4.2. Content in `docs/`. Build via `pnpm docs:build`, preview via `pnpm docs:dev`.

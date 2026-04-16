@@ -30,9 +30,10 @@ Open Source &nbsp;·&nbsp; Apache 2.0 &nbsp;·&nbsp; Free forever
 <span class="animate-fade-up animate-delay-1 mb-10 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-wider" style="color: var(--accent-blue); background: var(--badge-bg); border: 1px solid var(--badge-border)">
 Open Source · Self-Hosted · Apache 2.0
 </span>
-<h1 class="animate-fade-up animate-delay-2 mb-6 font-sans text-5xl font-bold leading-tight tracking-tight md:text-7xl" style="color: var(--text-primary)">
-Semantic code intelligence for <span class="gradient-text">AI coding assistants</span>
-</h1>
+<HeroReveal
+  before="Semantic code intelligence for "
+  highlight="AI coding assistants"
+/>
 <div class="animate-fade-up animate-delay-3 hero-stats">
 <div class="hero-stat">
 <div class="hero-stat-value">128×</div>
