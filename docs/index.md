@@ -1,7 +1,7 @@
 ---
 layout: page
-title: astix — Semantic code intelligence for AI coding assistants
-description: Self-hosted semantic code intelligence. 38 languages, 30+ MCP tools, 128x avg token reduction. Works with Claude Code, Cursor, and any MCP client.
+title: "astix — Code intelligence for AI coding assistants"
+description: "Self-hosted semantic code intelligence for AI agents. 38 languages, 30+ MCP tools, 128x fewer tokens. Works with Claude Code, Cursor, Copilot."
 socialProof:
   enabled: true
 ---

@@ -92,11 +92,11 @@ Not all languages can support the same level of intelligence. Full call graph ex
 
 astix uses a three-tier model to be explicit about what each language can deliver.
 
-**Tier 1 — 10 languages: TypeScript, JavaScript, Python, Rust, Go, Java, C#, C, C++, Ruby.**
+**Tier 1 — 11 languages: TypeScript, JavaScript, Python, Rust, Go, Java, C#, C, C++, Ruby, and Swift.**
 
 These languages have full call graphs, type bindings, control flow graphs (CFG), and [CFG-aware taint analysis](/blog/sast-taint-analysis#cfg-aware-taint-analysis). For each call site, astix resolves which symbol is being called — not just the name, but the specific definition, including across method dispatch and module boundaries. This is the tier where `impact_analysis` returns transitive callers, where `data_lineage` traces across function calls, and where `get_execution_paths` maps every branch.
 
-Full call graph extraction in Tier 1 languages required building language-specific resolution logic on top of the tree-sitter CST: import resolution (which module does this `import` statement actually load?), method dispatch (which class's `handle` method does this call resolve to?), and type narrowing (what is the concrete type of this variable at this point in the CFG?). None of this is free — it's why Tier 1 is 10 languages and not 38.
+Full call graph extraction in Tier 1 languages required building language-specific resolution logic on top of the tree-sitter CST: import resolution (which module does this `import` statement actually load?), method dispatch (which class's `handle` method does this call resolve to?), and type narrowing (what is the concrete type of this variable at this point in the CFG?). None of this is free — it's why Tier 1 is 11 languages and not 38.
 
 **Tier 2 — 23 languages: Kotlin, Swift, Scala, PHP, Ruby, Elixir, Haskell, Lua, R, MATLAB, and more.**
 

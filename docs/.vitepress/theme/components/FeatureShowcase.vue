@@ -8,7 +8,7 @@ const diffItems = [
 	},
 	{ value: 'MCP', label: 'native protocol', desc: 'Works with any AI assistant', color: '#8b5cf6' },
 	{ value: 'BYOK', label: 'your keys, your models', desc: 'We never resell LLM tokens', color: '#22c55e' },
-	{ value: '38', label: 'languages', desc: '10 Tier-1 with full call graphs', color: '#3b82f6' },
+	{ value: '38', label: 'languages', desc: '11 Tier-1 with full call graphs', color: '#3b82f6' },
 	{ value: '0', label: 'code egress', desc: 'Self-hosted, air-gap ready', color: '#ef4444' },
 ];
 </script>

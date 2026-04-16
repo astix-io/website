@@ -9,7 +9,8 @@ export default defineConfig({
 	lang: 'en-US',
 	cleanUrls: true,
 	appearance: false,
-	srcExclude: ['superpowers/**'],
+	srcExclude: ['superpowers/**', 'blog-ideas-astix.md'],
+	titleTemplate: ':title',
 
 	rewrites: {
 		'blog/posts/:slug': 'blog/:slug',
@@ -75,6 +76,10 @@ export default defineConfig({
 
 	sitemap: {
 		hostname: 'https://astix.io',
+		transformItems: (items) => {
+			const now = new Date().toISOString();
+			return items.map((item) => ({ ...item, lastmod: now }));
+		},
 	},
 
 	async transformHead(context) {

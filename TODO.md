@@ -1,5 +1,50 @@
 # TODO — astix.io website
 
+## SEO Audit — 2026-04-16 (full report: `docs/plans/SEO-AUDIT-2026-04-16.md`)
+
+Overall score 59/100 — **not launch-ready**. P0 items block Show HN on 2026-04-24.
+
+### P0 — Critical / High (block launch)
+
+- [ ] 🔴 [Schema] **C1: `schema.ts` emits 0 JSON-LD on 11 blog posts + 3 docs pages** — conditionals never match actual `pageData.relativePath` after rewrite. Patch L134/141/185. Affected: all `blog/*.html` (no BlogPosting, `og:type=website` instead of `article`), `docs/*.html` (no TechArticle). — Priority: H
+- [ ] 🔴 [Technical] **C2: Create `docs/public/_headers` for Cloudflare Pages** — zero security headers today (no HSTS, CSP, X-Frame-Options, Referrer-Policy, Permissions-Policy). Template in audit doc. — Priority: H
+- [ ] 🔴 [SEO] **C3: Exclude `blog-ideas-astix.md` from build** — internal planning doc is currently indexed in sitemap + published at `https://astix.io/blog-ideas-astix`. Add to `srcExclude` in `config.ts`. — Priority: H
+- [ ] 🔴 [Landing] **C4: Replace "10 Tier-1" → "11 Tier-1"** across `FeatureShowcase.vue`, `blog/posts/introducing-astix.md`, `blog/posts/multi-language.md`, `public/llms.txt:10`, `docs/languages.md` header. Add Swift + Dart to Tier-1 list. — Priority: H
+- [ ] 🔴 [SEO] **C5: Add `<lastmod>` to sitemap.xml** — all 21 URLs miss lastmod/changefreq/priority. Use `transformItems` in VitePress sitemap config. — Priority: H
+- [ ] 🟡 [Landing] **H1: Pricing page dead-end + thin (~200 words)** — zero internal links, description 179 chars (truncated), no product definition in opening sentence. Expand to 350+ words, add 3 outbound links to docs. — Priority: H
+- [ ] 🟡 [SEO] **H2: Shorten title tags > 70 chars** on index.md (71), pricing.md (74), mcp-tools.md (67), languages.md (67). Target 50-60. Also fix `titleTemplate` to avoid `| astix` duplication when page title already contains brand. — Priority: H
+- [ ] 🟡 [SEO] **H3: Trim descriptions > 170 chars** on pricing.md (179) and mcp-tools.md (171). Target 140-160. — Priority: H
+- [ ] 🟡 [SEO] **H4: Add internal links** to pricing.md, getting-started.md, mcp-tools.md, languages.md (currently 0 each). 3-5 contextual links per page. — Priority: H
+
+### P1 — Pre-launch if time permits
+
+- [ ] 🟡 [Content] **H5: Write `/blog/what-is-astix.md`** (150-200w definition) for AI search citability. Similar articles: "What is MCP?", "How does astix work?", "astix vs Sourcegraph/Semgrep/grep". — Priority: M
+- [ ] 🟡 [Schema] **H6: Expand 8 FAQ answers < 50 words** in `docs/.vitepress/data/faq.ts` (47% too short for FAQPage rich results). — Priority: M
+- [ ] 🟡 [Schema] **H7: Add Team monthly pricing** ($359/mo + $39/seat) to `Product.offers` in `schema.ts`. — Priority: M
+- [ ] 🟡 [Schema] **H8: Add `FAQPage` + `HowTo` JSON-LD to home** — currently FAQPage only on `/pricing`. HowTo for the 5-step quick-start. — Priority: M
+- [ ] 🟡 [Schema] **M3: Add `BreadcrumbList` to docs/blog pages** for sitelinks in SERP. — Priority: M
+- [ ] 🟡 [Images] **M4: Blog post Unsplash images** — add `alt`, `width`, `height`, `loading="lazy"`, `decoding="async"` on 11 blog posts. — Priority: M
+- [ ] 🟢 [Blog] **M5: Link blog author names to bio page** (`/blog/authors/olivier-orabona`). Currently text-only in posts. — Priority: L
+
+### P2 — Post-launch
+
+- [ ] 🟢 [Perf] M2: Code-split PricingMatrix.vue (1288 LOC) + Mermaid ecosystem (~1.7 MB total). Add `prefers-reduced-motion` guard to HeroShader.vue. — Priority: L
+- [ ] 🟢 [Content] Write `/blog/astix-vs-competitors.md` comparison article. — Priority: L
+- [ ] 🟢 [Schema] Add `SoftwareSourceCode` (codeRepository=GitHub), `VideoObject` (when demo video uploaded), `AggregateRating` (when testimonials collected). — Priority: L
+- [ ] 🟢 [Perf] M6: Evaluate analytics (CF Web Analytics / Plausible) — coordinate with GDPR TODO line ~157. — Priority: L
+- [ ] 🟢 [Perf] M7: Verify `font-display: swap` on Inter + IBM Plex Sans. — Priority: L
+
+### Findings confirmed already addressed
+
+- ✅ robots.txt — GPTBot/ClaudeBot/PerplexityBot allow, CCBot/anthropic-ai/Bytespider/cohere-ai disallow
+- ✅ llms.txt — present, comprehensive (except stale "10 Tier-1" — see C4)
+- ✅ og-image.png + og-image.svg — present, 1200×630 (F-008 from prior TODO is effectively done)
+- ✅ Home JSON-LD — SoftwareApplication + Organization + WebSite (3 blocks)
+- ✅ Author page JSON-LD — Person schema with sameAs links
+- ✅ Pricing JSON-LD — FAQPage + Product
+- ✅ Canonical tags — generated correctly per page
+- ✅ Mobile responsive — Tailwind md/lg/sm classes, viewport auto by VitePress
+
 ## Content Updates — Session 2026-04-02/03
 
 Features à ajouter/mettre en avant sur le site :

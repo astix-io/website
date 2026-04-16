@@ -11,7 +11,7 @@ All languages are parsed with [tree-sitter](https://tree-sitter.github.io/tree-s
 
 ---
 
-## Tier 1 — Full Intelligence (10 languages)
+## Tier 1 — Full Intelligence (11 languages)
 
 Tier 1 languages have complete call graph extraction, control-flow graph (CFG) analysis, type binding resolution, and class hierarchy tracking. These languages get the full benefit of every astix tool: `impact_analysis`, `data_lineage`, `get_execution_paths`, and more.
 
@@ -29,10 +29,11 @@ Tier 1 languages have complete call graph extraction, control-flow graph (CFG) a
 | C | Includes `.c`, `.h` |
 | C++ | Includes `.cpp`, `.cc`, `.cxx`, `.hpp` |
 | Ruby | Includes `.rb` |
+| Swift | Includes `.swift` |
 
 ---
 
-## Tier 2 — Symbols + Imports (23 languages)
+## Tier 2 — Symbols + Imports (22 languages)
 
 Tier 2 languages have full symbol extraction and basic import tracking. You can search for symbols by name or intent (`search_structural`, `search_semantic`), navigate to definitions, and see cross-file import edges. Call graph analysis is not available.
 
@@ -40,14 +41,14 @@ Tier 2 languages have full symbol extraction and basic import tracking. You can 
 
 | Language | Language | Language |
 |----------|----------|----------|
-| PHP | Swift | Kotlin |
-| Scala | Dart | Lua |
-| Elixir | Haskell | OCaml |
-| R | Julia | Perl |
-| Zig | Nim | Crystal |
-| Clojure | Erlang | F# |
-| Groovy | MATLAB | PowerShell |
-| Shell | Objective-C | |
+| PHP | Kotlin | Scala |
+| Dart | Lua | Elixir |
+| Haskell | OCaml | R |
+| Julia | Perl | Zig |
+| Nim | Crystal | Clojure |
+| Erlang | F# | Groovy |
+| MATLAB | PowerShell | Shell |
+| Objective-C | | |
 
 ---
 

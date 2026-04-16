@@ -1,6 +1,6 @@
 ---
-title: "MCP Tools Reference — 40+ Code Intelligence Tools"
-description: "Complete reference for astix MCP tools: semantic search, impact analysis, data lineage, code health, rename, patch, and 35+ more structured code intelligence operations."
+title: "MCP tools reference — astix"
+description: "Complete reference for 40+ astix MCP tools: semantic search, impact analysis, data lineage, code health, rename, patch, and more."
 ---
 
 <script setup>

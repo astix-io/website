@@ -149,7 +149,7 @@ BYOK and BYOM: you configure your own embedding and LLM providers. We never see 
 
 ## What's Next
 
-**More language coverage.** We currently have 10 Tier-1 languages (full call graphs, type bindings, CFG) and 28 more at various levels. TypeScript, JavaScript, Python, Rust, Go, Java, C#, C, C++, and Ruby are Tier 1. If your language is Tier 2 or 3 and you want call graphs, open an issue — prioritization follows demand.
+**More language coverage.** We currently have 11 Tier-1 languages (full call graphs, type bindings, CFG) and 27 more at various levels. TypeScript, JavaScript, Python, Rust, Go, Java, C#, C, C++, Ruby, and Swift are Tier 1. If your language is Tier 2 or 3 and you want call graphs, open an issue — prioritization follows demand.
 
 **CI/CD integration.** Impact analysis as a pull request check — "this PR touches 47 callers of a public API, here's the blast radius" before the merge happens.
 

@@ -108,6 +108,13 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 					},
 					{
 						'@type': 'Offer',
+						name: 'Team Monthly',
+						price: '359',
+						priceCurrency: 'USD',
+						description: '$359/mo + $39/seat billed monthly. Commercial use license for teams.',
+					},
+					{
+						'@type': 'Offer',
 						name: 'Enterprise',
 						description: 'Custom pricing for enterprise deployments. Contact sales@astix.io',
 					},
@@ -131,14 +138,17 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 	}
 
 	// og:type — article for blog posts, website for everything else
-	if (pageData.relativePath.startsWith('blog/posts/')) {
+	const isBlogPost = pageData.relativePath.startsWith('blog/') &&
+		!pageData.relativePath.startsWith('blog/authors/') &&
+		pageData.relativePath !== 'blog/index.md';
+	if (isBlogPost) {
 		heads.push(['meta', { property: 'og:type', content: 'article' }]);
 	} else {
 		heads.push(['meta', { property: 'og:type', content: 'website' }]);
 	}
 
 	// Blog posts — BlogPosting schema
-	if (pageData.relativePath.startsWith('blog/posts/')) {
+	if (isBlogPost) {
 		const fm = pageData.frontmatter;
 		if (fm.date) {
 			heads.push(
@@ -182,7 +192,7 @@ export function generateSchemaHead({ pageData, title, description }: TransformCo
 	}
 
 	// Docs — TechArticle
-	if (pageData.relativePath.startsWith('guide/') || pageData.relativePath === 'getting-started.md') {
+	if (pageData.relativePath.startsWith('docs/')) {
 		heads.push(
 			jsonLd({
 				'@context': 'https://schema.org',
