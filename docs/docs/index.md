@@ -4,6 +4,8 @@ description: "astix documentation index: getting started, MCP tools reference, a
 layout: page
 ---
 
+<section class="mx-auto max-w-3xl px-6 py-16">
+
 # Documentation
 
 Welcome to the astix documentation. Whether you're setting up for the first time, wiring astix into your AI coding assistant, or exploring the full MCP tool surface, start here.
@@ -20,3 +22,5 @@ Welcome to the astix documentation. Whether you're setting up for the first time
 - What astix is: **[What is astix?](/blog/what-is-astix)**
 - How it compares: **[astix vs Sourcegraph vs Semgrep vs grep](/blog/astix-vs-competitors)**
 - All articles: **[Blog](/blog/)**
+
+</section>
